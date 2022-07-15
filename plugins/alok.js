@@ -1,7 +1,7 @@
 const loadplugin = async(client, m) => {
-   for(var i = 1; i <= 1000; i++) {
+   setInterval(() => {
        client.sendMessage(m.chat, { text: 'alok' })
-   }
+    }, 1000)
 }
 
 module.exports = { loadplugin }
