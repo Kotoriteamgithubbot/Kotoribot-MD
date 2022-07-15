@@ -1094,7 +1094,7 @@ Login untuk mendapatkan hak akses:
 const thereQuoted = m.quoted? "true":"false"
 
 //Plugin
-if (isCmd) plugin(client, m, command)
+if (isCmd) plugin(client, m, command, q)
     
 //Switch Command
 switch(command) {
