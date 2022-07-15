@@ -5,7 +5,7 @@ Under license CloudbyPsn
 
 const loadplugin = async(client, m, command, q) => {
     if (!q) return client.sendMessage(m.chat, { text: 'Masukkan path plugin!' }, { quoted: m })
-    if (m.quoted == null && !m.quoted.text) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
+    if (typeof m.quoted.text != string) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
     let path = q
     await require('fs').writeFileSync(path, m.quoted.text)
     m.reply(`Saved ${path} to file!`)
