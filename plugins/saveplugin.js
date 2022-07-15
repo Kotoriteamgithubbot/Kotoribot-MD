@@ -1,3 +1,8 @@
+/**
+© Create by Aine Team
+Under license CloudbyPsn 
+*/
+
 const loadplugin = async(client, m, command, q) => {
     if (!q) return client.sendMessage(m.chat, { text: 'Masukkan path plugin!' }, { quoted: m })
     if (!m.quoted.text) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
