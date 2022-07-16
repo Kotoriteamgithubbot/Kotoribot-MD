@@ -16,4 +16,4 @@ const config = {
   owner: true
 }
 
-module.exports = config
+module.exports = config, handler
