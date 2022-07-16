@@ -6,9 +6,9 @@ Under license CloudbyPsn
 let handler = async(client, m, text) => {
     if (!text) return client.sendMessage(m.chat, { text: 'Masukkan path plugin!' }, { quoted: m })
     let path = "./plugins/" + text
-    let readdir = fs.readdirSync('./plugins')
+    let readdir = require('fs').readdirSync('./plugins')
     let arr = readdir.map(v => v.replace('.js', ''))
-    if (!fs.existsSync(path)) return m.reply(`'${text}' tidak ditemukan!\n\n${arr.map(v => ' ' + v).join('\n')}`)
+    if (!require('fs').existsSync(path)) return m.reply(`'${text}' tidak ditemukan!\n\n${arr.map(v => ' ' + v).join('\n')}`)
     let code = await require('fs').readFileSync(path, 'utf-8')
     m.reply(code)
 }
