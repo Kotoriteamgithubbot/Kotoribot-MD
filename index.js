@@ -1097,7 +1097,6 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        const fileplugin = "./plugins/" + command + ".js"
        delete require.cache[require.resolve(fileplugin)]
        const plugin = require(fileplugin)
-       if (plugin.handler.owner && !isCreator) return client.sendMessage(m.chat, { text: 'Hanya Owner!' }, { quoted: m })
        plugin.handler.owner(client, m, command, q)   
 }
     
