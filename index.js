@@ -1096,8 +1096,9 @@ const thereQuoted = m.quoted? "true":"false"
 if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        const fileplugin = "./plugins/" + command + ".js"
        delete require.cache[require.resolve(fileplugin)]
-       const plugin = require(fileplugin)
-       plugin.handler.owner(client, m, command, q)   
+       const { handler } = require(fileplugin)
+       if (handler.owner && !isCreator) return
+       handler(client, m, command, q)   
 }
     
 //Switch Command
