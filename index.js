@@ -1096,7 +1096,10 @@ const thereQuoted = m.quoted? "true":"false"
 if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        const fileplugin = "./plugins/" + command + ".js"
        delete require.cache[require.resolve(fileplugin)]
-       require(fileplugin).loadplugin(client, m, command, q)    
+       const loaderplugin = require(fileplugin)
+       if (loaderplugin.handler.owner && !isCreator) {
+         loaderplugin.handler(client, m, command, q)    
+       }
 }
     
 //Switch Command
