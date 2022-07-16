@@ -51,7 +51,6 @@ const textpro = require('./lib/textpro')
 const { detikNews } = require('./lib/detik')
 const { wikiSearch } = require('./lib/wiki.js');
 const { Gempa } = require("./lib/gempa.js");
-const { plugin } = require('./lib/plugin/plugin.js')
 const ms = require('ms')
 let { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
@@ -140,7 +139,7 @@ const botNumber = await client.decodeJid(client.user.id)
 const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
-const isPremium = isCreator ? true : false
+const isPremium = isCreator ? true : _sewa.checkPremiumUser(m.sender, premium)
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
 const mime = (quoted.msg || quoted).mimetype || ''
@@ -185,7 +184,6 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
-if (!isCreator) return
 //Sewa
 _sewa.expiredCheck(client, sewa)
 
@@ -1093,9 +1091,6 @@ Login untuk mendapatkan hak akses:
 //Ada quoted (False or True)
 const thereQuoted = m.quoted? "true":"false"
 
-//Plugin
-if (isCmd) plugin(client, m, command, q)
-    
 //Switch Command
 switch(command) {
 case 'menu':
@@ -1312,6 +1307,10 @@ m.reply(respon)
 break
 // Default
 default:
+    //Plugin
+    const { plugin } = require('./lib/plugin/plugin.js')
+    plugin(client, m, command)
+    
     if (budy.startsWith('=>')) {
     if (!isCreator) return m.reply(mess.owner)
     function Return(sul) {
