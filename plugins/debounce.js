@@ -11,4 +11,6 @@ let handler = async(client, m, { text }) => {
     process.send('reset')
 }
 
+handler.owner = true
+
 module.exports = { handler }
