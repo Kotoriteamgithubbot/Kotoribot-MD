@@ -3,7 +3,7 @@
 Under license CloudbyPsn 
 */
 
-const loadplugin = async(client, m, command, q) => {
+let handler = async(client, m, command, q) => {
     if (!q) return client.sendMessage(m.chat, { text: 'Masukkan path plugin!' }, { quoted: m })
     if (!m.quoted) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
     if (!m.quoted.text) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
@@ -12,4 +12,6 @@ const loadplugin = async(client, m, command, q) => {
     m.reply(`Saved ${path} to file!`)
 }
 
-module.exports = { loadplugin }
+handler.owner = true
+
+module.exports = handler
