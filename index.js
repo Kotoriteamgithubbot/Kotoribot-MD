@@ -1097,9 +1097,8 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        const fileplugin = "./plugins/" + command + ".js"
        delete require.cache[require.resolve(fileplugin)]
        const loaderplugin = require(fileplugin)
-       if (loaderplugin.handler.owner && !isCreator) {
-         loaderplugin.handler(client, m, command, q)    
-       }
+       if (loaderplugin.handler.owner && !isCreator) return client.sendMessage(m.chat, { text: 'Hanya Owner!' }, { quoted: m })
+       loaderplugin.handler(client, m, command, q)   
 }
     
 //Switch Command
