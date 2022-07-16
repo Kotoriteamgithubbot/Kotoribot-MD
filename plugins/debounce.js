@@ -6,9 +6,9 @@ Under license CloudbyPsn
 //Module
 const { spawn }  = require('child_process');
 
-const loadplugin = async(client, m, command) => {
+let handler = async(client, m, { text }) => {
     await m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
     process.send('reset')
 }
 
-module.exports = { loadplugin }
+module.exports = { handler }
