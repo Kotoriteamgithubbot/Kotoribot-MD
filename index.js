@@ -1098,7 +1098,7 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        delete require.cache[require.resolve(fileplugin)]
        const { handler } = require(fileplugin)
        if (handler.owner && !isCreator) return
-       handler(client, m, command, q)   
+       handler(client, m, text)   
 }
     
 //Switch Command
