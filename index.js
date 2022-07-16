@@ -51,7 +51,6 @@ const textpro = require('./lib/textpro')
 const { detikNews } = require('./lib/detik')
 const { wikiSearch } = require('./lib/wiki.js');
 const { Gempa } = require("./lib/gempa.js");
-const { plugin } = require('./lib/plugin/plugin.js')
 const ms = require('ms')
 let { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
