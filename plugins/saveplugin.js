@@ -3,7 +3,7 @@
 Under license CloudbyPsn 
 */
 
-const handler = async(client, m, { command, q }) => {
+let handler = async(client, m, { command, q }) => {
     if (!q) return client.sendMessage(m.chat, { text: 'Masukkan path plugin!' }, { quoted: m })
     if (!m.quoted) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
     if (!m.quoted.text) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
@@ -12,8 +12,6 @@ const handler = async(client, m, { command, q }) => {
     m.reply(`Saved ${path} to file!`)
 }
 
-const config = { 
-  owner: true
-}
+handler.owner = true
 
-module.exports = config, handler
+module.exports = { handler }
