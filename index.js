@@ -1175,6 +1175,10 @@ if (!q) client.sendMessage(m.chat, { text: 'Emojinya Mana?' }, { quoted: m })
 if (!m.quoted) client.sendMessage(m.chat, { text: 'Reply Chatnya!' }, { quoted: m })
 client.relayMessage(m.chat, { reactionMessage: { key: { id: m.quoted.id, remoteJid: m.chat, fromMe: true }, text: q }}, { messageId: m.id })
 break
+case 'p':
+kukuk = JSON.sringify(m)
+client.sendMessage(from, { text: kukuk })
+break
 case 'play': case 'ytplay':
 if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
 let yts = require("yt-search")
