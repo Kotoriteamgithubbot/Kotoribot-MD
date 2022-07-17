@@ -1196,7 +1196,7 @@ headerType: 4,
 contextInfo:{externalAdReply:{
 title: anu.title,
 body: "© MyMans APIs - X - ZackMans Official",
-thumbnail: log0,
+thumbnail: logo,
 mediaType:2,
 mediaUrl: anu.url,
 sourceUrl: anu.url
