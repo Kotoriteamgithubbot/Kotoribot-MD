@@ -71,6 +71,7 @@ if (global.db) global.db = {
     database: {},
     game: {},
     others: {},
+    account: {},
     users: {},
     ...(global.db || {})
 }
@@ -89,8 +90,6 @@ let vote = db.others.vote = []
 
 //Database
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
-const account = JSON.parse(fs.readFileSync('./database/account/user.json'))
-const login = JSON.parse(fs.readFileSync('./database/account/login.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 let ban = JSON.parse(fs.readFileSync('./database/ban.json'));
 let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
