@@ -59,6 +59,14 @@
   "others": {
     "vote": []
   },
+  "account":{
+    "natiashalsabilla": {
+      "password": "admin",
+      "premium": true,
+      "email": "natiashalsabilla@gmail.com",
+      "cloud": "notcreated"
+    }
+  }
   "users": {
     "6283170659182@s.whatsapp.net": {
       "afkTime": -1,
