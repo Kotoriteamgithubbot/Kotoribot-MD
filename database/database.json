@@ -63,6 +63,7 @@
     "natiashalsabilla": {
       "password": "admin",
       "premium": true,
+      "expiredpremium": "notexpired",
       "email": "natiashalsabilla@gmail.com",
       "cloud": "notcreated"
     }
