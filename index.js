@@ -1313,6 +1313,15 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
 `.trim()
 m.reply(respon)
 break
+case 'broadcast':
+if (!isCreator) return m.reply(mess.owner)
+if (args.length < 2) return m.reply('Masukkan isi pesannya')
+let sendbroadcastto = await store.chats.all()
+for (let i of sendbroadcastto) {
+      client.sendMessage(i.id, { text: `${q}\n\n_*BROADCAST MESSAGE*_` })
+      await sleep(1000)
+}
+break
 // Default
 default:
     if (budy.startsWith('=>')) {
