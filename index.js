@@ -1057,7 +1057,15 @@ ${wit} WIT
 *Info*
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
-▢ ${prefix}donasi`
+▢ ${prefix}donasi
+
+*Search*
+▢ ${prefix}play
+▢ ${prefix}brainly
+▢ ${prefix}google
+
+*Owner*
+▢ ${prefix}broadcast`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1158,6 +1166,45 @@ if (args[0] === 'confirmed') {
 }
 break
 */
+case 'play': case 'ytplay': {
+if (isBan) return m.reply(mess.ban)
+let yts = require("yt-search")
+let search = await yts(text)
+let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
+let ytvc = await hx.youtube(anu.url)
+let buttons = [
+{buttonId: `ytvd ${ytvc.link}`, buttonText: {displayText: '► Video'}, type: 1},
+{buttonId: `ytad ${ytvc.mp3}`, buttonText: {displayText: '♫ Audio'}, type: 1}
+]
+let buttonMessage = {
+image: { url: anu.thumbnail },
+caption: `*| YOUTUBE PLAY |*
+
+⭔ Title : ${anu.title}
+⭔ Ext : Search
+⭔ ID : ${anu.videoId}
+⭔ Duration : ${anu.timestamp}
+⭔ Viewers : ${anu.views}
+⭔ Upload At : ${anu.ago}
+⭔ Author : ${anu.author.name}
+⭔ Channel : ${anu.author.url}
+⭔ Description : ${anu.description}
+⭔ Url : ${anu.url}`,
+footer: "© MyMans APIs - MyMainas",
+buttons: buttons,
+headerType: 4,
+contextInfo:{externalAdReply:{
+title: anu.title,
+body: "© MyMans APIs - X - ZackMans Official",
+thumbnail: log0,
+mediaType:2,
+mediaUrl: anu.url,
+sourceUrl: anu.url
+}}
+}
+client.sendMessage(m.chat, buttonMessage, { quoted: m })
+}
+break
 case 'suitpvp': case 'suit': 
 if (isBan) return m.reply(mess.ban)
 this.suit = this.suit ? this.suit : {}
