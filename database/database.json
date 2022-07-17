@@ -63,11 +63,12 @@
     "natiashalsabilla": {
       "password": "admin",
       "banned": false,
-      "expiredbanned": "notbanned",
       "premium": true,
-      "expiredpremium": "notexpired",
+      "limit": "Infinity",
       "email": "natiashalsabilla@gmail.com",
       "cloud": "notcreated"
+      "expiredbanned": "notbanned",
+      "expiredpremium": "notexpired"
     }
   },
   "users": {
