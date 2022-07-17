@@ -64,9 +64,18 @@ async function start() {
          }
     })
     
+    //Call
+    client.ev.on('call', async (fatihh) => {
+        for (let tihh of fatihh) {
+            if (tihh.status == "offer") {
+              await client.sendTextWithMentions(tihh.from, `*${client.user.name}* tidak bisa menerima panggilan ${tihh.isVideo ? `video` : `suara`}`)
+            }
+        }
+    })
+    
     //Grup Update
     client.ev.on('groups.update', async pea => {
-         client.sendMessage(owner[0]+'@s.whatsapp.net', {text:JSON.stringify(pea)})
+        //console.log(pea)
         //Get Profile Picture Group
         try {
            ppgc = await client.profilePictureUrl(pea[0].id, 'image')
