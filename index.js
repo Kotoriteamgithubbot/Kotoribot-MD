@@ -89,9 +89,7 @@ let vote = db.others.vote = []
 
 //Database
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
-const loginprocess = JSON.parse(fs.readFileSync('./database/account/login/process.json'))
-const usernamesession = JSON.parse(fs.readFileSync('./database/account/login/usernamesession.json'));
-const passwordsession = JSON.parse(fs.readFileSync('./database/account/login/usernamesession.json'));
+const login = JSON.parse(fs.readFileSync('./database/account/login.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 let ban = JSON.parse(fs.readFileSync('./database/ban.json'));
 let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
@@ -1060,12 +1058,7 @@ ${wit} WIT
 *Info*
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
-▢ ${prefix}donasi
-
-*Akun*
-▢ ${prefix}login
-▢ ${prefix}profile
-`
+▢ ${prefix}donasi`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1098,6 +1091,8 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        delete require.cache[require.resolve(fileplugin)]
        const { handler } = require(fileplugin)
        if (handler.owner && !isCreator) return
+       if (handler.group && !isGroup) return
+       if (handler.private && isGroup) return
        handler(client, m, text)   
 }
     
@@ -1152,6 +1147,7 @@ if (args[0] === 'neybot') {
 	client.sendMessage(from, { text: 'Maaf fitur ini masih dalam pengembangan!' }, { quoted: m })
 } 
 break
+/*
 case 'login':
 if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
 
@@ -1160,6 +1156,7 @@ if (args[0] === 'confirmed') {
     fs.writeFileSync('./database/account/login/process.json', JSON.stringify(loginprocess))
 }
 break
+*/
 case 'suitpvp': case 'suit': 
 if (isBan) return m.reply(mess.ban)
 this.suit = this.suit ? this.suit : {}
@@ -1347,7 +1344,7 @@ default:
 
      if (budy.startsWith('$')) {
           if (!isCreator) return m.reply(mess.owner)
-          console.log('\x1b[1;34m~\x1b[1;37m>', '[\x1b[1;33mEXEE\x1b[1;37m]', time, color(`Exe Dari Owner Awog 🗿`, 'cyan'))
+          console.log('\x1b[1;34m~\x1b[1;37m>', '[\x1b[1;33mEXEE\x1b[1;37m]', time, color(`Exe Dari Owner`, 'cyan'))
           exec(budy.slice(2), (err, stdout) => {
                if(err) return client.sendMessage(from, {image:logo, caption:String(err)}, {quoted:m})
                if (stdout) return m.reply(stdout)
