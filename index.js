@@ -182,7 +182,6 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
-if (!isCreator) return
 //Sewa
 _sewa.expiredCheck(client, sewa)
 
@@ -1101,6 +1100,7 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
 switch(command) {
 case 'menu':
 case 'help':
+if (!isCreator) return
 /**
 - Menu Type Button Location (Slow Respon)
 
