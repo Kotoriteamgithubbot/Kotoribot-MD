@@ -22,7 +22,7 @@ global.sessionName = "session"
 
 global.namebot = "☘️ Staf LightGreen"
 
-global.linkgrupss = "https://chat.whatsapp.com/FTgqOEkbfWwJItwvUjhgTI"
+global.linkgrupss = "https://chat.whatsapp.com/HnQ9DZTYPbJBEpuKYYkdC4"
 
 global.antitags = true
 
