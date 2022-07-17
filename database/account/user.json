@@ -1,1 +1,7 @@
-[{"username":"natiashalsabilla","password":"admin","email":"natiashalsabilla@gmail.com","cloud":"Hs829kpjka0p49UPh@gmail.com"}]
+[{
+     "username":"natiashalsabilla",
+     "password":"admin",
+     "email":"natiashalsabilla@gmail.com",
+     "premium": true,
+     "cloud":"Hs829kpjka0p49UPh@gmail.com"
+}]
