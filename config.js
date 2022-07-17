@@ -37,6 +37,7 @@ global.mess = {
     wait: '_Wait a minute, data is being processed!_',
     linkm: 'Linknya Mana Kak?',
     query: 'Mau Cari Apa Kak?',
+    reply: 'Reply Pesannya!',
     ban: 'Kamu telah dibanned oleh owner, Jika ingin di unbanned chat owner'
 }
 
