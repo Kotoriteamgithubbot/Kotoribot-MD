@@ -1171,14 +1171,9 @@ break
 */
 case 'react':
 if (!isCreator) client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-if (!quoted.id) client.sendMessage(m.chat, { text: mess.reply }, { quoted: m })
-reactionMessage = {
-     react: {
-         text: args[0],
-         key: { remoteJid: m.chat, id: quoted.id }
-     }
-}
-client.sendMessage(m.chat, reactionMessage)
+if (!q) client.sendMessage(m.chat, { text: 'Emojinya Mana?' }, { quoted: m })
+if (!m.quoted) client.sendMessage(m.chat, { text: 'Reply Chatnya!' }, { quoted: m })
+client.relayMessage(m.chat, { reactionMessage: { key: { id: m.quoted.id, remoteJid: m.chat, fromMe: true }, text: q }}, { messageId: m.id })
 break
 case 'play': case 'ytplay':
 if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
