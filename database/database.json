@@ -62,6 +62,8 @@
   "account":{
     "natiashalsabilla": {
       "password": "admin",
+      "banned": false,
+      "expiredbanned": "notbanned",
       "premium": true,
       "expiredpremium": "notexpired",
       "email": "natiashalsabilla@gmail.com",
