@@ -1091,8 +1091,9 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        delete require.cache[require.resolve(fileplugin)]
        const { handler } = require(fileplugin)
        if (handler.owner && !isCreator) return
-       if (handler.group && !isGroup) return
-       if (handler.private && isGroup) return
+       if (handler.premium && !isPremium) return
+       if (handler.group && !m.isGroup) return
+       if (handler.private && m.isGroup) return
        handler(client, m, text)   
 }
     
