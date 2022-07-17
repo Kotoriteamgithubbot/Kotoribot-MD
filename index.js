@@ -1171,11 +1171,11 @@ break
 */
 case 'react':
 if (!isCreator) client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-if (!quoted) client.sendMessage(m.chat, { text: mess.reply }, { quoted: m })
+if (!quoted.id) client.sendMessage(m.chat, { text: mess.reply }, { quoted: m })
 reactionMessage = {
      react: {
          text: args[0],
-         key: { remoteJid: m.chat, fromMe: true, id: quoted.id }
+         key: { remoteJid: m.chat, id: quoted.id }
      }
 }
 client.sendMessage(m.chat, reactionMessage)
