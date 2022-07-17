@@ -65,10 +65,10 @@ async function start() {
     })
     
     //Call
-    client.ev.on('call', async (fatihh) => {
-        for (let tihh of fatihh) {
-            if (tihh.status == "offer") {
-              await client.sendTextWithMentions(tihh.from, `*${client.user.name}* tidak bisa menerima panggilan ${tihh.isVideo ? `video` : `suara`}`)
+    client.ev.on('call', async (metadata) => {
+        for (let data of metadata) {
+            if (data.status == "offer") {
+              await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${tihh.isVideo ? `video` : `suara`}`})
             }
         }
     })
