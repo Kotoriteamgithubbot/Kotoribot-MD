@@ -1172,13 +1172,13 @@ break
 case 'react':
 if (!isCreator) client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
 if (!quoted) client.sendMessage(m.chat, { text: mess.reply }, { quoted: m })
-   reactionMessage = {
-        react: {
-             text: args[0],
-             key: { remoteJid: m.chat, fromMe: true, id: quoted.id }
-        }
-    }
-   client.sendMessage(m.chat, reactionMessage)
+reactionMessage = {
+     react: {
+         text: args[0],
+         key: { remoteJid: m.chat, fromMe: true, id: quoted.id }
+     }
+}
+client.sendMessage(m.chat, reactionMessage)
 break
 case 'play': case 'ytplay':
 if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
