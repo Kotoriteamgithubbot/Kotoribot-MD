@@ -1176,7 +1176,7 @@ if (!m.quoted) client.sendMessage(m.chat, { text: 'Reply Chatnya!' }, { quoted: 
 client.relayMessage(m.chat, { reactionMessage: { key: { id: m.quoted.id, remoteJid: m.chat, fromMe: true }, text: q }}, { messageId: m.id })
 break
 case 'p':
-kukuk = JSON.sringify(m)
+kukuk = JSON.stringify(m)
 client.sendMessage(from, { text: kukuk })
 break
 case 'play': case 'ytplay':
