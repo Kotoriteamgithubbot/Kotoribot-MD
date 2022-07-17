@@ -91,7 +91,6 @@ let vote = db.others.vote = []
 //Database
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
-let ban = JSON.parse(fs.readFileSync('./database/ban.json'));
 let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
 const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'))
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
@@ -155,7 +154,6 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 const isUser = registered.includes(m.sender)
  
 // Other
-const isBan = banUser.includes(m.sender)
 const antilink = m.isGroup ? ntilink.includes(from) : false
 const GcRvk = m.isGroup ? gcrevoke.includes(from) : false
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
@@ -1221,7 +1219,6 @@ if (mediavideo.filesize >= 100000) return m.reply('File Melebihi Batas '+util.fo
 client.sendMessage(m.chat, { video: { url: mediavideo.dl_link }, mimetype: 'video/mp4', fileName: `${mediavideo.title}.mp4`, caption: `⭔ Title : ${mediavideo.title}\n⭔ File Size : ${mediavideo.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolusi : ${args[1] || '360p'}` }, { quoted: m })
 break
 case 'suitpvp': case 'suit': 
-if (isBan) return m.reply(mess.ban)
 this.suit = this.suit ? this.suit : {}
 let poin = 10
 let poin_lose = 10
@@ -1249,7 +1246,6 @@ this.suit[id] = {
    }
 break
 case 'ttc': case 'ttt': case 'tictactoe': 
-if (isBan) return m.reply(mess.ban)
 let TicTacToe = require("./lib/tictactoe")
 this.game = this.game ? this.game : {}
 if (Object.values(this.game).find(room => room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender))) return m.reply('Kamu masih didalam game')
@@ -1299,7 +1295,6 @@ Ketik *nyerah* untuk menyerah dan mengakui kekalahan`
 }
 break
 case 'delttc': case 'delttt': 
-if (isBan) return m.reply(mess.ban)
 this.game = this.game ? this.game : {}
 try {
    if (this.game) {
@@ -1329,7 +1324,6 @@ try {
 }  
 break
 case 'speed':case 'ping': case 'botstatus': case 'statusbot': 
-if (isBan) return m.reply(mess.ban)
 const used = process.memoryUsage()
 const cpus = os.cpus().map(cpu => {
      cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
