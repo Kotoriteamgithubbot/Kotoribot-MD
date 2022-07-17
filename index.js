@@ -1054,6 +1054,9 @@ ${wit} WIT
 ▢ ${prefix}tictactoe
 ▢ ${prefix}delttt
 
+*Fun*
+▢ ${prefix}react
+
 *Info*
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
@@ -1067,8 +1070,7 @@ ${wit} WIT
 ▢ ${prefix}ytmp4
 
 *Owner*
-▢ ${prefix}broadcast
-▢ ${prefix}react`
+▢ ${prefix}broadcast`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1170,14 +1172,9 @@ if (args[0] === 'confirmed') {
 break
 */
 case 'react':
-if (!isCreator) client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
 if (!q) client.sendMessage(m.chat, { text: 'Emojinya Mana?' }, { quoted: m })
 if (!m.quoted) client.sendMessage(m.chat, { text: 'Reply Chatnya!' }, { quoted: m })
 client.relayMessage(m.chat, { reactionMessage: { key: { id: m.quoted.id, remoteJid: m.chat, fromMe: true }, text: q }}, { messageId: m.id })
-break
-case 'p':
-kukuk = JSON.stringify(m)
-client.sendMessage(from, { text: kukuk })
 break
 case 'play': case 'ytplay':
 if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
