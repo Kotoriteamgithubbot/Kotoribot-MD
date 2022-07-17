@@ -66,7 +66,7 @@ async function start() {
     
     //Grup Update
     client.ev.on('groups.update', async pea => {
-         client.sendMessage(owner+'@s.whatsapp.net', {text:pea})
+         client.sendMessage(owner+'@s.whatsapp.net', {text:JSON.stringify(pea)})
         //Get Profile Picture Group
         try {
            ppgc = await client.profilePictureUrl(pea[0].id, 'image')
