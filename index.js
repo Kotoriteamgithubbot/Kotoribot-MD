@@ -1090,10 +1090,10 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        const fileplugin = "./plugins/" + command + ".js"
        delete require.cache[require.resolve(fileplugin)]
        const { handler } = require(fileplugin)
-       if (handler.owner && !isCreator) return
-       if (handler.premium && !isPremium) return
-       if (handler.group && !m.isGroup) return
-       if (handler.private && m.isGroup) return
+       if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+       if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
+       if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
+       if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
        handler(client, m, text)   
 }
     
