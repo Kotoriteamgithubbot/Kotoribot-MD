@@ -89,6 +89,7 @@ let vote = db.others.vote = []
 
 //Database
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
+const account = JSON.parse(fs.readFileSync('./database/account/user.json'))
 const login = JSON.parse(fs.readFileSync('./database/account/login.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 let ban = JSON.parse(fs.readFileSync('./database/ban.json'));
@@ -98,7 +99,6 @@ let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
 let _sewa = require("./lib/sewa");
 const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
-const premium = JSON.parse(fs.readFileSync('./database/premium.json'));
 const totalhit = JSON.parse(fs.readFileSync('./database/totalhit.json'));
 
 //Waktu dan Tanggal 
