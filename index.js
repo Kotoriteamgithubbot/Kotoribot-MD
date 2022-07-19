@@ -1103,8 +1103,8 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
        if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
        if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-       const response = handler(client, m, text)   
-       if (response) return
+       const responseplugin = handler(client, m, text)   
+       if (responseplugin) return
 }
     
 //Switch Command
