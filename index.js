@@ -1428,7 +1428,8 @@ break
 case 'request':
 if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
 const textrequest = `*Request Fitur*\n\nPengirim: ${m.sender}\nPermintaan: ${q}`
-client.sendMessage(owner[0], { text: textrequest }, { quoted: m })
+client.sendMessage(owner[0] + '@s.whatsapp.net', { text: textrequest }, { quoted: m })
+m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
 addTypeCmd(command, 1, _cmd)
 break
 // Default
