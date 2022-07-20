@@ -1402,6 +1402,7 @@ default:
        anu = matchCmd(command, _cmd)
        m.reply(`*Maksud kamu ${anu.command}?*\n\n_Kecocokan ${anu.equality * 10}%_`) 
     }
+    
     if (budy.startsWith('=>')) {
     if (!isCreator) return m.reply(mess.owner)
     function Return(sul) {
