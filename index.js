@@ -1425,7 +1425,7 @@ default:
        if (typeof _cmd === null || typeof _cmd === undefined) return { command: 'tidak ada data', equality: '0' }
        did = didyoumean(command, _cmd, 'id') 
        sim = similarity(command, did)    
-       m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 10}_`) 
+       m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 100}%_`) 
     }
     
     if (budy.startsWith('=>')) {
