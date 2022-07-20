@@ -45,6 +45,7 @@ const primbon = new Primbon()
 const emoji = new EmojiAPI()
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/function')
 const { addBalance, kurangBalance, getBalance } = require('./lib/balance')
+const { addCmd, getCmd } = require("./lib/automatchcmd");
 const { aiovideodl } = require('./lib/scraper.js')
 const cheerio = require ("cheerio");
 const textpro = require('./lib/textpro')
@@ -92,6 +93,7 @@ let vote = db.others.vote = []
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
+const _cmd = JSON.parse(fs.readFileSync('./database/cmd.json'));
 const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'))
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
