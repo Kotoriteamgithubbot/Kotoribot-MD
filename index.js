@@ -542,7 +542,7 @@ const matchTypeCmd = (command) => {
         command: did, 
         equality: sim
      }
-    return client.sendMessage(JSON.stringify(resultFromMatch))
+    return client.sendMessage(m.chat, { text : JSON.stringify(resultFromMatch)) })
 }
 
 //Catalog Message
