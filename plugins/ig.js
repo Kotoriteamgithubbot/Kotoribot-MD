@@ -1,10 +1,10 @@
 const hx = require('hxz-api')
 
 let handler = async (client, m, text) => {
-  if (!(args[0])) throw `Masukkan link Instagram yang ingin didownload!`
-  hx.igdl(args[0]).then(async (r) => {
+  if (!(text)) throw `Masukkan link Instagram yang ingin didownload!`
+  hx.igdl(args).then(async (r) => {
   for (let i = 0; i < r.medias.length; i++) {
-    conn.sendFile(m.chat, r.medias[i].url, '', `*${wm}*`, m)
+    client.sendFile(m.chat, r.medias[i].url, '', `*${wm}*`, m)
     }
   })
 }
