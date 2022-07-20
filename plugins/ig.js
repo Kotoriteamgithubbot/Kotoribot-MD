@@ -11,4 +11,4 @@ let handler = async (client, m, text) => {
 
 handler.group = true
 
-module.exports = {handler}
+module.exports = { handler }
