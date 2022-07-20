@@ -1422,7 +1422,7 @@ break
 default:
     if (isCmd && prefix) {  
        //Match List Command JSON
-       if (typeof _cmd === null || typeof _cmd === undefined) return { command: 'tidak ada data', equality: '0' }
+       if (typeof _cmd === null || typeof _cmd === undefined) return
        did = didyoumean(command, _cmd, 'id') 
        sim = similarity(command, did)    
        m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 100}%_`) 
