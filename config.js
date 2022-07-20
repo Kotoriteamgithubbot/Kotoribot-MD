@@ -22,6 +22,8 @@ global.sessionName = "session"
 
 global.namebot = "☘️ Staf LightGreen"
 
+global.wm = "© CloudbyPsn"
+
 global.linkgrupss = "https://chat.whatsapp.com/HnQ9DZTYPbJBEpuKYYkdC4"
 
 global.antitags = true
