@@ -1082,9 +1082,16 @@ ${wit} WIT
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
 ▢ ${prefix}donasi
+▢ ${prefix}request
 
 *Search*
 ▢ ${prefix}play
+
+*Plugin*
+▢ ${prefix}getplugin
+▢ ${prefix}saveplugin
+▢ ${prefix}deleteplugin
+▢ ${prefix}debounce
 
 *Downloader*
 ▢ ${prefix}ytmp3
@@ -1418,13 +1425,21 @@ for (let i of sendbroadcastto) {
 }
 addTypeCmd(command, 1, _cmd)
 break
+case 'request':
+if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
+for (let i of owner) {
+      client.sendMessage(i, { text: q }, { quoted: m })
+      await sleep(1000)
+}
+addTypeCmd(command, 1, _cmd)
+break
 // Default
 default:
     if (isCmd && prefix) {  
        //Match List Command JSON
        did = didyoumean(command, _cmd, 'id') 
        sim = similarity(command, did)    
-       if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request <ketikkan permintaan>') 
+       if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
        m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 100}%_`) 
     }
     
