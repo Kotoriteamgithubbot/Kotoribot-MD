@@ -528,14 +528,14 @@ const addTypeCmd = (command, counter) => {
              id: command,
              total: counter
         })
-        _db.push(datacmd)
+        _cmd.push(datacmd)
         fs.writeFileSync('./database/cmd.json', JSON.stringify(_cmd))
     }
 }
 
 //Match List Command JSON
 const matchTypeCmd = (command) => {
-    if (typeof cmd === null || typeof cmd === undefined) return
+    if (typeof cmd === null || typeof cmd === undefined || cmd === []) return
     did = didyoumean(command, JSON.stringify(_cmd), 'id') 
     sim = similarity(command, did)    
     return { command: did, equality: sim }
