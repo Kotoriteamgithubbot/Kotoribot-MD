@@ -1427,7 +1427,7 @@ addTypeCmd(command, 1, _cmd)
 break
 case 'request':
 if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
-const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')}\nPermintaan: ${q}`
+const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')[0]}\nPermintaan: ${q}`
 client.sendMessage(owner[0] + '@s.whatsapp.net', { text: textrequest }, { quoted: m })
 m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
 addTypeCmd(command, 1, _cmd)
