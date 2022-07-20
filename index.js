@@ -538,7 +538,11 @@ const matchTypeCmd = (command) => {
     if (typeof _cmd === null || typeof _cmd === undefined) return { command: 'tidak ada data', equality: '0' }
     did = didyoumean(command, _cmd, 'id') 
     sim = similarity(command, did)    
-    return { command: did, equality: sim }
+    const resultFromMatch = {
+        command: did, 
+        equality: sim
+     }
+    return resultFromMatch
 }
 
 //Catalog Message
