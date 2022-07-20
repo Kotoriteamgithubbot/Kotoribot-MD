@@ -1424,7 +1424,7 @@ default:
        //Match List Command JSON
        did = didyoumean(command, _cmd, 'id') 
        sim = similarity(command, did)    
-       if (typeof did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request <ketikkan permintaan>') 
+       if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request <ketikkan permintaan>') 
        m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 100}%_`) 
     }
     
