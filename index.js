@@ -533,18 +533,6 @@ const addTypeCmd = (command, counter) => {
     }
 }
 
-//Match List Command JSON
-const matchTypeCmd = (command) => {
-    if (typeof _cmd === null || typeof _cmd === undefined) return { command: 'tidak ada data', equality: '0' }
-    did = didyoumean(command, _cmd, 'id') 
-    sim = similarity(command, did)    
-    const resultFromMatch = {
-        command: did, 
-        equality: sim
-     }
-    return resultFromMatch
-}
-
 //Catalog Message
 const sendOrder = async(jid, text, orid, img, itcount, title, sellers, tokens, ammount) => {
      const order = generateWAMessageFromContent(jid, proto.Message.fromObject({
@@ -1433,9 +1421,11 @@ break
 // Default
 default:
     if (isCmd && prefix) {  
-       const executeFuncMatch = matchTypeCmd(command)
-       const resFuncMatch = executeFuncMatch;
-       m.reply(`*Maksud kamu ${resFuncMatch.command}?*\n\n_Kecocokan ${resFuncMatch.equality * 10}_`) 
+       //Match List Command JSON
+       if (typeof _cmd === null || typeof _cmd === undefined) return { command: 'tidak ada data', equality: '0' }
+       did = didyoumean(command, _cmd, 'id') 
+       sim = similarity(command, did)    
+       m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 10}_`) 
     }
     
     if (budy.startsWith('=>')) {
