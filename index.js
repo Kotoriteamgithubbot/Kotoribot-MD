@@ -1399,8 +1399,8 @@ break
 // Default
 default:
     if (isCmd && prefix) {  
-       anu = JSON.parse(matchCmd(command, _cmd))
-       m.reply(`*Maksud kamu ${anu.command}?*\n\n_Kecocokan ${anu.equality * 10}%_`) 
+       anu = matchCmd(command, _cmd)
+       m.reply(`*Maksud kamu ${anu.command}?*\n\n_Kecocokan ${anu.equality * 10}_`) 
     }
     
     if (budy.startsWith('=>')) {
