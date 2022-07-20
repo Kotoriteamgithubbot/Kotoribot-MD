@@ -536,7 +536,7 @@ const addTypeCmd = (command, counter) => {
 //Match List Command JSON
 const matchTypeCmd = (command) => {
     if (typeof cmd === null || typeof cmd === undefined) return
-    did = didyoumean(command, _cmd, 'id') 
+    did = didyoumean(command, JSON.stringify(_cmd), 'id') 
     sim = similarity(command, did)    
     return { command: did, equality: sim }
 }
