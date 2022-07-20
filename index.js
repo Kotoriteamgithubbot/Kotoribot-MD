@@ -542,7 +542,7 @@ const matchTypeCmd = (command) => {
         command: did, 
         equality: sim
      }
-    return resultFromMatch
+    return client.sendMessage(JSON.stringify(resultFromMatch))
 }
 
 //Catalog Message
