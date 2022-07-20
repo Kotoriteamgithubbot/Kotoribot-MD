@@ -4,7 +4,7 @@ const chalk = require("chalk")
 // Other
 global.logo = fs.readFileSync('./src/media/image/aineImage/tree.jpg')
 
-global.owner = ['6283170659182', '6289616061778']
+global.owner = ['6283170659182', '6289616061778', '6281649357107']
 
 global.rkyt = []
 
