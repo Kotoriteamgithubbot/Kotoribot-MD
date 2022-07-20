@@ -524,10 +524,10 @@ const addTypeCmd = (command, counter) => {
         _cmd[location].total += counter
         fs.writeFileSync('./database/cmd.json', JSON.stringify(_cmd))
     } else {
-        const datacmd = ({
+        const datacmd = {
              id: command,
              total: counter
-        })
+        }
         _cmd.push(datacmd)
         fs.writeFileSync('./database/cmd.json', JSON.stringify(_cmd))
     }
@@ -542,7 +542,7 @@ const matchTypeCmd = (command) => {
         command: did, 
         equality: sim
      }
-    return client.sendMessage(m.chat, { text : JSON.stringify(resultFromMatch)) })
+    return resultFromMatch
 }
 
 //Catalog Message
@@ -550,7 +550,7 @@ const sendOrder = async(jid, text, orid, img, itcount, title, sellers, tokens, a
      const order = generateWAMessageFromContent(jid, proto.Message.fromObject({
           "orderMessage": {
               "orderId": orid, 
-              "thumbnail": img, 
+              "thumbnail": img,
               "itemCount": itcount,
               "status": "INQUIRY", 
               "surface": "CATALOG", 
