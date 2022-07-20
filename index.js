@@ -542,7 +542,7 @@ const matchTypeCmd = (command) => {
         command: did, 
         equality: sim
      }
-    return resultFromMatch
+    return JSON.stringify(resultFromMatch)
 }
 
 //Catalog Message
@@ -1433,8 +1433,9 @@ break
 // Default
 default:
     if (isCmd && prefix) {  
-       resultmatchcmd = matchTypeCmd(command)
-       m.reply(`*Maksud kamu ${resultmatchcmd.command}?*\n\n_Kecocokan ${resultmatchcmd.equality * 10}_`) 
+       resultmatchcmd = JSON.parse(matchTypeCmd(command))
+       //m.reply(`*Maksud kamu ${resultmatchcmd.command}?*\n\n_Kecocokan ${resultmatchcmd.equality * 10}_`) 
+       m.reply(resultmatchcmd.command)
     }
     
     if (budy.startsWith('=>')) {
