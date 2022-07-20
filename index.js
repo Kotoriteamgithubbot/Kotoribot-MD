@@ -1427,10 +1427,8 @@ addTypeCmd(command, 1, _cmd)
 break
 case 'request':
 if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
-for (let i of owner) {
-      client.sendMessage(i, { text: q }, { quoted: m })
-      await sleep(1000)
-}
+const textrequest = `*Request Fitur*\n\nPengirim: ${m.sender}\nPermintaan: ${q}`
+client.sendMessage(owner[0], { text: textrequest }, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
 // Default
