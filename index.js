@@ -513,7 +513,7 @@ const reduceLimit = (sender, amount) => {
 } 
 
 //Add List Command To JSON
-const addTypeCmd(command, counter) => {
+const addTypeCmd = (command, counter) => {
     let location = false
     Object.keys(_cmd).forEach((i) => {
         if (_cmd[i].id === command) {
@@ -534,7 +534,7 @@ const addTypeCmd(command, counter) => {
 }
 
 //Match List Command JSON
-const matchTypeCmd(command) => {
+const matchTypeCmd = (command) => {
     if (typeof cmd === null || typeof cmd === undefined) return
     did = didyoumean(command, _cmd, 'id') 
     sim = similarity(command, did)    
