@@ -1399,7 +1399,7 @@ break
 // Default
 default:
     if (isCmd && prefix) {  
-       anu = matchCmd(command, _cmd)
+       anu = JSON.parse(matchCmd(command, _cmd))
        m.reply(`*Maksud kamu ${anu.command}?*\n\n_Kecocokan ${anu.equality * 10}%_`) 
     }
     
