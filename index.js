@@ -1597,7 +1597,7 @@ if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
 let userskick = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err))
+await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
 case 'add': 
