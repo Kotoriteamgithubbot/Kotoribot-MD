@@ -1096,6 +1096,9 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
+▢ ${prefix}igstory
+▢ ${prefix}instagram
+▢ ${prefix}facebook
 
 *Owner*
 ▢ ${prefix}broadcast`
@@ -1151,7 +1154,6 @@ fs.readdirSync('./plugins').forEach(function(file) {
 switch(command) {
 case 'menu':
 case 'help':
-if (!isCreator) return
 /**
 - Menu Type Button Location (Slow Respon)
 
@@ -1439,6 +1441,137 @@ if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
 const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')[0]}\nPermintaan: ${q}`
 client.sendMessage(owner[0] + '@s.whatsapp.net', { text: textrequest }, { quoted: m })
 m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
+addTypeCmd(command, 1, _cmd)
+break
+case 'igstory': case 'instagramstory': 
+if (!q) return m.reply('Username Instagramnya Mana kak?')
+hx.igstory(args[0]).then(async(resed) => {
+    ini_anu = []
+    anu_list = []
+    textbv = `*| INSTAGRAM STORY |*\n\n⭔ Username : ${resed.user.username ? resed.user.name : "undefined"}\n⭔ Followers : ${resed.user.followers}`
+    urut = 1
+    for (let i = 0; i < resed.medias.length; i++) {
+        ini_anu.push({
+            "type": resed.medias[i].fileType,
+            "url": resed.medias[i].url
+        })
+    }
+    ilod = 1
+    for (let i of ini_anu) {
+      anu_list.push({buttonId: `ig ${i.type} ${i.url}`, buttonText: {displayText: `Media ${ilod++}`}, type: 1})
+     }
+     textbv += `\n\n_Pilih media dibawah untuk mendownload_`
+     let button = anu_list
+     let buttonMessage = {
+        image: logo,
+        jpegThumbnail: logo,
+        caption: textbv,
+        footer: wm,
+        buttons: buttonsigstory,
+        headerType: 4
+     }
+     client.sendMessage(from, buttonMessage, { quoted: m })
+})
+
+addTypeCmd(command, 1, _cmd)
+break
+case 'igdl': case 'instagram': 
+if (!q) return m.reply(mess.linkm)
+hx.igdl(args[0]).then(async(resed) => {
+   ini_anu = []
+   anu_list = []
+   textbv = `*| INSTAGRAM DOWNLOADER |*\n\n⭔ Username : ${resed.user.username ? resed.user.name : "undefined"}\n⭔ Followers : ${resed.user.followers}`
+   urut = 1
+   for (let i = 0; i < resed.medias.length; i++) {
+        ini_anu.push({
+             "type": resed.medias[i].fileType,
+             "url": resed.medias[i].url
+         })
+   }
+   ilod = 1
+   for (let i of ini_anu) {
+      anu_list.push({buttonId: `ig ${i.type} ${i.url}`, buttonText: {displayText: `Media ${ilod++}`}, type: 1})
+   }
+   textbv += `\n\n_Pilih media dibawah untuk mendownload_`
+   let buttons = anu_list
+   let buttonMessage = {
+      image: logo,
+      jpegThumbnail: logo,
+      caption: textbv,
+      footer: wm,
+      buttons: buttons,
+      headerType: 4
+  }
+  client.sendMessage(from, buttonMessage, {quoted:m})
+})
+addTypeCmd(command, 1, _cmd)
+break
+case 'ig': 
+if (!q) return m.reply(mess.linkm)
+if (args[0] === "mp4") {
+     client.sendMessage(from, {video:{url:args[1]}, caption:'Done!', mimetype:'video/mp4'}, {quoted:m})
+} else if (args[0] === "jpg") {
+     client.sendMessage(from, {image:{url:args[1]}, caption:'Done!'}, {quoted:m})
+} else {
+m.reply(" Error! ")
+}
+addTypeCmd(command, 1, _cmd)
+break
+case 'facebook': case 'fb': case 'fbmp4': 
+if (!q) return m.reply(mess.linkm)
+let resd = await aiovideodl(args[0])
+teks = `*| FACEBOOK DOWNLOADER |*
+
+Type : video/${resd.medias[0].extension}
+Quality : ${resd.medias[0].quality}
+Size : ${resd.medias[0].formattedSize}
+
+_Untuk kualitas hd anda bisa klik tombol dibawah_`
+let buttons = [
+    {buttonId: `fbdl ${resd.medias[1].url}`, buttonText: {displayText: 'QualityHD'}, type: 1}
+]
+
+let buttonMessage = {
+     video: { url:resd.medias[0].url },
+     caption: teks,
+     footer: wm,
+     buttons: buttons,
+     headerType: 4,
+     contextInfo:{ externalAdReply:{
+        title:"  Facebook Downloader",
+        body:"facebook downloader",
+        thumbnail: logo,
+        mediaType:1,
+        mediaUrl: args[0],
+        sourceUrl: args[0]
+      }}
+}
+client.sendMessage(from, buttonMessage, { quoted: m })
+addTypeCmd(command, 1, _cmd)
+break
+case 'fbdl': 
+if (!q) return m.reply(mess.linkm)
+let buttons = [
+    {buttonId: `menu`, buttonText: {displayText: 'Menu'}, type: 1}
+]
+
+let buttonMessage = {
+    video: { url:args[0] },
+    caption: "Done!",
+    footer: wm,
+    buttons: buttons,
+    headerType: 4,
+    contextInfo:{externalAdReply:{
+       title:"  Facebook Downloader",
+       body: " Facebook Downloader",
+       thumbnail: logo,
+       mediaType:1,
+       mediaUrl: args[0],
+       sourceUrl: args[0]
+     }}
+}
+
+client.sendMessage(from, buttonMessage, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
 // Default
