@@ -10,5 +10,6 @@ let handler = async (client, m, text) => {
 }
 
 handler.group = true
+handler.command = ['ig', 'instagram', 'igdl']
 
 module.exports = { handler }
