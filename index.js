@@ -1137,6 +1137,15 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        const responseplugin = handler(client, m, text)   
        if (responseplugin) return
 }
+
+/**
+- Akan digunakan
+
+fs.readdirSync('./plugins').forEach(function(file) {
+  require("./routes/" + file);
+});
+
+*/
     
 //Switch Command
 switch(command) {
