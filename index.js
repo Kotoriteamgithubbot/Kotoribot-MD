@@ -1461,8 +1461,8 @@ hx.igstory(args[0]).then(async(resed) => {
       anu_list.push({buttonId: `ig ${i.type} ${i.url}`, buttonText: {displayText: `Media ${ilod++}`}, type: 1})
      }
      textbv += `\n\n_Pilih media dibawah untuk mendownload_`
-     let button = anu_list
-     let buttonMessage = {
+     let buttonsigstory = anu_list
+     let buttonMessageIgStory = {
         image: logo,
         jpegThumbnail: logo,
         caption: textbv,
@@ -1470,7 +1470,7 @@ hx.igstory(args[0]).then(async(resed) => {
         buttons: buttonsigstory,
         headerType: 4
      }
-     client.sendMessage(from, buttonMessage, { quoted: m })
+     client.sendMessage(from, buttonMessageIgStory, { quoted: m })
 })
 
 addTypeCmd(command, 1, _cmd)
@@ -1493,16 +1493,16 @@ hx.igdl(args[0]).then(async(resed) => {
       anu_list.push({buttonId: `ig ${i.type} ${i.url}`, buttonText: {displayText: `Media ${ilod++}`}, type: 1})
    }
    textbv += `\n\n_Pilih media dibawah untuk mendownload_`
-   let buttons = anu_list
-   let buttonMessage = {
+   let buttonsinstagram = anu_list
+   let buttonMessageInstagram = {
       image: logo,
       jpegThumbnail: logo,
       caption: textbv,
       footer: wm,
-      buttons: buttons,
+      buttons: buttonsinstagram,
       headerType: 4
   }
-  client.sendMessage(from, buttonMessage, {quoted:m})
+  client.sendMessage(from, buttonMessageInstagram, {quoted:m})
 })
 addTypeCmd(command, 1, _cmd)
 break
@@ -1527,15 +1527,15 @@ Quality : ${resd.medias[0].quality}
 Size : ${resd.medias[0].formattedSize}
 
 _Untuk kualitas hd anda bisa klik tombol dibawah_`
-let buttons = [
+let buttonsfacebook = [
     {buttonId: `fbdl ${resd.medias[1].url}`, buttonText: {displayText: 'QualityHD'}, type: 1}
 ]
 
-let buttonMessage = {
+let buttonMessageFacebook = {
      video: { url:resd.medias[0].url },
      caption: teks,
      footer: wm,
-     buttons: buttons,
+     buttons: buttonsfacebook,
      headerType: 4,
      contextInfo:{ externalAdReply:{
         title:"  Facebook Downloader",
@@ -1546,20 +1546,20 @@ let buttonMessage = {
         sourceUrl: args[0]
       }}
 }
-client.sendMessage(from, buttonMessage, { quoted: m })
+client.sendMessage(from, buttonMessageFacebook, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
 case 'fbdl': 
 if (!q) return m.reply(mess.linkm)
-let buttons = [
+let buttonsfb = [
     {buttonId: `menu`, buttonText: {displayText: 'Menu'}, type: 1}
 ]
 
-let buttonMessage = {
+let buttonMessageFb = {
     video: { url:args[0] },
     caption: "Done!",
     footer: wm,
-    buttons: buttons,
+    buttons: buttonsfb,
     headerType: 4,
     contextInfo:{externalAdReply:{
        title:"  Facebook Downloader",
@@ -1571,7 +1571,7 @@ let buttonMessage = {
      }}
 }
 
-client.sendMessage(from, buttonMessage, { quoted: m })
+client.sendMessage(from, buttonMessageFb, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
 // Default
