@@ -1096,12 +1096,22 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory
-▢ ${prefix}instagram
-▢ ${prefix}facebook
+▢ ${prefix}igstory (error detected)
+▢ ${prefix}instagram (error detected)
+▢ ${prefix}facebook (error detected)
+
+*Group*
+▢ ${prefix}kick
+▢ ${prefix}add
+▢ ${prefix}link
+▢ ${prefix}join
+▢ ${prefix}promote
+▢ ${prefix}demote
 
 *Owner*
-▢ ${prefix}broadcast`
+▢ ${prefix}broadcast
+
+_Bot masih dalam pengembangan, tolong ketik .request <permintaan> untuk membantu partisipasi dalam pengembangan bot_`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1572,6 +1582,46 @@ let buttonMessageFb = {
 }
 
 client.sendMessage(from, buttonMessageFb, { quoted: m })
+addTypeCmd(command, 1, _cmd)
+break
+case 'join': 
+if (!text) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
+if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) client.sendMessage(m.chat, { text: 'Link Invalid!' }, { quoted: m })
+m.reply(mess.wait)
+let resultlinkjoin = args[0].split('https://chat.whatsapp.com/')[1]
+await client.groupAcceptInvite(resultlinkjoin).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+addTypeCmd(command, 1, _cmd)
+break
+case 'kick': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+let userskick = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err))
+addTypeCmd(command, 1, _cmd)
+break
+case 'add': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+let usersadd = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+await client.groupParticipantsUpdate(m.chat, [usersadd], 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+addTypeCmd(command, 1, _cmd)
+break
+case 'promote': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+let userspromote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+await client.groupParticipantsUpdate(m.chat, [userspromote], 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+addTypeCmd(command, 1, _cmd)
+break
+case 'demote': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+let usersdemote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+await client.groupParticipantsUpdate(m.chat, [usersdemote], 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
 // Default
