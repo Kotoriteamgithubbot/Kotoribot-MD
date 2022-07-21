@@ -13,5 +13,6 @@ let handler = async(client, m, text) => {
 }
 
 handler.owner = true
+handler.command = ['sp', 'saveplugin']
 
 module.exports = { handler }
