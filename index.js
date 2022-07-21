@@ -1096,14 +1096,16 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory (error detected)
-▢ ${prefix}instagram (error detected)
-▢ ${prefix}facebook (error detected)
+▢ ${prefix}igstory
+▢ ${prefix}instagram
+▢ ${prefix}facebook
 
 *Group*
 ▢ ${prefix}kick
+▢ ${prefix}hidetag
 ▢ ${prefix}add
 ▢ ${prefix}link
+▢ ${prefix}group
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
@@ -1588,7 +1590,7 @@ case 'join':
 if (!text) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) client.sendMessage(m.chat, { text: 'Link Invalid!' }, { quoted: m })
 m.reply(mess.wait)
-let resultlinkjoin = args[0].split('https://chat.whatsapp.com/')[1]
+const resultlinkjoin = args[0].split('https://chat.whatsapp.com/')[1]
 await client.groupAcceptInvite(resultlinkjoin).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
@@ -1596,7 +1598,7 @@ case 'kick':
 if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
-let userskick = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+const userskick = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
@@ -1604,7 +1606,7 @@ case 'add':
 if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
-let usersadd = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+const usersadd = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [usersadd], 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
@@ -1612,7 +1614,7 @@ case 'promote':
 if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
-let userspromote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+const userspromote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [userspromote], 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
@@ -1620,9 +1622,40 @@ case 'demote':
 if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
-let usersdemote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+const usersdemote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [usersdemote], 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
+break
+case 'group': case 'grup': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+if (args[0] === 'close') {
+   await client.groupSettingUpdate(m.chat, 'announcement').then((res) => m.reply(`Sukses Menutup Group`)).catch((err) => m.reply(jsonformat(err)))
+} else if (args[0] === 'open'){
+    await client.groupSettingUpdate(m.chat, 'not_announcement').then((res) => m.reply(`Sukses Membuka Group`)).catch((err) => m.reply(jsonformat(err)))
+} else {
+    const buttonsgroup = [
+       { buttonId: 'group open', buttonText: { displayText: 'Open' }, type: 1 },
+       { buttonId: 'group close', buttonText: { displayText: 'Close' }, type: 1 }
+    ]
+    await client.sendButtonText(m.chat, buttonsgroup, `Mode Group`, wm, m)
+ }
+addTypeCmd(command, 1, _cmd)
+break
+case 'linkgroup': case 'linkgc': case 'link': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+const responselinkgroup = await client.groupInviteCode(m.chat)
+client.sendText(m.chat, `https://chat.whatsapp.com/${responselinkgroup}\n\nLink Group : ${groupMetadata.subject}`, m, { detectLink: true })
+addTypeCmd(command, 1, _cmd)
+break
+case 'hidetag': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+client.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
 break
 // Default
 default:
