@@ -1112,6 +1112,7 @@ ${wit} WIT
 
 *Owner*
 ▢ ${prefix}broadcast
+▢ ${prefix}getsession
 
 _Bot masih dalam pengembangan, tolong ketik .request <permintaan> untuk membantu partisipasi dalam pengembangan bot_`
 
@@ -1656,6 +1657,14 @@ if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
 client.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
+addTypeCmd(command, 1, _cmd)
+break
+case 'getsession':
+if (!isCreator) return m.reply(mess.owner)
+m.reply('Tunggu Sebentar, Proses Getting File session.json')
+const sessionget = await fs.readFileSync('./session.json')
+await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
+addTypeCmd(command, 1, _cmd)
 break
 // Default
 default:
