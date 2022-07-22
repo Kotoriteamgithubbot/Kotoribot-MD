@@ -54,6 +54,7 @@ const { detikNews } = require('./lib/detik')
 const { wikiSearch } = require('./lib/wiki.js');
 const { Gempa } = require("./lib/gempa.js");
 const ms = require('ms')
+const fetch = require('node-fetch')
 let { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
 const { 
@@ -73,6 +74,8 @@ if (global.db) global.db = {
     database: {},
     game: {},
     others: {},
+    settings: {},
+    chats: {},
     account: {},
     users: {},
     ...(global.db || {})
@@ -1077,6 +1080,7 @@ ${wit} WIT
 
 *Fun*
 ▢ ${prefix}react
+▢ ${prefix}math
 
 *Info*
 ▢ ${prefix}ping
@@ -1086,6 +1090,8 @@ ${wit} WIT
 
 *Search*
 ▢ ${prefix}play
+▢ ${prefix}google
+▢ ${prefix}brainly .
 
 *Plugin*
 ▢ ${prefix}getplugin
@@ -1111,8 +1117,11 @@ ${wit} WIT
 ▢ ${prefix}demote
 
 *Owner*
+▢ ${prefix}public
 ▢ ${prefix}broadcast
 ▢ ${prefix}getsession
+▢ ${prefix}self
+
 
 _Bot masih dalam pengembangan, tolong ketik .request <permintaan> untuk membantu partisipasi dalam pengembangan bot_`
 
@@ -1151,20 +1160,32 @@ if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
        if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
        if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
        const responseplugin = handler(client, m, text)   
-       if (responseplugin) return
+       if (responseplugin) return addTypeCmd(command, 1, _cmd)
 }
 
 /**
 - Akan digunakan
 
 fs.readdirSync('./plugins').forEach(function(file) {
-  require("./routes/" + file);
+  require("./plugins/" + file);
 });
 
 */
     
 //Switch Command
 switch(command) {
+case 'public': 
+if (!isCreator) m.reply(mess.owner)
+client.public = true
+m.reply('Sukse Change To Public Usage')
+addTypeCmd(command, 1, _cmd)
+break
+case 'self': 
+if (!isCreator) m.reply(mess.owner)
+client.public = false
+m.reply('Sukses Change To Self Usage') 
+addTypeCmd(command, 1, _cmd)          
+break
 case 'menu':
 case 'help':
 /**
@@ -1229,6 +1250,37 @@ if (args[0] === 'confirmed') {
 addTypeCmd(command, 1, _cmd)
 break
 */
+case 'kuismath':
+case 'math': 
+if (kuismath.hasOwnProperty(m.sender.split('@')[0])) m.reply("Masih Ada Sesi Yang Belum Diselesaikan!")
+let { genMath, modes } = require('./src/math')
+if (!text) m.reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
+const resultmath = await genMath(text.toLowerCase())
+client.sendText(m.chat, `*Berapa hasil dari: ${resultmath.soal.toLowerCase()}*?\n\nWaktu: ${(resultmath.waktu / 1000).toFixed(2)} detik`, m).then(() => {
+      kuismath[m.sender.split('@')[0]] = resultmath.jawaban
+})
+await sleep(resultmath.waktu)
+ if (kuismath.hasOwnProperty(m.sender.split('@')[0])) {
+    console.log("Jawaban: " + resultmath.jawaban)
+    m.reply("Waktu Habis\nJawaban: " + kuismath[m.sender.split('@')[0]])
+    delete kuismath[m.sender.split('@')[0]]
+}
+addTypeCmd(command, 1, _cmd)            
+break
+case 'google': 
+if (!text) m.reply(`Example : ${prefix + command} Jokowi Dodo`)
+let google = require('google-it')
+google({'query': text}).then(res => {
+     const teksgoogle = `Google Search From : ${text}\n\n`
+     for (let g of res) {
+          teks += `⭔ *Title* : ${g.title}\n`
+          teks += `⭔ *Description* : ${g.snippet}\n`
+          teks += `⭔ *Link* : ${g.link}\n\n────────────────────────\n\n`
+      } 
+      m.reply(teksgoogle)
+})
+addTypeCmd(command, 1, _cmd)   
+break
 case 'react':
 if (!q) client.sendMessage(m.chat, { text: 'Emojinya Mana?' }, { quoted: m })
 if (!m.quoted) client.sendMessage(m.chat, { text: 'Reply Chatnya!' }, { quoted: m })
@@ -1456,137 +1508,6 @@ client.sendMessage(owner[0] + '@s.whatsapp.net', { text: textrequest }, { quoted
 m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
 addTypeCmd(command, 1, _cmd)
 break
-case 'igstory': case 'instagramstory': 
-if (!q) return m.reply('Username Instagramnya Mana kak?')
-hx.igstory(args[0]).then(async(resed) => {
-    ini_anu = []
-    anu_list = []
-    textbv = `*| INSTAGRAM STORY |*\n\n⭔ Username : ${resed.user.username ? resed.user.name : "undefined"}\n⭔ Followers : ${resed.user.followers}`
-    urut = 1
-    for (let i = 0; i < resed.medias.length; i++) {
-        ini_anu.push({
-            "type": resed.medias[i].fileType,
-            "url": resed.medias[i].url
-        })
-    }
-    ilod = 1
-    for (let i of ini_anu) {
-      anu_list.push({buttonId: `ig ${i.type} ${i.url}`, buttonText: {displayText: `Media ${ilod++}`}, type: 1})
-     }
-     textbv += `\n\n_Pilih media dibawah untuk mendownload_`
-     let buttonsigstory = anu_list
-     let buttonMessageIgStory = {
-        image: logo,
-        jpegThumbnail: logo,
-        caption: textbv,
-        footer: wm,
-        buttons: buttonsigstory,
-        headerType: 4
-     }
-     client.sendMessage(from, buttonMessageIgStory, { quoted: m })
-})
-
-addTypeCmd(command, 1, _cmd)
-break
-case 'igdl': case 'instagram': 
-if (!q) return m.reply(mess.linkm)
-hx.igdl(args[0]).then(async(resed) => {
-   ini_anu = []
-   anu_list = []
-   textbv = `*| INSTAGRAM DOWNLOADER |*\n\n⭔ Username : ${resed.user.username ? resed.user.name : "undefined"}\n⭔ Followers : ${resed.user.followers}`
-   urut = 1
-   for (let i = 0; i < resed.medias.length; i++) {
-        ini_anu.push({
-             "type": resed.medias[i].fileType,
-             "url": resed.medias[i].url
-         })
-   }
-   ilod = 1
-   for (let i of ini_anu) {
-      anu_list.push({buttonId: `ig ${i.type} ${i.url}`, buttonText: {displayText: `Media ${ilod++}`}, type: 1})
-   }
-   textbv += `\n\n_Pilih media dibawah untuk mendownload_`
-   let buttonsinstagram = anu_list
-   let buttonMessageInstagram = {
-      image: logo,
-      jpegThumbnail: logo,
-      caption: textbv,
-      footer: wm,
-      buttons: buttonsinstagram,
-      headerType: 4
-  }
-  client.sendMessage(from, buttonMessageInstagram, {quoted:m})
-})
-addTypeCmd(command, 1, _cmd)
-break
-case 'ig': 
-if (!q) return m.reply(mess.linkm)
-if (args[0] === "mp4") {
-     client.sendMessage(from, {video:{url:args[1]}, caption:'Done!', mimetype:'video/mp4'}, {quoted:m})
-} else if (args[0] === "jpg") {
-     client.sendMessage(from, {image:{url:args[1]}, caption:'Done!'}, {quoted:m})
-} else {
-m.reply(" Error! ")
-}
-addTypeCmd(command, 1, _cmd)
-break
-case 'facebook': case 'fb': case 'fbmp4': 
-if (!q) return m.reply(mess.linkm)
-let resd = await aiovideodl(args[0])
-teks = `*| FACEBOOK DOWNLOADER |*
-
-Type : video/${resd.medias[0].extension}
-Quality : ${resd.medias[0].quality}
-Size : ${resd.medias[0].formattedSize}
-
-_Untuk kualitas hd anda bisa klik tombol dibawah_`
-let buttonsfacebook = [
-    {buttonId: `fbdl ${resd.medias[1].url}`, buttonText: {displayText: 'QualityHD'}, type: 1}
-]
-
-let buttonMessageFacebook = {
-     video: { url:resd.medias[0].url },
-     caption: teks,
-     footer: wm,
-     buttons: buttonsfacebook,
-     headerType: 4,
-     contextInfo:{ externalAdReply:{
-        title:"  Facebook Downloader",
-        body:"facebook downloader",
-        thumbnail: logo,
-        mediaType:1,
-        mediaUrl: args[0],
-        sourceUrl: args[0]
-      }}
-}
-client.sendMessage(from, buttonMessageFacebook, { quoted: m })
-addTypeCmd(command, 1, _cmd)
-break
-case 'fbdl': 
-if (!q) return m.reply(mess.linkm)
-let buttonsfb = [
-    {buttonId: `menu`, buttonText: {displayText: 'Menu'}, type: 1}
-]
-
-let buttonMessageFb = {
-    video: { url:args[0] },
-    caption: "Done!",
-    footer: wm,
-    buttons: buttonsfb,
-    headerType: 4,
-    contextInfo:{externalAdReply:{
-       title:"  Facebook Downloader",
-       body: " Facebook Downloader",
-       thumbnail: logo,
-       mediaType:1,
-       mediaUrl: args[0],
-       sourceUrl: args[0]
-     }}
-}
-
-client.sendMessage(from, buttonMessageFb, { quoted: m })
-addTypeCmd(command, 1, _cmd)
-break
 case 'join': 
 if (!text) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) client.sendMessage(m.chat, { text: 'Link Invalid!' }, { quoted: m })
@@ -1665,6 +1586,28 @@ m.reply('Tunggu Sebentar, Proses Getting File session.json')
 const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
 addTypeCmd(command, 1, _cmd)
+break
+case 'ig':
+case 'instagram':
+case 'igdl':
+const { instagramdl, instagramdlv2 } = require('@bochilteam/scraper')
+if (!args[0]) m.reply(mess.linkm)
+if (!args[0].match(/https:\/\/www.instagram.com\/(p|reel|tv)/gi)) m.reply(`*Link salah! Perintah ini untuk mengunduh postingan ig/reel/tv, bukan untuk highlight/story!*\n\ncontoh:\n${prefix + command} https://www.instagram.com/p/BmjK1KOD_UG/?utm_medium=copy_link`)
+const resultigdl = await instagramdl(args[0]).catch(async _ => await instagramdlv2(args[0]))
+for (let url of resultigdl) await client.sendFile(m.chat, url, 'Instagram.mp4', `*Url:* ${url}\n*${wm}*`, m)
+addTypeCmd(command, 1, _cmd)
+break
+case 'fb':
+case 'facebook':
+case 'fbdl':
+if (!args[0]) return m.reply('Putting *URL* Facebook..')
+if (!args[0].includes("facebook")) return m.reply(`Url is wrong..\n\n*Example:*\n${prefix}fb https://www.facebook.com/juankcortavarriaoficial/videos/218237676749570/`)
+const resfb = await fetch(`https://masgimenz.com/api/facebook/?url=` + args[0])
+const jsonfb = await resfb.json()
+const urlfb = jsonfb.videoUrl
+m.reply('Sedang diproses...')
+if (urlfb) await client.sendFile(m.chat, urlfb, 'Facebook.mp4', wm, m)
+else m.reply('Link download tidak ditemukan')
 break
 // Default
 default:
