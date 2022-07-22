@@ -160,7 +160,7 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 const isUser = registered.includes(m.sender)
  
 // Other
-const antilink = m.isGroup ? ntilink.includes(from) : false
+const isAntilink = m.isGroup ? antilink.includes(from) : false
 const GcRvk = m.isGroup ? gcrevoke.includes(from) : false
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
 const isAutoStick = _autostick.includes(from)
@@ -687,8 +687,8 @@ const sami = simi.result
 await client.sendMessage(from, {text:sami}, {quoted:m})
 }*/
 
-//antilink Auto Kick
-if (antilink) {
+//Antilink Auto Kick
+if (isAntilink) {
     linkgce = await client.groupInviteCode(from)
     if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) {
         m.reply(`\`\`\`「 Detect Link 」\`\`\`\n\nAnda tidak akan dikick bot karena yang anda kirim adalah link group yg ada di group ini`)
