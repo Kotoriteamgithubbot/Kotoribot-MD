@@ -56,9 +56,11 @@
     "lirik": [],
     "tebakan": []
   },
+  "settings": {},
   "others": {
     "vote": []
   },
+  "chats": {},
   "account":{
     "natiashalsabilla": {
       "password": "admin",
