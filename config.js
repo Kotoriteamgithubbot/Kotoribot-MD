@@ -10,7 +10,7 @@ global.rkyt = []
 
 global.banUser = ['6281366679021@s.whatsapp.net']
 
-global.ntilink = ['120363043965529911@g.us','120363022988111568@g.us']
+global.antilink = ['120363043965529911@g.us','120363022988111568@g.us']
 
 global.gcrevoke = ['19054091487-1424650263@g.us']
 
