@@ -1090,7 +1090,7 @@ ${wit} WIT
 
 *Search*
 ▢ ${prefix}play
-▢ ${prefix}google
+▢ ${prefix}google.
 ▢ ${prefix}brainly .
 
 *Plugin*
@@ -1102,9 +1102,9 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory
-▢ ${prefix}instagram
-▢ ${prefix}facebook
+▢ ${prefix}igstory.
+▢ ${prefix}instagram.
+▢ ${prefix}facebook.
 
 *Group*
 ▢ ${prefix}kick
