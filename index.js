@@ -1579,28 +1579,6 @@ const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
-case 'ig':
-case 'instagram':
-case 'igdl':
-const { instagramdl, instagramdlv2 } = require('@bochilteam/scraper')
-if (!args[0]) m.reply(mess.linkm)
-if (!args[0].match(/https:\/\/www.instagram.com\/(p|reel|tv)/gi)) m.reply(`*Link salah! Perintah ini untuk mengunduh postingan ig/reel/tv, bukan untuk highlight/story!*\n\ncontoh:\n${prefix + command} https://www.instagram.com/p/BmjK1KOD_UG/?utm_medium=copy_link`)
-const resultigdl = await instagramdl(args[0]).catch(async _ => await instagramdlv2(args[0]))
-for (let url of resultigdl) await client.sendFile(m.chat, url, 'Instagram.mp4', `*Url:* ${url}\n*${wm}*`, m)
-addTypeCmd(command, 1, _cmd)
-break
-case 'fb':
-case 'facebook':
-case 'fbdl':
-if (!args[0]) return m.reply('Putting *URL* Facebook..')
-if (!args[0].includes("facebook")) return m.reply(`Url is wrong..\n\n*Example:*\n${prefix}fb https://www.facebook.com/juankcortavarriaoficial/videos/218237676749570/`)
-const resfb = await fetch(`https://masgimenz.com/api/facebook/?url=` + args[0])
-const jsonfb = await resfb.json()
-const urlfb = jsonfb.videoUrl
-m.reply('Sedang diproses...')
-if (urlfb) await client.sendFile(m.chat, urlfb, 'Facebook.mp4', wm, m)
-else m.reply('Link download tidak ditemukan')
-break
 // Default
 default:
     if (isCmd && prefix && !responseplugin) {  
