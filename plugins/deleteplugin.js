@@ -11,5 +11,6 @@ let handler = async(client, m, text) => {
 }
 
 handler.owner = true
+handler.command = /(delplugin|deleteplugin|dp)/i
 
 module.exports = { handler }
