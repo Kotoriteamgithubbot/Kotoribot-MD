@@ -1150,27 +1150,19 @@ Login untuk mendapatkan hak akses:
 //Ada quoted (False or True)
 const thereQuoted = m.quoted? "true":"false"
 
-//Plugin
-if (isCmd && fs.existsSync(`./plugins/${command}.js`)) {
-       const fileplugin = "./plugins/" + command + ".js"
-       delete require.cache[require.resolve(fileplugin)]
-       const { handler } = require(fileplugin)
-       if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-       if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
-       if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
-       if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-       const responseplugin = handler(client, m, text)   
-       if (responseplugin) return addTypeCmd(command, 1, _cmd)
+if (isCmd) {
+     fs.readdirSync('./plugins').forEach(function(file) {
+       	delete require.cache[require.resolve("./plugins/" + file)]
+           const { handler } = require("./plugins/" + file)
+           if (!(handler.command).test(command)) return
+           if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+           if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
+           if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
+           if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
+           const responseplugin = handler(client, m, text)
+           if (responseplugin) return addTypeCmd(command, 1, _cmd)
+     })
 }
-
-/**
-- Akan digunakan
-
-fs.readdirSync('./plugins').forEach(function(file) {
-  require("./plugins/" + file);
-});
-
-*/
     
 //Switch Command
 switch(command) {
