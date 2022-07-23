@@ -11,6 +11,7 @@ let handler = async(client, m) => {
     process.send('reset')
 }
 
+handler.command = /^(debounce|restartprocess)$/i
 handler.owner = true
 
 module.exports = { handler }
