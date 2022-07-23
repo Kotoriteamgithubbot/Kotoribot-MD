@@ -1603,12 +1603,12 @@ else m.reply('Link download tidak ditemukan')
 break
 // Default
 default:
-    if (isCmd && prefix) {  
+    if (isCmd && prefix && !responseplugin) {  
        //Match List Command JSON
        did = didyoumean(command, _cmd, 'id') 
        sim = similarity(command, did)    
        if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
-       m.reply(`*Maksud kamu ${did}?*\n\n_Kecocokan ${sim * 100}%_`) 
+       m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
     }
     
     if (budy.startsWith('=>')) {
