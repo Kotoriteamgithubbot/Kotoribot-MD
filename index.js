@@ -1187,8 +1187,7 @@ addTypeCmd(command, 1, _cmd)
 break
 case 'delete': case 'del': 
 if (!m.quoted) return m.reply(mess.reply)
-let { chat, fromMe, id, isBaileys } = m.quoted
-if (!isBaileys) return m.reply('Pesan tersebut bukan dikirim oleh bot!')
+if (!m.quoted.isBaileys) return m.reply('Pesan tersebut bukan dikirim oleh bot!')
 client.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender }})
 addTypeCmd(command, 1, _cmd)
 break
