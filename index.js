@@ -1162,7 +1162,7 @@ if (isCmd) {
      	try {
          	delete require.cache[require.resolve("./plugins/" + file)]
              const { handler } = require("./plugins/" + file)
-             if (!(handler.command).test(command)) return
+             if (!handler.command.test(command)) return
              if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
              if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
              if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
@@ -1183,7 +1183,7 @@ switch(command) {
 case 'afk': 
 let userAfk = global.db.data.users[m.sender]
 userAfk.afkTime = + new Date
-userAfk.afkReason = text ? text : ''
+userAfk.afkReason = text
 m.reply(`${m.pushName} Telah Afk${text ? ': ' + text : ''}`)
 addTypeCmd(command, 1, _cmd)
 break	
