@@ -1181,7 +1181,7 @@ if (isCmd) {
 //Switch Command
 switch(command) {
 case 'afk': 
-const userAfk = global.db.data.users[m.sender]
+let userAfk = global.db.data.users[m.sender]
 userAfk.afkTime = + new Date
 userAfk.afkReason = text
 m.reply(`${m.pushName} Telah Afk${text ? ': ' + text : ''}`)
