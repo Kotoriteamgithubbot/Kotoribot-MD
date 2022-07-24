@@ -1093,8 +1093,8 @@ ${wit} WIT
 
 *Search*
 ▢ ${prefix}play
-▢ ${prefix}google (maintenance)
-▢ ${prefix}brainly (maintenance)
+▢ ${prefix}google
+▢ ${prefix}brainly (perbaikan)
 
 *Plugin*
 ▢ ${prefix}getplugin
@@ -1105,9 +1105,9 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory (maintenance)
-▢ ${prefix}instagram (maintenance)
-▢ ${prefix}facebook (maintenance)
+▢ ${prefix}igstory (perbaikan)
+▢ ${prefix}instagram (perbaikan)
+▢ ${prefix}facebook (perbaikan)
 
 *Group*
 ▢ ${prefix}kick
@@ -1118,14 +1118,14 @@ ${wit} WIT
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
-▢ ${prefix}announce (maintenance)
+▢ ${prefix}announce (perbaikan)
 
 *Owner*
 ▢ ${prefix}public
 ▢ ${prefix}broadcast
 ▢ ${prefix}getsession
 ▢ ${prefix}self
-▢ ${prefix}notice (maintenance)`
+▢ ${prefix}notice (perbaikan)`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1288,9 +1288,9 @@ let google = require('google-it')
 google({'query': text}).then(res => {
      const teksgoogle = `Google Search From : ${text}\n\n`
      for (let g of res) {
-          teks += `⭔ *Title* : ${g.title}\n`
-          teks += `⭔ *Description* : ${g.snippet}\n`
-          teks += `⭔ *Link* : ${g.link}\n\n────────────────────────\n\n`
+          teksgoogle += `⭔ *Title* : ${g.title}\n`
+          teksgoogle += `⭔ *Description* : ${g.snippet}\n`
+          teksgoogle += `⭔ *Link* : ${g.link}\n\n────────────────────────\n\n`
       } 
       m.reply(teksgoogle)
 })
