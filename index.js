@@ -1169,7 +1169,7 @@ if (isCmd) {
              if (responseplugin) return addTypeCmd(command, 1, _cmd)
           } catch (err) {
           	 for (let i = 0; i < owner.length; i++) {
-                    client.sendMessage(owner[i] + 's.whatsapp.net', { text: `Error Plugin './plugins/${file}'` }, { quoted: m })
+                   client.sendMessage(owner[i] + 's.whatsapp.net', { text: `Error Plugin './plugins/${file}'` }, { quoted: m })
                    await sleep(1000)  
               }     	
           }
