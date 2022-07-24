@@ -1084,6 +1084,7 @@ ${wit} WIT
 ▢ ${prefix}math
 
 *Main*
+▢ ${prefix}afk
 ▢ ${prefix}delete
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
