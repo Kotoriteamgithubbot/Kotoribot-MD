@@ -1173,7 +1173,7 @@ if (isCmd) {
     
 //Switch Command
 switch(command) {
-case 'runtime' case 'uptime':
+case 'runtime': case 'uptime':
 const textRuntimeorUptime = `*${client.user.name}* R U N T I M E
 Waktu Aktif ${runtime(process.uptime())}\n\n${wm}`
 client.sendMessage(m.chat, { text: textRuntimeorUptime }, { quoted: m })
@@ -1524,7 +1524,7 @@ for (let i of sendbroadcastto) {
 }
 addTypeCmd(command, 1, _cmd)
 break
-case 'notice'
+case 'notice':
 if (!isCreator) return m.reply(mess.owner)
 if (args.length < 1) return m.reply('Masukkan isi pesannya')
 for (let i = 0; i < owner.length; i++) {
