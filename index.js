@@ -1158,8 +1158,8 @@ if (isCmd) {
      	try {
          	delete require.cache[require.resolve("./plugins/" + file)]
              const { handler } = require("./plugins/" + file)
-             const testMatchCommandPlugin = handler.command.test(command) 
-             const testMatchCustomPlugin = handler.customDefault.test(command) ? ( prefix ? false : true ) :  false
+             const testMatchCommandPlugin = handler.command.test(command) ? true : (handler.customDefault.test(command) ? ( prefix ? false : true ) : false)
+             const testMatchCustomPlugin = handler.customDefault.test(command) ? ( prefix ? false : true ) :  (handler.command.test(command) ? true : false)
              if (!testMatchCommandPlugin || !testMatchCustomPlugin) return
              if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
              if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
