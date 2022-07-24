@@ -1158,14 +1158,14 @@ if (isCmd) {
      	try {
          	delete require.cache[require.resolve("./plugins/" + file)]
              const { handler } = require("./plugins/" + file)
-             if (!handler.command.test(command) || !handler.customDefault.test || (handler.customDefault.test(command) && prefix)) return
+             if (!(handler.command).test(command) || !(handler.customDefault).test || (handler.customDefault.test(command) && prefix)) return
              if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
              if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
              if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
              if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
              const responseplugin = handler(client, m, text)
              if (responseplugin) return addTypeCmd(command, 1, _cmd)
-          } catch (e) {
+          } catch (err) {
           	client.sendMessage(m.chat, { text: `Error Plugin './plugins/' + ${file}` }, { quoted: m })
           }
      })
