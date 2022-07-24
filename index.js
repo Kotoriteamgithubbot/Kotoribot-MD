@@ -1090,8 +1090,8 @@ ${wit} WIT
 
 *Search*
 ▢ ${prefix}play
-▢ ${prefix}google.
-▢ ${prefix}brainly .
+▢ ${prefix}google
+▢ ${prefix}brainly
 
 *Plugin*
 ▢ ${prefix}getplugin
@@ -1102,9 +1102,9 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory.
-▢ ${prefix}instagram.
-▢ ${prefix}facebook.
+▢ ${prefix}igstory
+▢ ${prefix}instagram
+▢ ${prefix}facebook
 
 *Group*
 ▢ ${prefix}kick
@@ -1115,15 +1115,14 @@ ${wit} WIT
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
+▢ ${prefix}announce
 
 *Owner*
 ▢ ${prefix}public
 ▢ ${prefix}broadcast
 ▢ ${prefix}getsession
 ▢ ${prefix}self
-
-
-_Bot masih dalam pengembangan, tolong ketik .request <permintaan> untuk membantu partisipasi dalam pengembangan bot_`
+▢ ${prefix}notice`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1152,15 +1151,19 @@ const thereQuoted = m.quoted? "true":"false"
 
 if (isCmd) {
      fs.readdirSync('./plugins').forEach(function(file) {
-       	delete require.cache[require.resolve("./plugins/" + file)]
-           const { handler } = require("./plugins/" + file)
-           if (!(handler.command).test(command)) return
-           if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-           if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
-           if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
-           if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-           const responseplugin = handler(client, m, text)
-           if (responseplugin) return addTypeCmd(command, 1, _cmd)
+     	try {
+         	delete require.cache[require.resolve("./plugins/" + file)]
+             const { handler } = require("./plugins/" + file)
+             if ((!(handler.command).test(command)) || ((handler.customDefault).test(command) && prefix)) return
+             if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+             if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
+             if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
+             if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
+             const responseplugin = handler(client, m, text)
+             if (responseplugin) return addTypeCmd(command, 1, _cmd)
+          } catch (e) {
+          	client.sendMessage(m.chat, { text: `Error Plugin './plugins/' + ${file}` }, { quoted: m })
+          }
      })
 }
     
