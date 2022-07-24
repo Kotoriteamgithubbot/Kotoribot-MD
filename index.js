@@ -1153,6 +1153,9 @@ Login untuk mendapatkan hak akses:
 //Ada quoted (False or True)
 const thereQuoted = m.quoted? "true":"false"
 
+//Ditangani oleh Handler?
+var handlerPlugin;
+
 if (isCmd) {
      fs.readdirSync('./plugins').forEach(function(file) {
      	try {
@@ -1164,7 +1167,10 @@ if (isCmd) {
              if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
              if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
              const responseplugin = handler(client, m, text, args, prefix)
-             if (responseplugin) return addTypeCmd(command, 1, _cmd)
+             if (responseplugin) {
+               handlerPlugin = true
+               return addTypeCmd(command, 1, _cmd)
+             }
           } catch (err) {
               for (let i = 0; i < owner.length; i++) {
                  client.sendMessage(owner[i] + 's.whatsapp.net', { text: `Error Plugin './plugins/${file}'` }, { quoted: m })
@@ -1289,7 +1295,7 @@ case 'google':
 if (!text) m.reply(`Example : ${prefix + command} Jokowi Dodo`)
 let google = require('google-it')
 google({'query': text}).then(res => {
-     const teksgoogle = `Google Search From : ${text}\n\n`
+     let teksgoogle = `Google Search From : ${text}\n\n`
      for (let g of res) {
           teksgoogle += `⭔ *Title* : ${g.title}\n`
           teksgoogle += `⭔ *Description* : ${g.snippet}\n`
@@ -1623,7 +1629,7 @@ addTypeCmd(command, 1, _cmd)
 break
 // Default
 default:
-    if (isCmd && prefix && !responseplugin) {  
+    if (isCmd && prefix && !handlerPlugin) {  
        //Match List Command JSON
        did = didyoumean(command, _cmd, 'id') 
        sim = similarity(command, did)    
