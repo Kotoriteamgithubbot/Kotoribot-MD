@@ -1172,15 +1172,20 @@ if (isCmd) {
                return addTypeCmd(command, 1, _cmd)
              }
           } catch (err) {
-              for (let i = 0; i < owner.length; i++) {
-                 client.sendMessage(owner[i] + 's.whatsapp.net', { text: `Error Plugin ./plugins/${file}` }, { quoted: m })
-              }     	
+              console.log(err) // ga tau bisa apa engga ditampilin diconsole, ini cuman biar kalau ada plugin error ga rusak botnya) 	
           }
      })
 }
     
 //Switch Command
 switch(command) {
+case 'afk': 
+const userAfk = global.db.data.users[m.sender]
+userAfk.afkTime = + new Date
+userAfk.afkReason = text
+m.reply(`${m.pushName} Telah Afk${text ? ': ' + text : ''}`)
+addTypeCmd(command, 1, _cmd)
+break	
 case 'runtime': case 'uptime':
 const textRuntimeorUptime = `*${client.user.name}* R U N T I M E
 Waktu Aktif ${runtime(process.uptime())}\n\n${wm}`
