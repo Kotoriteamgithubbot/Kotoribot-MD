@@ -1082,16 +1082,19 @@ ${wit} WIT
 ▢ ${prefix}react
 ▢ ${prefix}math
 
-*Info*
+*Main*
+▢ ${prefix}delete
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
 ▢ ${prefix}donasi
 ▢ ${prefix}request
+▢ ${prefix}owner
+▢ ${prefix}runtime
 
 *Search*
 ▢ ${prefix}play
-▢ ${prefix}google
-▢ ${prefix}brainly
+▢ ${prefix}google (maintenance)
+▢ ${prefix}brainly (maintenance)
 
 *Plugin*
 ▢ ${prefix}getplugin
@@ -1102,9 +1105,9 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory
-▢ ${prefix}instagram
-▢ ${prefix}facebook
+▢ ${prefix}igstory (maintenance)
+▢ ${prefix}instagram (maintenance)
+▢ ${prefix}facebook (maintenance)
 
 *Group*
 ▢ ${prefix}kick
@@ -1115,14 +1118,14 @@ ${wit} WIT
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
-▢ ${prefix}announce
+▢ ${prefix}announce (maintenance)
 
 *Owner*
 ▢ ${prefix}public
 ▢ ${prefix}broadcast
 ▢ ${prefix}getsession
 ▢ ${prefix}self
-▢ ${prefix}notice`
+▢ ${prefix}notice (maintenance)`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1169,6 +1172,23 @@ if (isCmd) {
     
 //Switch Command
 switch(command) {
+case 'runtime' case 'uptime':
+const textRuntimeorUptime = `*${client.user.name}* R U N T I M E
+Waktu Aktif ${runtime(process.uptime())}\n\n${wm}`
+client.sendMessage(m.chat, { text: textRuntimeorUptime }, { quoted: m })
+addTypeCmd(command, 1, _cmd)
+break
+case 'owner': case 'creator': 
+client.sendContact(m.chat, owner, m)
+addTypeCmd(command, 1, _cmd)
+break
+case 'delete': case 'del': 
+if (!m.quoted) return m.reply(mess.reply)
+let { chat, fromMe, id, isBaileys } = m.quoted
+if (!isBaileys) return m.reply('Pesan tersebut bukan dikirim oleh bot!')
+client.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender }})
+addTypeCmd(command, 1, _cmd)
+break
 case 'public': 
 if (!isCreator) m.reply(mess.owner)
 client.public = true
