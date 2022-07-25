@@ -186,6 +186,10 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
+//Aineteam
+const prefExeChat = /($|=>|>)/i.test(prefix)
+const isGroupAine = (m.chat === "6282237617224-1624210669@g.us") ? true : false)
+
 //Sewa
 _sewa.expiredCheck(client, sewa)
 
@@ -1634,9 +1638,6 @@ addTypeCmd(command, 1, _cmd)
 break
 // Default
 default:
-    const prefExeChat = /($|=>|>)/i.test(prefix)
-    const isGroupAine = (m.chat === "6282237617224-1624210669@g.us") ? true : false
-
     if (budy.startsWith('=>')) {
     if (!isCreator) return m.reply(mess.owner)
     function Return(sul) {
@@ -1691,12 +1692,13 @@ default:
         }
         
         //Biar ga ketinggal update Aine
-        if (isGroupAine && budy.startsWith('./sf')) {
-           if (!m.quoted) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
-           if (!m.quoted.text) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
-           let path = "./aineplugins/" + text + ".js"
-    await require('fs').writeFileSync(path, m.quoted.text)
-          m.reply(`Saved ${path} to file!`)
+        if (isGroupAine && budy.startsWith('.sf')) {
+            if (!m.quoted) return 
+            if (!m.quoted.text) return 
+            const matchPathAine = text.includes('./plugins') ? text.replace('./plugins/', '') : ''
+            const pathAineProject = "./cloudbypsn/manager/aineteam/project/" + new Date + matchPathAine + ".js"
+            await fs.writeFileSync(pathAineProject, m.quoted.text)
+            m.reply(`Saved ${path} to file!`)
         }        
       }
    } catch (err) {
