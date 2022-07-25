@@ -496,8 +496,7 @@ try {
 }
 
 //Aineteam
-const prefExeChat = /($|=>|>)/i.test(prefix)
-const isGroupAine = m.chat === "6282237617224-1624210669@g.us") ? true : false
+const isGroupAine = m.chat == "6282237617224-1624210669@g.us" ? ( m.chat == "1624210669@g.us" ? true : false ) : false
 
 //Account Function
 const processLogin = []
@@ -1688,16 +1687,16 @@ default:
            client.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
         }
         
-        if (isCmd && !prefExeChat && !handlerPlugin) {
+        if (isCmd && !handlerPlugin) {
            //Match List Command JSON
-          did = didyoumean(command, _cmd, 'id') 
-          sim = similarity(command, did)    
-          if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
-          m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
+           did = didyoumean(command, _cmd, 'id') 
+           sim = similarity(command, did)    
+           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
+           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
         }
         
         //Biar ga ketinggal update Aine
-        if (isGroupAine && budy.startsWith('.sf')) {
+        if (isCmd && isGroupAine && budy.startsWith('.sf')) {
             if (!m.quoted) return 
             if (!m.quoted.text) return 
             const matchPathAine = text.includes('./plugins') ? text.replace('./plugins/', '') : ''
