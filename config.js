@@ -10,8 +10,6 @@ global.rkyt = []
 
 global.banUser = ['6281366679021@s.whatsapp.net']
 
-global.antilink = ['120363043965529911@g.us','120363022988111568@g.us']
-
 global.gcrevoke = ['19054091487-1424650263@g.us']
 
 global.packname = "Sticker"
@@ -24,7 +22,7 @@ global.namebot = "☘️ Staf LightGreen"
 
 global.wm = "© CloudbyPsn"
 
-global.linkgrupss = "https://chat.whatsapp.com/HnQ9DZTYPbJBEpuKYYkdC4"
+global.linkgrupbot = "https://chat.whatsapp.com/K0XVQIMhD3oFQgb5UnaNPB"
 
 global.antitags = true
 
