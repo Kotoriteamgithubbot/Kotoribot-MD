@@ -79,6 +79,7 @@ if (global.db) global.db = {
     chats: {},
     account: {},
     users: {},
+    antilink: [],
     ...(global.db || {})
 }
 
