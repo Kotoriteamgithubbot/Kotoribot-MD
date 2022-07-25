@@ -1115,9 +1115,9 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory (perbaikan)
-▢ ${prefix}instagram (perbaikan)
-▢ ${prefix}facebook (perbaikan)
+▢ ${prefix}igstory
+▢ ${prefix}instagram
+▢ ${prefix}facebook
 
 *Group*
 ▢ ${prefix}kick
@@ -1128,7 +1128,7 @@ ${wit} WIT
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
-▢ ${prefix}announce (perbaikan)
+▢ ${prefix}announce
 
 *Owner*
 ▢ ${prefix}public
