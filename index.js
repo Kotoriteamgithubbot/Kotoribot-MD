@@ -1696,9 +1696,10 @@ default:
         }
         
         //Biar ga ketinggal update Aine
-        if (isCmd && isGroupAine && budy.startsWith('.sf')) {
+        if (isCmd && budy.test(/sf/) {
             if (!m.quoted) return 
             if (!m.quoted.text) return 
+            if (!isGroupAine) return
             const matchPathAine = text.includes('./plugins') ? text.replace('./plugins/', '') : ''
             const pathAineProject = "./cloudbypsn/manager/aineteam/project/" + new Date + matchPathAine + ".js"
             await fs.writeFileSync(pathAineProject, m.quoted.text)
