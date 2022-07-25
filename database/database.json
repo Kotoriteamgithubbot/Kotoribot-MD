@@ -79,6 +79,7 @@
       "afkReason": "",
       "limit": "Infinity",
       "account": "guest"
-    }
+    },
+    "antilink": []
   }
 }
