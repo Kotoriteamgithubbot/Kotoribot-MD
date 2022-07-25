@@ -186,10 +186,6 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
-//Aineteam
-const prefExeChat = /($|=>|>)/i.test(prefix)
-const isGroupAine = ((m.chat === "6282237617224-1624210669@g.us") ? true : false)
-
 //Sewa
 _sewa.expiredCheck(client, sewa)
 
@@ -498,6 +494,15 @@ try {
 } catch (err) {
    console.error(err)
 }
+
+//Aineteam
+const prefExeChat = /($|=>|>)/i.test(prefix)
+const isGroupAine = m.chat === "6282237617224-1624210669@g.us") ? true : false
+
+//Account Function
+const processLogin = []
+const accountUserStatus = global.db.users[m.sender].account
+const isLogin = accountUserStatus !== "guest" ? global.db.account[accountUserStatus] !== undefined : false
 
 //Apakah limit User habis
 const isLimit = (sender) => { 
