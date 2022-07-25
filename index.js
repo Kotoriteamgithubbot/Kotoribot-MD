@@ -495,9 +495,6 @@ try {
    console.error(err)
 }
 
-//Aineteam
-const isGroupAine = m.chat == "6282237617224-1624210669@g.us" ? ( m.chat == "1624210669@g.us" ? true : false ) : false
-
 //Account Function
 const processLogin = []
 const accountUserStatus = global.db.users[m.sender].account
@@ -686,29 +683,22 @@ if (db.users[m.sender].afkTime > -1) {
 //Detect Group Invite 
 if (m.mtype === 'groupInviteMessage') {
     teks = `Ketik .owner untuk bergabung ke group whatsapp anda`
-    sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./media/image/client.jpg'), 2022, "FardanBot", "6283155687629@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
+    //sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./media/image/client.jpg'), 2022, "FardanBot", "6283155687629@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
 }
-
-/*const bodyyy = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
-if (!isCmd && !m.isGroup && !m.key.fromMe) {
-const simi = await fetchJson(`https://caliph.my.id/api/simi.php?text=${budy}`)
-const sami = simi.result
-await client.sendMessage(from, {text:sami}, {quoted:m})
-}*/
 
 //Antilink Auto Kick
 if (isAntilink) {
-    linkgce = await client.groupInviteCode(from)
-    if (budy.includes(`https://chat.whatsapp.com/${linkgce}`)) {
+    const linkGroupAntilink = await client.groupInviteCode(from)
+    if (budy.includes('https://chat.whatsapp.com/' + linkGroupAntilink)) {
         m.reply(`\`\`\`「 Detect Link 」\`\`\`\n\nAnda tidak akan dikick bot karena yang anda kirim adalah link group yg ada di group ini`)
     } else if (isUrl(m.text)) {
-       bvl = `\`\`\`「 Detect Link 」\`\`\`\n\nAdmin telah mengirim link, admin dibebaskan untuk mengirim link apapun`
-       if (isAdmins) return m.reply(bvl)
-       if (m.key.fromMe) return m.reply(bvl)
-       if (isCreator) return m.reply(bvl)
-       kice = m.sender
-       await client.groupParticipantsUpdate(m.chat, [kice], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
-       client.sendMessage(from, {text:`\`\`\`「 Detect Link 」\`\`\`\n\n@${kice.split("@")[0]} Telah dikick karena send link di group ini`, contextInfo:{mentionedJid:[kice]}}, {quoted:m})
+       const adminTextAntilink = `\`\`\`「 Detect Link 」\`\`\`\n\nAdmin telah mengirim link, admin dibebaskan untuk mengirim link apapun`
+       if (isAdmins) return m.reply(adminTextAntilink)
+       if (m.key.fromMe) return m.reply(adminTextAntilink)
+       if (isCreator) return m.reply(adminTextAntilink)
+       const targetKickAntilink = m.sender
+       await client.groupParticipantsUpdate(m.chat, [targetKickAntilink], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+       client.sendMessage(from, {text:`\`\`\`「 Detect Link 」\`\`\`\n\n@${targetKickAntilink.split("@")[0]} Telah dikick karena mengirim link di group ini`, contextInfo:{mentionedJid:[targetKickAntilink]}}, {quoted:m})
     }
 }
 
@@ -1641,7 +1631,15 @@ await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/
 addTypeCmd(command, 1, _cmd)
 break
 // Default
-default:
+default
+    if (isCmd && !isCreator && !handlerPlugin) {
+           //Match List Command JSON
+           did = didyoumean(command, _cmd, 'id') 
+           sim = similarity(command, did)    
+           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
+           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
+    }           
+    
     if (budy.startsWith('=>')) {
     if (!isCreator) return m.reply(mess.owner)
     function Return(sul) {
@@ -1686,23 +1684,6 @@ default:
             if (!(budy.toLowerCase() in msgs)) return
            client.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
         }
-        
-        if (isCmd && !handlerPlugin) {
-           //Match List Command JSON
-           did = didyoumean(command, _cmd, 'id') 
-           sim = similarity(command, did)    
-           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
-           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
-        }
-        
-        //Biar ga ketinggal update Aine
-        if (isCmd && budy.test(/.sf/) {
-            if (!m.quoted && !m.quoted.text && !isGroupAine) return 
-            const matchPathAine = text.includes('./plugins') ? text.replace('./plugins/', '') : ''
-            const pathAineProject = "./cloudbypsn/manager/aineteam/project/" + new Date + matchPathAine + ".js"
-            await fs.writeFileSync(pathAineProject, m.quoted.text)
-            m.reply(`Saved ${path} to file!`)
-        }        
       }
    } catch (err) {
       console.log(err)
