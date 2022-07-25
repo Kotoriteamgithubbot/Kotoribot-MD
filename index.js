@@ -104,6 +104,7 @@ const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'))
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
 let _sewa = require("./lib/sewa");
+const antilink = db.antilink = []
 const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
 const totalhit = JSON.parse(fs.readFileSync('./database/totalhit.json'));
 
