@@ -188,7 +188,7 @@ const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Mes
 
 //Aineteam
 const prefExeChat = /($|=>|>)/i.test(prefix)
-const isGroupAine = (m.chat === "6282237617224-1624210669@g.us") ? true : false)
+const isGroupAine = ((m.chat === "6282237617224-1624210669@g.us") ? true : false)
 
 //Sewa
 _sewa.expiredCheck(client, sewa)
