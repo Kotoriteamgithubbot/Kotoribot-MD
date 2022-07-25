@@ -1162,7 +1162,7 @@ if (isCmd) {
      	try {
          	delete require.cache[require.resolve("./plugins/" + file)]
              const { handler } = require("./plugins/" + file)
-             if (!handler.command.test(command)) return
+             if (!command || !handler.command.test(command)) return
              if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
              if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
              if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
@@ -1173,7 +1173,7 @@ if (isCmd) {
                return addTypeCmd(command, 1, _cmd)
              }
           } catch (err) {
-              console.log(err) // ga tau bisa apa engga ditampilin diconsole, ini cuman biar kalau ada plugin error ga rusak botnya) 	
+              client.sendMessage(owner[0] + '@s.whatsapp.net', { text: "Handler error in plugin ./plugins/" + file })
           }
      })
 }
@@ -1181,7 +1181,7 @@ if (isCmd) {
 //Switch Command
 switch(command) {
 case 'afk': 
-let userAfk = global.db.data.users[m.sender]
+let userAfk = global.db.users[m.sender]
 userAfk.afkTime = + new Date
 userAfk.afkReason = text
 m.reply(`${m.pushName} Telah Afk${text ? ': ' + text : ''}`)
@@ -1634,13 +1634,7 @@ addTypeCmd(command, 1, _cmd)
 break
 // Default
 default:
-    if (isCmd && prefix && !handlerPlugin) {  
-       //Match List Command JSON
-       did = didyoumean(command, _cmd, 'id') 
-       sim = similarity(command, did)    
-       if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
-       m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
-    }
+    const prefExeChat = /($|=>|>)/i.test(prefix)
     
     if (budy.startsWith('=>')) {
     if (!isCreator) return m.reply(mess.owner)
@@ -1685,6 +1679,14 @@ default:
             let msgs = global.db.database
             if (!(budy.toLowerCase() in msgs)) return
            client.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
+        }
+        
+        if (isCmd && !prefExeChat && !handlerPlugin) {
+           //Match List Command JSON
+          did = didyoumean(command, _cmd, 'id') 
+          sim = similarity(command, did)    
+          if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
+          m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
         }
       }
    } catch (err) {
