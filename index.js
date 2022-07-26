@@ -1660,7 +1660,7 @@ await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/
 addTypeCmd(command, 1, _cmd)
 break
 // Default
-default
+default:
     if (isCmd && !isCreator && !handlerPlugin) {
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
