@@ -1661,7 +1661,7 @@ addTypeCmd(command, 1, _cmd)
 break
 // Default
 default:
-    if (isCmd && !isCreator && !handlerPlugin) {
+    if (isCmd && prefix != '' && !handlerPlugin) {
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
            sim = similarity(command, did)    
