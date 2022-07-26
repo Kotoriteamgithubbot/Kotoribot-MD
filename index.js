@@ -79,7 +79,6 @@ if (global.db) global.db = {
     chats: {},
     account: {},
     users: {},
-    antilink: [],
     ...(global.db || {})
 }
 
@@ -104,7 +103,6 @@ const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'))
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
 let _sewa = require("./lib/sewa");
-const antilink = db.antilink = []
 const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
 const totalhit = JSON.parse(fs.readFileSync('./database/totalhit.json'));
 
@@ -163,8 +161,7 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 const isUser = registered.includes(m.sender)
  
 // Other
-const isAntilink = m.isGroup ? antilink.includes(from) : false
-const GcRvk = m.isGroup ? gcrevoke.includes(from) : false
+const groupRevoke = m.isGroup ? gcrevoke.includes(from) : false
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
 const isAutoStick = _autostick.includes(from)
 const isAutoSticker = m.isGroup ? autosticker.includes(from) : false
@@ -493,6 +490,15 @@ try {
            limit: limitUser,
            account: "guest"
         }
+        let chats = global.db.chats[m.chat]
+        if (typeof chats !== 'object') global.db.chats[m.chat] = {}
+        if (chats) {
+           if (!('mute' in chats)) chats.mute = false
+           if (!('antilink' in chats)) chats.antilink = false
+        } else global.db.chats[m.chat] = {
+          mute: false,
+          antilink: false
+        }
 } catch (err) {
    console.error(err)
 }
@@ -689,7 +695,7 @@ if (m.mtype === 'groupInviteMessage') {
 }
 
 //Antilink Auto Kick
-if (isAntilink) {
+if (global.db.chats[m.chat].antilink) {
     const linkGroupAntilink = await client.groupInviteCode(from)
     if (budy.includes('https://chat.whatsapp.com/' + linkGroupAntilink)) {
         m.reply(`\`\`\`「 Detect Link 」\`\`\`\n\nAnda tidak akan dikick bot karena yang anda kirim adalah link group yg ada di group ini`)
@@ -1180,6 +1186,27 @@ if (isCmd) {
     
 //Switch Command
 switch(command) {
+case 'antilink': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isBotAdmins) m.reply(mess.botAdmin)
+if (!isAdmins) m.reply(mess.admin)
+if (args[0] === "on") {
+if (global.db.chats[m.chat].antilink) return m.reply("Antilink sudah aktif sebelumnya!")
+   global.db.chats[m.chat].antilink = true
+   m.reply("Antilink aktif!")
+} else if (args[0] === "off") {
+    if (!global.db.chats[m.chat].antilink) return m.reply("Sudah Tidak Aktif Sebelumnya!")
+    global.db.chats[m.chat].antilink = false
+    m.reply("Antilink tidak aktif!")
+} else {
+    const buttonsAntilink = [
+        { buttonId: 'antilink on', buttonText: { displayText: 'On' }, type: 1 },
+        { buttonId: 'antilink off', buttonText: { displayText: 'Off' }, type: 1 }
+    ]
+    await client.sendButtonText(m.chat, buttonsAntilink, "Mode Antilink", wm, m)
+}
+addTypeCmd(command, 1, _cmd)
+break
 case 'afk': 
 let userAfk = global.db.users[m.sender]
 userAfk.afkTime = + new Date
