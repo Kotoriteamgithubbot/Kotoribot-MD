@@ -38,7 +38,8 @@ global.mess = {
     linkm: 'Linknya Mana Kak?',
     query: 'Mau Cari Apa Kak?',
     reply: 'Reply Pesannya!',
-    ban: 'Kamu telah dibanned oleh owner, Jika ingin di unbanned chat owner'
+    ban: 'Kamu telah dibanned oleh owner, Jika ingin di unbanned chat owner',
+    prem: 'Maaf fitur ini untuk pengguna Premium!'
 }
 
 global.limitawal = {
