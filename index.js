@@ -1163,23 +1163,27 @@ const thereQuoted = m.quoted? "true":"false"
 //Ditangani oleh Handler?
 var handlerPlugin;
 
-if (isCmd) {
+if (isCmd && command) {
      fs.readdirSync('./plugins').forEach(function(file) {
      	try {
          	delete require.cache[require.resolve("./plugins/" + file)]
-             const { handler } = require("./plugins/" + file)
-             if (!command || !handler.command.test(command)) return
-             if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-             if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: '' }, { quoted: m })
-             if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
-             if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-             const responseplugin = handler(client, m, text, args, prefix)
-             if (responseplugin) {
-               handlerPlugin = true
-               return addTypeCmd(command, 1, _cmd)
-             }
+             let handler = require("./plugins/" + file)
+             if (handler.command.test(command)) {
+                 if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+                 if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
+                 if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
+                 if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
+                 const responseplugin = handler(client, m, text, args, prefix)
+                 if (responseplugin) {
+                     handlerPlugin = true
+                     return addTypeCmd(command, 1, _cmd)
+                 }
+              }
           } catch (err) {
-              client.sendMessage(owner[0] + '@s.whatsapp.net', { text: "Handler error in plugin ./plugins/" + file })
+          	owner.forEach((parseOwner) => {
+                   client.sendMessage(parseOwner + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\nError: ${err}` })
+              }) 
+              //Autosend Error to Owner
           }
      })
 }
