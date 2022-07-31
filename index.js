@@ -161,7 +161,6 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
 const isUser = registered.includes(m.sender)
  
 // Other
-const groupRevoke = m.isGroup ? gcrevoke.includes(from) : false
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
 const isAutoStick = _autostick.includes(from)
 const isAutoSticker = m.isGroup ? autosticker.includes(from) : false
