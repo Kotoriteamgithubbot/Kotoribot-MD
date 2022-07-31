@@ -1669,6 +1669,13 @@ const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
+case 'exec':
+if (!isCreator) return m.reply(mess.owner)
+exec(budy.slice(2), (err, stdout) => {
+     if (err) return client.sendMessage(from, { image:logo, caption:String(err)}, { quoted:m })
+     if (stdout) return m.reply(stdout)
+})
+break
 // Default
 default:
     if (isCmd && prefix != '' && !handlerPlugin) {
@@ -1706,15 +1713,6 @@ default:
           await client.sendMessage(from, {image:logo, caption:String(err)}, {quoted:m})
        }
     }
-
-     if (budy.startsWith('$')) {
-          if (!isCreator) return m.reply(mess.owner)
-          console.log('\x1b[1;34m~\x1b[1;37m>', '[\x1b[1;33mEXEE\x1b[1;37m]', time, color(`Exe Dari Owner`, 'cyan'))
-          exec(budy.slice(2), (err, stdout) => {
-               if(err) return client.sendMessage(from, {image:logo, caption:String(err)}, {quoted:m})
-               if (stdout) return m.reply(stdout)
-          })
-       }
 
         if (isCmd && budy.toLowerCase() != undefined) {
             if (m.chat.endsWith('broadcast')) return
