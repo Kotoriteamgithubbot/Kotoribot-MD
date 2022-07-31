@@ -16,4 +16,4 @@ let handler = async(client, m, text) => {
 handler.owner = true
 handler.command = /(gp|getplugin)/i
 
-module.exports = { handler }
+module.exports = handler
