@@ -1580,7 +1580,14 @@ break
 case 'request':
 if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
 const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')[0]}\nPermintaan: ${q}`
-client.sendMessage(owner[0] + '@s.whatsapp.net', { text: textrequest }, { quoted: m })
+//Owners
+owner.forEach((parseOwner) => {
+      client.sendMessage(parseOwner + '@s.whatsapp.net', { text: textrequest })
+}) 
+//Group Team
+groupTeam.forEach((parseGroup) => {
+      client.sendMessage(parseGroup, { text: textrequest })
+}) 
 m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
 addTypeCmd(command, 1, _cmd)
 break
