@@ -1657,7 +1657,7 @@ addTypeCmd(command, 1, _cmd)
 break
 case 'exec':
 if (!isCreator) return m.reply(mess.owner)
-exec(text, (err, stdout) => {
+global.exec(text, (err, stdout) => {
      if (err) return client.sendMessage(from, { image:logo, caption:String(err)}, { quoted:m })
      if (stdout) return m.reply(stdout)
 })
