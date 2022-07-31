@@ -10,8 +10,8 @@ RUN apt-get update && \
 
 COPY package.json .
 
-RUN npm install
+RUN npm install && npm install pm2 -g
 
 COPY . .
 
-CMD ["node", "."]
+CMD ["pm2", "start", "start.js"]
