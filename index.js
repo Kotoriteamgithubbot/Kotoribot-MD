@@ -198,18 +198,6 @@ if (isAutoSticker) {
      }
 }
 
-if (isAutoStick) {
-    if (/image/.test(mime) && !/webp/.test(mime)) {
-        let mediac = await quoted.download()
-        await client.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
-        console.log(`Detec Autosticker`)
-     } else if (/video/.test(mime)) {
-          if ((quoted.msg || quoted).seconds > 11) return
-          let mediac = await quoted.download()
-          await client.sendVideoAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
-     }
-}
-
 //Buat Angka Acak
 function randomNomor(angka) {
      return Math.floor(Math.random() * angka) + 1
