@@ -12,10 +12,6 @@ global.groupTeam = ['6282237617224-1624210669@g.us', '120363026663109817@g.us']
 
 global.banPrefixNumber = ['212', '265', '65', '852', '886', '253', '81', '86', '855', '66', '1', '265', '61', '63', '7', '39', '44', '49', '54', '55', '84', '60']
 
-global.banUser = ['6281366679021@s.whatsapp.net']
-
-global.gcrevoke = ['19054091487-1424650263@g.us']
-
 global.packname = "Sticker"
 
 global.author = "☘️ Staf LightGreen"
@@ -58,16 +54,6 @@ global.rpg = {
     emeraldawal: 8,
     umpanawal: 10,
     potionawal: 5
-}
-
-//Api
-global.APIs = {
-	zenz: 'https://zenzapis.xyz',
-}
-
-//Apikey
-global.APIKeys = {
-	'https://zenzapis.xyz': 'Your Key',
 }
 
 //Flaming Text
