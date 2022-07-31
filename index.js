@@ -97,9 +97,8 @@ let vote = db.others.vote = []
 //Database
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
-let autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
+const autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
 const _cmd = JSON.parse(fs.readFileSync('./database/cmd.json'));
-const _autostick = JSON.parse(fs.readFileSync('./database/autostickpc.json'))
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
 let _sewa = require("./lib/sewa");
@@ -162,7 +161,6 @@ const isUser = registered.includes(m.sender)
  
 // Other
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
-const isAutoStick = _autostick.includes(from)
 const isAutoSticker = m.isGroup ? autosticker.includes(from) : false
 const isSewa = _sewa.checkSewaGroup(from, sewa)
 
