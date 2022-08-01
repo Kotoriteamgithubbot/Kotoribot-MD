@@ -1074,13 +1074,17 @@ ${wit} WIT
 ▢ ${prefix}react
 ▢ ${prefix}math
 
+*Sticker*
+▢ ${prefix}stiker (turn off)
+▢ ${prefix}smeme (turn off)
+
 *Main*
 ▢ ${prefix}afk
 ▢ ${prefix}delete
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
 ▢ ${prefix}donasi
-▢ ${prefix}request
+▢ ${prefix}request (turn off)
 ▢ ${prefix}owner
 ▢ ${prefix}runtime
 
@@ -1098,11 +1102,12 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory
-▢ ${prefix}instagram
-▢ ${prefix}facebook
+▢ ${prefix}igstory (maintenance)
+▢ ${prefix}instagram (maintenance)
+▢ ${prefix}facebook (maintenance)
 
 *Group*
+▢ ${prefix}mute
 ▢ ${prefix}kick
 ▢ ${prefix}hidetag
 ▢ ${prefix}add
@@ -1111,7 +1116,7 @@ ${wit} WIT
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
-▢ ${prefix}announce
+▢ ${prefix}announce (maintenance)
 
 *Owner*
 ▢ ${prefix}public
@@ -1318,9 +1323,9 @@ let google = require('google-it')
 google({'query': text}).then(res => {
      let teksgoogle = `Google Search From : ${text}\n\n`
      for (let g of res) {
-          teksgoogle += `⭔ *Title* : ${g.title}\n`
-          teksgoogle += `⭔ *Description* : ${g.snippet}\n`
-          teksgoogle += `⭔ *Link* : ${g.link}\n\n────────────────────────\n\n`
+          teksgoogle += `• *Title* : ${g.title}\n`
+          teksgoogle += `• *Description* : ${g.snippet}\n`
+          teksgoogle += `• *Link* : ${g.link}\n\n────────────────────────\n\n`
       } 
       m.reply(teksgoogle)
 })
@@ -1659,59 +1664,16 @@ const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
-case 'exec':
-if (!isCreator) return m.reply(mess.owner)
-global.exec(text, (err, stdout) => {
-     if (err) return client.sendMessage(from, { image:logo, caption:String(err)}, { quoted:m })
-     if (stdout) return m.reply(stdout)
-})
-break
 // Default
 default:
-    if (isCmd && prefix != '' && !handlerPlugin) {
+       if (isCmd && prefix != '' && !handlerPlugin) {
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
            sim = similarity(command, did)    
            if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
            m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
-    }           
-    
-    if (budy.startsWith('=>')) {
-    if (!isCreator) return m.reply(mess.owner)
-    function Return(sul) {
-         sat = JSON.stringify(sul, null, 2)
-         bang = util.format(sat)
-         if (sat == undefined) {
-             bang = util.format(sul)
-         }
-         return m.reply(bang)
-    }
-    try {
-       m.reply(util.format(eval(`(async () => { ${budy.slice(3)} })()`)))
-     } catch (e) {
-       client.sendMessage(from, {image:logo, caption:String(e)}, {quoted:m})
+       }           
      }
-   }
-
-   if (budy.startsWith('>')) {
-       if (!isCreator) return m.reply(mess.owner)
-       try {
-          let evaled = await eval(budy.slice(2))
-          if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
-          await m.reply(evaled)
-       } catch (err) {
-          await client.sendMessage(from, {image:logo, caption:String(err)}, {quoted:m})
-       }
-    }
-
-        if (isCmd && budy.toLowerCase() != undefined) {
-            if (m.chat.endsWith('broadcast')) return
-            if (m.isBaileys) return
-            let msgs = global.db.database
-            if (!(budy.toLowerCase() in msgs)) return
-           client.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
-        }
-      }
    } catch (err) {
       console.log(err)
    }
