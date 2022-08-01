@@ -1563,6 +1563,10 @@ for (let i = 0; i < owner.length; i++) {
 addTypeCmd(command, 1, _cmd)
 break
 case 'request':
+// penutupan
+if (true) return m.reply('Maaf fitur ini ditutup sementara!')
+
+
 if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
 const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')[0]}\nPermintaan: ${q}`
 //Owners
