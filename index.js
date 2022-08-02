@@ -1075,8 +1075,10 @@ ${wit} WIT
 ▢ ${prefix}math
 
 *Sticker*
-▢ ${prefix}stiker (turn off)
-▢ ${prefix}smeme (turn off)
+▢ ${prefix}stiker
+▢ ${prefix}attp
+▢ ${prefix}ttp
+▢ ${prefix}smeme
 
 *Main*
 ▢ ${prefix}afk
@@ -1084,7 +1086,7 @@ ${wit} WIT
 ▢ ${prefix}ping
 ▢ ${prefix}speedtest
 ▢ ${prefix}donasi
-▢ ${prefix}request (turn off)
+▢ ${prefix}request
 ▢ ${prefix}owner
 ▢ ${prefix}runtime
 
@@ -1180,6 +1182,10 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'attp': case 'ttp': {
+if (!text) m.reply(`Example : ${prefix + command} text`)
+await client.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, '', '', m, { asSticker: true })
+break
 case 'antilink': 
 if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
