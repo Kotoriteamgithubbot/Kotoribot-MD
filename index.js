@@ -59,6 +59,7 @@ const fetch = require('node-fetch')
 let { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
 const { yta, ytv, searchResult } = require('./lib/ytdl')
+const _ = require('lodash')
 var low
 try {
   low = require('lowdb')
@@ -73,15 +74,15 @@ let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
 let _health = JSON.parse(fs.readFileSync('./database/game/health.json'))
 
 //Load Database
-global.db.data = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
+global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
 
-global.DATABASE = global.db.data // Backwards Compatibility
+global.DATABASE = global.db // Backwards Compatibility
 global.loadDatabase = async function loadDatabase() {
-  if (global.db.data.READ) return new Promise((resolve) => setInterval(function () { (!global.db.data.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
+  if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
   if (global.db.data !== null) return
-  global.db.data.READ = true
-  await global.db.data.read()
-  global.db.data.READ = false
+  global.db.READ = true
+  await global.db.read()
+  global.db.READ = false
   global.db.data = {
     sticker: {},
     database: {},
@@ -93,9 +94,10 @@ global.loadDatabase = async function loadDatabase() {
     users: {},
     ...(global.db.data || {})
   }
-  global.db.data.chain = _.chain(global.db.data)
+  global.db.chain = _.chain(global.db.data)
 }
 
+//Execute Db
 loadDatabase()
 
 let tebaklagu = db.data.game.tebaklagu = []
