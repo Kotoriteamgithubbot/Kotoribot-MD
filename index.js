@@ -58,19 +58,31 @@ const brainly = require("brainly-scraper");
 const fetch = require('node-fetch')
 let { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
-const { 
-  yta, 
-  ytv, 
-  searchResult 
-} = require('./lib/ytdl')
+const { yta, ytv, searchResult } = require('./lib/ytdl')
+var low
+try {
+  low = require('lowdb')
+} catch (e) {
+  low = require('./lib/lowdb')
+}
+const { Low, JSONFile } = low
+const mongoDB = require('./lib/mongoDB')
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
 let _health = JSON.parse(fs.readFileSync('./database/game/health.json'))
 
-// Read Database
-global.db = JSON.parse(fs.readFileSync('./database/database.json'))
-if (global.db) global.db = {
+//Load Database
+global.db.data = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
+
+global.DATABASE = global.db.data // Backwards Compatibility
+global.loadDatabase = async function loadDatabase() {
+  if (global.db.data.READ) return new Promise((resolve) => setInterval(function () { (!global.db.data.READ ? (clearInterval(this), resolve(global.db.data.data == null ? global.loadDatabase() : global.db.data.data)) : null) }, 1 * 1000))
+  if (global.db.data.data !== null) return
+  global.db.data.READ = true
+  await global.db.data.read()
+  global.db.data.READ = false
+  global.db.data.data = {
     sticker: {},
     database: {},
     game: {},
@@ -79,20 +91,24 @@ if (global.db) global.db = {
     chats: {},
     account: {},
     users: {},
-    ...(global.db || {})
+    ...(global.db.data.data || {})
+  }
+  global.db.data.chain = _.chain(global.db.data.data)
 }
 
-let tebaklagu = db.game.tebaklagu = []
-let _family100 = db.game.family100 = []
-let kuismath = db.game.math = []
-let tebakgambar = db.game.tebakgambar = []
-let tebakkata = db.game.tebakkata = []
-let caklontong = db.game.lontong = []
-let caklontong_desk = db.game.lontong_desk = []
-let tebakkalimat = db.game.kalimat = []
-let tebaklirik = db.game.lirik = []
-let tebaktebakan = db.game.tebakan = []
-let vote = db.others.vote = []
+loadDatabase()
+
+let tebaklagu = db.data.game.tebaklagu = []
+let _family100 = db.data.game.family100 = []
+let kuismath = db.data.game.math = []
+let tebakgambar = db.data.game.tebakgambar = []
+let tebakkata = db.data.game.tebakkata = []
+let caklontong = db.data.game.lontong = []
+let caklontong_desk = db.data.game.lontong_desk = []
+let tebakkalimat = db.data.game.kalimat = []
+let tebaklirik = db.data.game.lirik = []
+let tebaktebakan = db.data.game.tebakan = []
+let vote = db.data.others.vote = []
 
 //Database
 let registered = JSON.parse(fs.readFileSync('./database/user.json'))
@@ -461,26 +477,26 @@ async function hitungmundur(bulan, tanggal) {
 try {
         let isNumber = x => typeof x === 'number' && !isNaN(x)
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-        let user = global.db.users[m.sender]
-        if (typeof user !== 'object') global.db.users[m.sender] = {}
+        let user = global.db.data.users[m.sender]
+        if (typeof user !== 'object') global.db.data.users[m.sender] = {}
         if (user) {
             if (!isNumber(user.afkTime)) user.afkTime = -1
             if (!('afkReason' in user)) user.afkReason = ''
             if (!isNumber(user.limit)) user.limit = limitUser
             if (!('account' in user)) user.account = "guest"
-        } else global.db.users[m.sender] = {
+        } else global.db.data.users[m.sender] = {
            afkTime: -1,
            afkReason: '',
            limit: limitUser,
            account: "guest"
         }
-        let chats = global.db.chats[m.chat]
-        if (typeof chats !== 'object') global.db.chats[m.chat] = {}
+        let chats = global.db.data.chats[m.chat]
+        if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
         if (chats) {
            if (!('mute' in chats)) chats.mute = false
            if (!('antilink' in chats)) chats.antilink = false
            if (!('banchat' in chats)) chats.banchat = false
-        } else global.db.chats[m.chat] = {
+        } else global.db.data.chats[m.chat] = {
           mute: false,
           antilink: false,
           banchat: false
@@ -491,26 +507,26 @@ try {
 
 //Account Function
 const processLogin = []
-const accountUserStatus = global.db.users[m.sender].account
-const isLogin = accountUserStatus !== "guest" ? global.db.account[accountUserStatus] !== undefined : false
+const accountUserStatus = global.db.data.users[m.sender].account
+const isLogin = accountUserStatus !== "guest" ? global.db.data.account[accountUserStatus] !== undefined : false
 
 //Apakah limit User habis
 const isLimit = (sender) => { 
 	if (isCreator && isPremium) { return false }
-    if (global.db.users[sender]) { 
-	    let limits = global.db.users[m.sender].limit
+    if (global.db.data.users[sender]) { 
+	    let limits = global.db.data.users[m.sender].limit
 	    (limits <= 0 ) ? true : false
     }
 }
 
 //Mengurangi limit User
 const reduceLimit = (sender, amount) => {
-	if (global.db.users[sender]) {
-	    let currentLimit = global.db.users[m.sender].limit
+	if (global.db.data.users[sender]) {
+	    let currentLimit = global.db.data.users[m.sender].limit
         if ( currentLimit == 'Infinity' ) {
-	        global.db.users[m.sender].limit = 'Infinity'
+	        global.db.data.users[m.sender].limit = 'Infinity'
         } else {
-        	global.db.users[m.sender].limit = currentLimit - amount
+        	global.db.data.users[m.sender].limit = currentLimit - amount
         }
 	}
 } 
@@ -650,12 +666,12 @@ const letChangeJSONToString = (object) => {
 }
 
 //Add Hit
-if (isCmd) global.db.bot.totalhit++
+if (isCmd) global.db.data.bot.totalhit++
  
 //Afk
 let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
 for (let jid of mentionUser) {
-    let user = global.db.users[jid]
+    let user = global.db.data.users[jid]
     if (!user) continue
     let afkTime = user.afkTime
     if (!afkTime || afkTime < 0) continue
@@ -663,8 +679,8 @@ for (let jid of mentionUser) {
     m.reply(`Jangan tag dia!\nDia sedang AFK ${reason ? 'dengan alasan ' + reason : 'tanpa alasan'}\nSelama ${clockString(new Date - afkTime)}`.trim())
 }
 
-if (db.users[m.sender].afkTime > -1) {
-    let user = global.db.users[m.sender]
+if (db.data.users[m.sender].afkTime > -1) {
+    let user = global.db.data.users[m.sender]
     m.reply(`Kamu berhenti AFK${user.afkReason ? ' setelah ' + user.afkReason : ''}\nSelama ${clockString(new Date - user.afkTime)}`.trim())
     user.afkTime = -1
     user.afkReason = ''
@@ -677,7 +693,7 @@ if (m.mtype === 'groupInviteMessage') {
 }
 
 //Antilink Auto Kick
-if (global.db.chats[m.chat].antilink) {
+if (global.db.data.chats[m.chat].antilink) {
     const linkGroupAntilink = await client.groupInviteCode(from)
     if (budy.includes('https://chat.whatsapp.com/' + linkGroupAntilink)) {
         m.reply(`\`\`\`「 Detect Link 」\`\`\`\n\nAnda tidak akan dikick bot karena yang anda kirim adalah link group yg ada di group ini`)
@@ -699,15 +715,15 @@ if (!client.public) {
 
 //Write Database Every 1 Minute
 setInterval(() => {
-   fs.writeFileSync('./database/database.json', JSON.stringify(global.db, null, 2))
+   fs.writeFileSync('./database/database.json', JSON.stringify(global.db.data, null, 2))
 }, 60 * 1000)
 
 //Reset Limit Every 12 Hours
 let cron = require('node-cron')
 cron.schedule('00 12 * * *', () => {
-    let user = Object.keys(global.db.users)
+    let user = Object.keys(global.db.data.users)
     let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-    for (let jid of user) global.db.users[jid].limit = limitUser
+    for (let jid of user) global.db.data.users[jid].limit = limitUser
     console.log('Reseted Limit')
 }, {
     scheduled: true,
@@ -1006,8 +1022,8 @@ Ketik *nyerah* untuk menyerah dan mengakui kekalahan`
 }
 
 // Respon Cmd with media
-if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.sticker)) {
-    let hash = global.db.sticker[m.msg.fileSha256.toString('base64')]
+if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in global.db.data.sticker)) {
+    let hash = global.db.data.sticker[m.msg.fileSha256.toString('base64')]
     let { text, mentionedJid } = hash
     let messages = await generateWAMessage(m.chat, { text: text, mentions: mentionedJid }, {
        userJid: client.user.id,
@@ -1044,7 +1060,7 @@ ${wit} WIT
 *Hari:* ${week}
 *Tanggal:* ${date}
 *Uptime:* ${runtime(process.uptime())}
-*Total Hit:* ${formatNumber(global.db.bot.totalhit)}
+*Total Hit:* ${formatNumber(global.db.data.bot.totalhit)}
 
 *Level:* ${levelMenu}
 *Xp:* ${formatNumber(xpMenu)}\ ${formatNumber(reqXp)}
@@ -1057,9 +1073,9 @@ ${wit} WIT
 *Emerald:* ${getEmerald(m.sender)}
 *Potion:* ${getPotion(m.sender)}
 
-*Akun*: ${global.db.users[m.sender].account}
+*Akun*: ${global.db.data.users[m.sender].account}
 *Saldo Neybot:* ${formatNumber('0')} IDR
-*Limit:* ${((global.db.users[m.sender].limit !== 'Infinity') ? formatNumber(global.db.users[m.sender].limit) : global.db.users[m.sender].limit)}
+*Limit:* ${((global.db.data.users[m.sender].limit !== 'Infinity') ? formatNumber(global.db.data.users[m.sender].limit) : global.db.data.users[m.sender].limit)}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
 *Game*
@@ -1205,12 +1221,12 @@ if (!m.isGroup) m.reply(mess.group)
 if (!isBotAdmins) m.reply(mess.botAdmin)
 if (!isAdmins) m.reply(mess.admin)
 if (args[0] === "on") {
-if (global.db.chats[m.chat].antilink) return m.reply("Antilink sudah aktif sebelumnya!")
-   global.db.chats[m.chat].antilink = true
+if (global.db.data.chats[m.chat].antilink) return m.reply("Antilink sudah aktif sebelumnya!")
+   global.db.data.chats[m.chat].antilink = true
    m.reply("Antilink aktif!")
 } else if (args[0] === "off") {
-    if (!global.db.chats[m.chat].antilink) return m.reply("Sudah Tidak Aktif Sebelumnya!")
-    global.db.chats[m.chat].antilink = false
+    if (!global.db.data.chats[m.chat].antilink) return m.reply("Sudah Tidak Aktif Sebelumnya!")
+    global.db.data.chats[m.chat].antilink = false
     m.reply("Antilink tidak aktif!")
 } else {
     const buttonsAntilink = [
@@ -1222,7 +1238,7 @@ if (global.db.chats[m.chat].antilink) return m.reply("Antilink sudah aktif sebel
 addTypeCmd(command, 1, _cmd)
 break
 case 'afk': 
-let userAfk = global.db.users[m.sender]
+let userAfk = global.db.data.users[m.sender]
 userAfk.afkTime = + new Date
 userAfk.afkReason = text
 m.reply(`${m.pushName} Telah Afk${text ? ': ' + text : ''}`)
@@ -1284,7 +1300,7 @@ case 'help':
 client.relayMessage(m.chat, templateMenu.message, { messageId: templateMenu.key.id })
 */
 
-if (global.db.users[m.sender].account !== "guest") {
+if (global.db.data.users[m.sender].account !== "guest") {
 	var templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: 'profile' }}]
 } else {
     templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Login', id: 'login' }}]
