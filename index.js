@@ -480,9 +480,11 @@ try {
         if (chats) {
            if (!('mute' in chats)) chats.mute = false
            if (!('antilink' in chats)) chats.antilink = false
+           if (!('banchat' in chats)) chats.banchat = false
         } else global.db.chats[m.chat] = {
           mute: false,
-          antilink: false
+          antilink: false,
+          banchat: false
         }
 } catch (err) {
    console.error(err)
@@ -1104,9 +1106,10 @@ ${wit} WIT
 *Downloader*
 ▢ ${prefix}ytmp3
 ▢ ${prefix}ytmp4
-▢ ${prefix}igstory (maintenance)
-▢ ${prefix}instagram (maintenance)
-▢ ${prefix}facebook (maintenance)
+▢ ${prefix}igstory
+▢ ${prefix}instagram
+▢ ${prefix}facebook
+▢ ${prefix}ringtone
 
 *Group*
 ▢ ${prefix}mute
@@ -1118,7 +1121,7 @@ ${wit} WIT
 ▢ ${prefix}join
 ▢ ${prefix}promote
 ▢ ${prefix}demote
-▢ ${prefix}announce (maintenance)
+▢ ${prefix}announce
 
 *Owner*
 ▢ ${prefix}public
@@ -1182,9 +1185,25 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'sticker': case 's': case 'stiker': case 'stick': case 'stik':
+if (/image/.test(mime)) {
+   const mediaImageSticker = await quoted.download()
+   const encStickerImg = await client.sendImageAsSticker(m.chat, mediaImageSticker, m, { packname: global.packname, author: global.author })
+   await fs.unlinkSync(encStickerImg)
+} else if (/video/.test(mime)) {
+   if ((quoted.msg || quoted).seconds > 11) return m.reply('Maksimal 10 detik!')
+   const mediaVideoSticker = await quoted.download()
+   const encStickerVid = await client.sendVideoAsSticker(m.chat, mediaVideoSticker, m, { packname: global.packname, author: global.author })
+   await fs.unlinkSync(encStickerVid)
+} else {
+    m.reply(`Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`)
+}
+addTypeCmd(command, 1, _cmd)
+break
 case 'attp': case 'ttp': 
 if (!text) m.reply(`Example : ${prefix + command} text`)
 await client.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, '', '', m, { asSticker: true })
+addTypeCmd(command, 1, _cmd)
 break
 case 'antilink': 
 if (!m.isGroup) m.reply(mess.group)
@@ -1582,11 +1601,11 @@ if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
 const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')[0]}\nPermintaan: ${q}`
 //Owners
 owner.forEach((parseOwner) => {
-      client.sendMessage(parseOwner + '@s.whatsapp.net', { text: textrequest })
+      client.sendMessage(parseOwner + '@s.whatsapp.net', { text: textrequest }, { quoted : m })
 }) 
 //Group Team
 groupTeam.forEach((parseGroup) => {
-      client.sendMessage(parseGroup, { text: textrequest })
+      client.sendMessage(parseGroup, { text: textrequest }, { quoted: m })
 }) 
 m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
 addTypeCmd(command, 1, _cmd)
@@ -1681,7 +1700,7 @@ default:
        }           
      }
    } catch (err) {
-      console.log(err)
+      m.reply(util.format(err))
    }
 }
 
