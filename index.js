@@ -77,12 +77,12 @@ global.db.data = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0
 
 global.DATABASE = global.db.data // Backwards Compatibility
 global.loadDatabase = async function loadDatabase() {
-  if (global.db.data.READ) return new Promise((resolve) => setInterval(function () { (!global.db.data.READ ? (clearInterval(this), resolve(global.db.data.data == null ? global.loadDatabase() : global.db.data.data)) : null) }, 1 * 1000))
-  if (global.db.data.data !== null) return
+  if (global.db.data.READ) return new Promise((resolve) => setInterval(function () { (!global.db.data.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
+  if (global.db.data !== null) return
   global.db.data.READ = true
   await global.db.data.read()
   global.db.data.READ = false
-  global.db.data.data = {
+  global.db.data = {
     sticker: {},
     database: {},
     game: {},
@@ -91,9 +91,9 @@ global.loadDatabase = async function loadDatabase() {
     chats: {},
     account: {},
     users: {},
-    ...(global.db.data.data || {})
+    ...(global.db.data || {})
   }
-  global.db.data.chain = _.chain(global.db.data.data)
+  global.db.data.chain = _.chain(global.db.data)
 }
 
 loadDatabase()
