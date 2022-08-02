@@ -1182,7 +1182,7 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
-case 'attp': case 'ttp': {
+case 'attp': case 'ttp': 
 if (!text) m.reply(`Example : ${prefix + command} text`)
 await client.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, '', '', m, { asSticker: true })
 break
