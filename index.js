@@ -634,8 +634,7 @@ const letChangeJSONToString = (object) => {
 
 //Add Hit
 if (isCmd) {
-    if (!isNumber(global.db.data.bot.totalhit)) global.db.data.bot.totalhit = 1
-    global.db.data.bot.totalhit++
+    (typeof global.db.data.bot.totalhit === 'number' && !isNaN(global.db.data.bot.totalhit)) ? (global.db.data.bot.totalhit++) : (global.db.data.bot.totalhit = 1)
 }
  
 //Afk
