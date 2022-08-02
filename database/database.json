@@ -59,7 +59,12 @@
   "others": {
     "vote": []
   },
-  "settings": {},
+  "bot": {
+    "totalhit": 4917,
+    "mail": "cloudbypsn@gmail.com",
+    "passmail": "sgxqlnnoulgzrphv",
+    "use": "public"
+  },
   "chats": {
     "6289616061778@s.whatsapp.net": {
       "mute": false,
