@@ -1700,9 +1700,7 @@ default:
        }           
      }
    } catch (err) {
-   	try {
-          m.reply(util.format(err))
-      } catch (err) { }
+     console.log(err)
    }
 }
 
