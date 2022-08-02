@@ -22,6 +22,7 @@ const { state, saveState } = useSingleFileAuthState('./' + sessionName + '.json'
 const pino = require('pino')
 const fs = require('fs')
 const chalk = require('chalk')
+const _ = require('lodash')
 const FileType = require('file-type')
 const path = require('path')
 const CFonts = require('cfonts');
@@ -33,11 +34,48 @@ const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, awa
 const { color } = require('./lib/color')
 //require("http").createServer((_, res) => res.end("Hallo World!")).listen(8080)
 
+var low
+try {
+  low = require('lowdb')
+} catch (e) {
+  low = require('./lib/lowdb')
+}
+const { Low, JSONFile } = low
+const mongoDB = require('./lib/mongoDB')
+
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
-async function start() {
-    console.clear() //Hapus log
+//Load Database
+global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
 
+global.DATABASE = global.db // Backwards Compatibility
+global.loadDatabase = async function loadDatabase() {
+  if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
+  if (global.db.data !== null) return
+  global.db.READ = true
+  await global.db.read()
+  global.db.READ = false
+  global.db.data = {
+    sticker: {},
+    database: {},
+    game: {},
+    others: {},
+    bot: {},
+    chats: {},
+    account: {},
+    users: {},
+    ...(global.db.data || {})
+  }
+  global.db.chain = _.chain(global.db.data)
+}
+loadDatabase()
+
+// Save Database Every 30seconds
+if (global.db) setInterval(async () => {
+    if (global.db.data) await global.db.write()
+}, 30 * 1000)
+
+async function start() {
     let { version, isLatest } = await fetchLatestBaileysVersion()
     const client = aineConnect({
         logger: pino({ level: 'silent' }),
