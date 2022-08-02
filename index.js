@@ -633,7 +633,10 @@ const letChangeJSONToString = (object) => {
 }
 
 //Add Hit
-if (isCmd) global.db.data.bot.totalhit += 1
+if (isCmd) {
+    if (!isNumber(global.db.data.bot.totalhit)) global.db.data.bot.totalhit = 1
+    global.db.data.bot.totalhit++
+}
  
 //Afk
 let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
