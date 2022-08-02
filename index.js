@@ -103,7 +103,6 @@ let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
 let _sewa = require("./lib/sewa");
 const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
-const totalhit = JSON.parse(fs.readFileSync('./database/totalhit.json'));
 
 //Waktu dan Tanggal 
 let d = new Date(new Date + 3600000)
@@ -650,12 +649,8 @@ const letChangeJSONToString = (object) => {
 	return JSON.stringify(object)
 }
 
-//Add Hit 
-const configTotalHit = {
-	 amount : totalhit.amount++
-}
-
-if (isCmd) fs.writeFileSync('./database/totalhit.json', letChangeJSONToString(configTotalHit))
+//Add Hit
+if (isCmd) global.db.bot.totalhit++
  
 //Afk
 let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
@@ -1049,7 +1044,7 @@ ${wit} WIT
 *Hari:* ${week}
 *Tanggal:* ${date}
 *Uptime:* ${runtime(process.uptime())}
-*Total Hit:* ${formatNumber(totalhit.amount)}
+*Total Hit:* ${formatNumber(global.db.bot.totalhit)}
 
 *Level:* ${levelMenu}
 *Xp:* ${formatNumber(xpMenu)}\ ${formatNumber(reqXp)}
