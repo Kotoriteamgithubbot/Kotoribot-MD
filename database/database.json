@@ -56,12 +56,50 @@
     "lirik": [],
     "tebakan": []
   },
-  "settings": {},
   "others": {
     "vote": []
   },
-  "chats": {},
-  "account":{
+  "settings": {},
+  "chats": {
+    "6289616061778@s.whatsapp.net": {
+      "mute": false,
+      "antilink": false
+    },
+    "120363026262595731@g.us": {
+      "mute": false,
+      "antilink": true
+    },
+    "120363043311162094@g.us": {
+      "mute": false,
+      "antilink": false
+    },
+    "62895343269281-1617884243@g.us": {
+      "mute": false,
+      "antilink": false
+    },
+    "6283170659182@s.whatsapp.net": {
+      "mute": false,
+      "antilink": false
+    },
+    "120363028212488147@g.us": {
+      "mute": false,
+      "antilink": false
+    },
+    "120363022727871498@g.us": {
+      "mute": false,
+      "antilink": false
+    },
+    "6282237617224-1624210669@g.us": {
+      "mute": false,
+      "antilink": false,
+      "banchat": true
+    },
+    "120363026663109817@g.us": {
+      "mute": false,
+      "antilink": false
+    }
+  },
+  "account": {
     "natiashalsabilla": {
       "password": "admin",
       "banned": false,
@@ -78,6 +116,54 @@
       "afkTime": -1,
       "afkReason": "",
       "limit": "Infinity",
+      "account": "guest"
+    },
+    "6289616061778@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": "Infinity",
+      "account": "guest"
+    },
+    "6285781761765@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
+      "account": "guest"
+    },
+    "212672601485@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
+      "account": "guest"
+    },
+    "6281318654215@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
+      "account": "guest"
+    },
+    "6281575760153@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
+      "account": "guest"
+    },
+    "6285883523397@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
+      "account": "guest"
+    },
+    "6285341197755@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
+      "account": "guest"
+    },
+    "919539458801@s.whatsapp.net": {
+      "afkTime": -1,
+      "afkReason": "",
+      "limit": 100,
       "account": "guest"
     }
   }
