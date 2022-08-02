@@ -75,7 +75,7 @@ if (global.db) global.db = {
     database: {},
     game: {},
     others: {},
-    settings: {},
+    bot: {},
     chats: {},
     account: {},
     users: {},
