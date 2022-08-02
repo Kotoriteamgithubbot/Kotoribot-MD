@@ -59,47 +59,12 @@ const fetch = require('node-fetch')
 let { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
 const { yta, ytv, searchResult } = require('./lib/ytdl')
-const _ = require('lodash')
-var low
-try {
-  low = require('lowdb')
-} catch (e) {
-  low = require('./lib/lowdb')
-}
-const { Low, JSONFile } = low
-const mongoDB = require('./lib/mongoDB')
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
 let _health = JSON.parse(fs.readFileSync('./database/game/health.json'))
 
-//Load Database
-global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
-
-global.DATABASE = global.db // Backwards Compatibility
-global.loadDatabase = async function loadDatabase() {
-  if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
-  if (global.db.data !== null) return
-  global.db.READ = true
-  await global.db.read()
-  global.db.READ = false
-  global.db.data = {
-    sticker: {},
-    database: {},
-    game: {},
-    others: {},
-    bot: {},
-    chats: {},
-    account: {},
-    users: {},
-    ...(global.db.data || {})
-  }
-  global.db.chain = _.chain(global.db.data)
-}
-
-//Execute Db
-loadDatabase()
-
+//Database Game
 let tebaklagu = db.data.game.tebaklagu = []
 let _family100 = db.data.game.family100 = []
 let kuismath = db.data.game.math = []
