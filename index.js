@@ -473,7 +473,7 @@ try {
 }
 
 // Ban Chat
-if (db.data.chats[m.chat].banchat && command !== unbanchat && !isCreator) {
+if (db.data.chats[m.chat].banchat && command != "unbanchat" && !isCreator) {
    return
 }
 
