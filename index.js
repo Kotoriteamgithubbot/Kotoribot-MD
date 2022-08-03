@@ -473,7 +473,7 @@ try {
 }
 
 // Ban Chat
-if (db.data.chats[m.chat].banchat && command != "unbanchat" && !isCreator) {
+if (db.data.chats[m.chat].banchat && command != "unbanchat") {
    return
 }
 
@@ -1171,15 +1171,15 @@ if (isCmd && command) {
 //Switch Command
 switch(command) {
 case 'banchat':  case 'bnct': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isCreator) m.reply(mess.owner)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isCreator) return m.reply(mess.owner)
 db.data.chats[m.chat].banchat = true
 m.reply('Done!')
 addTypeCmd(command, 1, _cmd)
 break
 case 'unbanchat': case 'ubnc': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isCreator) m.reply(mess.owner)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isCreator) return m.reply(mess.owner)
 db.data.chats[m.chat].banchat = false
 m.reply('Done!')
 addTypeCmd(command, 1, _cmd)
@@ -1200,14 +1200,14 @@ if (/image/.test(mime)) {
 addTypeCmd(command, 1, _cmd)
 break
 case 'attp': case 'ttp': 
-if (!text) m.reply(`Example : ${prefix + command} text`)
+if (!text) return m.reply(`Example : ${prefix + command} text`)
 await client.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, '', '', m, { asSticker: true })
 addTypeCmd(command, 1, _cmd)
 break
 case 'antilink': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return  m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 if (args[0] === "on") {
 if (global.db.data.chats[m.chat].antilink) return m.reply("Antilink sudah aktif sebelumnya!")
    global.db.data.chats[m.chat].antilink = true
@@ -1249,13 +1249,13 @@ client.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.qu
 addTypeCmd(command, 1, _cmd)
 break
 case 'public': 
-if (!isCreator) m.reply(mess.owner)
+if (!isCreator) return m.reply(mess.owner)
 client.public = true
 m.reply('Sukse Change To Public Usage')
 addTypeCmd(command, 1, _cmd)
 break
 case 'self': 
-if (!isCreator) m.reply(mess.owner)
+if (!isCreator) return m.reply(mess.owner)
 client.public = false
 m.reply('Sukses Change To Self Usage') 
 addTypeCmd(command, 1, _cmd)          
@@ -1326,9 +1326,9 @@ break
 */
 case 'kuismath':
 case 'math': 
-if (kuismath.hasOwnProperty(m.sender.split('@')[0])) m.reply("Masih Ada Sesi Yang Belum Diselesaikan!")
+if (kuismath.hasOwnProperty(m.sender.split('@')[0])) return m.reply("Masih Ada Sesi Yang Belum Diselesaikan!")
 let { genMath, modes } = require('./src/math')
-if (!text) m.reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
+if (!text) return m.reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
 const resultmath = await genMath(text.toLowerCase())
 client.sendText(m.chat, `*Berapa hasil dari: ${resultmath.soal.toLowerCase()}*?\n\nWaktu: ${(resultmath.waktu / 1000).toFixed(2)} detik`, m).then(() => {
       kuismath[m.sender.split('@')[0]] = resultmath.jawaban
@@ -1342,7 +1342,7 @@ await sleep(resultmath.waktu)
 addTypeCmd(command, 1, _cmd)            
 break
 case 'google': 
-if (!text) m.reply(`Example : ${prefix + command} Jokowi Dodo`)
+if (!text) return m.reply(`Example : ${prefix + command} Jokowi Dodo`)
 let google = require('google-it')
 google({'query': text}).then(res => {
      let teksgoogle = `Google Search From : ${text}\n\n`
@@ -1421,7 +1421,7 @@ this.suit = this.suit ? this.suit : {}
 let poin = 10
 let poin_lose = 10
 let timeout = 60000
-if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.sender))) m.reply(`Selesaikan suit mu yang sebelumnya`)
+if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.sender))) return m.reply(`Selesaikan suit mu yang sebelumnya`)
 if (m.mentionedJid[0] === m.sender) return m.reply(`Tidak bisa bermain dengan diri sendiri !`)
 if (!m.mentionedJid[0]) return m.reply(`_Siapa yang ingin kamu tantang?_\nTag orangnya..\n\nContoh : ${prefix}suit @${owner[0]}`, m.chat, { mentions: [owner[0] + '@s.whatsapp.net'] })
 if (Object.values(this.suit).find(roof => roof.id.startsWith('suit') && [roof.p, roof.p2].includes(m.mentionedJid[0]))) throw `Orang yang kamu tantang sedang bermain suit bersama orang lain :(`
@@ -1520,8 +1520,8 @@ try {
    o = e
 } finally {
    let { stdout, stderr } = o
-   if (stdout.trim()) m.reply(stdout)
-   if (stderr.trim()) m.reply(stderr)
+   if (stdout.trim()) return m.reply(stdout)
+   if (stderr.trim()) return m.reply(stderr)
 }  
 addTypeCmd(command, 1, _cmd)
 break
@@ -1618,41 +1618,41 @@ await client.groupAcceptInvite(resultlinkjoin).then((res) => m.reply(jsonformat(
 addTypeCmd(command, 1, _cmd)
 break
 case 'kick': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 const userskick = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
 case 'add': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 const usersadd = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [usersadd], 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
 case 'promote': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 const userspromote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [userspromote], 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
 case 'demote': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 const usersdemote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 await client.groupParticipantsUpdate(m.chat, [usersdemote], 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1, _cmd)
 break
 case 'group': case 'grup': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 if (args[0] === 'close') {
    await client.groupSettingUpdate(m.chat, 'announcement').then((res) => m.reply(`Sukses Menutup Group`)).catch((err) => m.reply(jsonformat(err)))
 } else if (args[0] === 'open'){
@@ -1667,17 +1667,17 @@ if (args[0] === 'close') {
 addTypeCmd(command, 1, _cmd)
 break
 case 'linkgroup': case 'linkgc': case 'link': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 const responselinkgroup = await client.groupInviteCode(m.chat)
 client.sendText(m.chat, `https://chat.whatsapp.com/${responselinkgroup}\n\nLink Group : ${groupMetadata.subject}`, m, { detectLink: true })
 addTypeCmd(command, 1, _cmd)
 break
 case 'hidetag': 
-if (!m.isGroup) m.reply(mess.group)
-if (!isBotAdmins) m.reply(mess.botAdmin)
-if (!isAdmins) m.reply(mess.admin)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isBotAdmins) return m.reply(mess.botAdmin)
+if (!isAdmins) return m.reply(mess.admin)
 client.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
 addTypeCmd(command, 1, _cmd)
 break
