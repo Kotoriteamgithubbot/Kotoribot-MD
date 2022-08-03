@@ -472,6 +472,11 @@ try {
    console.error(err)
 }
 
+// Ban Chat
+if (db.data.chats[m.chat].banchat && command !== unbanchat && !isCreator) {
+   return
+}
+
 //Account Function
 const processLogin = []
 const accountUserStatus = global.db.data.users[m.sender].account
@@ -1165,6 +1170,20 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'banchat':  case 'bnct': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isCreator) m.reply(mess.owner)
+db.data.chats[m.chat].banchat = true
+m.reply('Done!')
+addTypeCmd(command, 1, _cmd)
+break
+case 'unbanchat': case 'ubnc': 
+if (!m.isGroup) m.reply(mess.group)
+if (!isCreator) m.reply(mess.owner)
+db.data.chats[m.chat].banchat = false
+m.reply('Done!')
+addTypeCmd(command, 1, _cmd)
+break
 case 'sticker': case 's': case 'stiker': case 'stick': case 'stik':
 if (/image/.test(mime)) {
    const mediaImageSticker = await quoted.download()
