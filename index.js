@@ -123,7 +123,8 @@ const botNumber = await client.decodeJid(client.user.id)
 const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
-const isPremium = global.db.data.account.premium ? true : isCreator
+const accountUsers = global.db.data.users[m.sender].account
+const isPremium = typeof global.db.data.account[accountUsers] === "string" && global.db.data.account[accountUsers] !== "guest" ? (global.db.data.account[accountUsers].premium ? true : isCreator) : false
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
 const mime = (quoted.msg || quoted).mimetype || ''
@@ -439,9 +440,6 @@ async function hitungmundur(bulan, tanggal) {
      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
      return days + "Hari " + hours + "Jam " + minutes + "Menit " + seconds + "Detik"
 }
-
-//Let's make it easier
-const accountUsers = global.db.data.users[m.sender].account
 
 //Function Limit, Afk, Dan Lainnya
 try {
