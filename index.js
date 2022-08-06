@@ -123,7 +123,7 @@ const botNumber = await client.decodeJid(client.user.id)
 const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
-const isPremium = isCreator ? true : false
+const isPremium = global.db.data.account.premium ? true : isCreator
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
 const mime = (quoted.msg || quoted).mimetype || ''
@@ -440,21 +440,21 @@ async function hitungmundur(bulan, tanggal) {
      return days + "Hari " + hours + "Jam " + minutes + "Menit " + seconds + "Detik"
 }
 
+//Let's make it easier
+const accountUsers = global.db.data.users[m.sender].account
+
 //Function Limit, Afk, Dan Lainnya
 try {
         let isNumber = x => typeof x === 'number' && !isNaN(x)
-        let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         let user = global.db.data.users[m.sender]
         if (typeof user !== 'object') global.db.data.users[m.sender] = {}
         if (user) {
             if (!isNumber(user.afkTime)) user.afkTime = -1
             if (!('afkReason' in user)) user.afkReason = ''
-            if (!isNumber(user.limit)) user.limit = limitUser
             if (!('account' in user)) user.account = "guest"
         } else global.db.data.users[m.sender] = {
            afkTime: -1,
            afkReason: '',
-           limit: limitUser,
            account: "guest"
         }
         let chats = global.db.data.chats[m.chat]
@@ -474,32 +474,37 @@ try {
         if (!('use' in bot)) bot.use = "public"
         bot.use === "public" ? (client.public = true) : (client.public = false)
         
-        let account = global.db.data.users[m.sender].account ==
+        let account = global.db.data.users[m.sender].account !== "guest" ? global.db.data.account[accountUsers] : false
+        let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
+        if (account && typeof account === 'string') {
+       	if (!('banned' in account)) account.banned = false
+           if (!('premium' in account)) account.premium = false
+           if (!('limit' in account)) account.limit = limitUser
+           if (!('cloud' in account)) account.cloud = "notcreated"
+           if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
+           if (!('expiredpremium' in account)) account.expiredpremium = "notcreated"
+        }
 } catch (err) {
    console.error(err)
 }
 
-//Account Function
-const accountUserStatus = global.db.data.users[m.sender].account
-const isLogin = accountUserStatus !== "guest" ? global.db.data.account[accountUserStatus] : false
-
 //Apakah limit User habis
 const isLimit = (sender) => { 
 	if (isCreator && isPremium) { return false }
-    if (global.db.data.users[sender]) { 
-	    let limits = global.db.data.users[m.sender].limit
+    if (global.db.data.account[accountUsers]) { 
+	    let limits = global.db.data.account[accountUsers].limit
 	    (limits <= 0 ) ? true : false
     }
 }
 
 //Mengurangi limit User
 const reduceLimit = (sender, amount) => {
-	if (global.db.data.users[sender]) {
-	    let currentLimit = global.db.data.users[m.sender].limit
+	if (global.db.data.account[accountUsers]) {
+	    let currentLimit = global.db.data.account[accountUsers].limit
         if ( currentLimit == 'Infinity' ) {
-	        global.db.data.users[m.sender].limit = 'Infinity'
+	        global.db.data.account[accountUsers].limit = 'Infinity'
         } else {
-        	global.db.data.users[m.sender].limit = currentLimit - amount
+        	global.db.data.account[accountUsers].limit = currentLimit - amount
         }
 	}
 } 
@@ -694,9 +699,9 @@ setInterval(() => {
 //Reset Limit Every 12 Hours
 let cron = require('node-cron')
 cron.schedule('00 12 * * *', () => {
-    let user = Object.keys(global.db.data.users)
+    let user = Object.keys(global.db.data.account)
     let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-    for (let jid of user) global.db.data.users[jid].limit = limitUser
+    for (let username of user) global.db.data.account[username].limit = limitUser
     console.log('Reseted Limit')
 }, {
     scheduled: true,
@@ -1048,7 +1053,7 @@ ${wit} WIT
 
 *Akun*: ${global.db.data.users[m.sender].account}
 *Saldo Neybot:* ${formatNumber('0')} IDR
-*Limit:* ${((global.db.data.users[m.sender].limit !== 'Infinity') ? formatNumber(global.db.data.users[m.sender].limit) : global.db.data.users[m.sender].limit)}
+*Limit:* ${((global.db.data.account[accountUsers].limit !== 'Infinity') ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit)}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
 *Game*
