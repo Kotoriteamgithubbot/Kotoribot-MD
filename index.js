@@ -124,7 +124,7 @@ const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '')
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = global.db.data.users[m.sender].account
-const isPremium = typeof global.db.data.account[accountUsers] === "string" && global.db.data.account[accountUsers] !== "guest" ? (global.db.data.account[accountUsers].premium ? true : isCreator) : false
+const isPremium =  global.db.data.account[accountUsers].premium ? true : isCreator ? true : false
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
 const mime = (quoted.msg || quoted).mimetype || ''
@@ -476,7 +476,7 @@ try {
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         if (account && typeof account === 'string') {
        	if (!('banned' in account)) account.banned = false
-           if (!('premium' in account)) account.premium = false
+           if (!('premium' in account)) account.premium = (isCreator ? "premium" : isPremium)
            if (!('limit' in account)) account.limit = limitUser
            if (!('cloud' in account)) account.cloud = "notcreated"
            if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
