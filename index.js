@@ -462,25 +462,26 @@ try {
         if (chats) {
            if (!('mute' in chats)) chats.mute = false
            if (!('antilink' in chats)) chats.antilink = false
-           if (!('banchat' in chats)) chats.banchat = false
         } else global.db.data.chats[m.chat] = {
           mute: false,
-          antilink: false,
-          banchat: false
+          antilink: false
         }
+        let bot = global.db.data.bot
+        if (typeof bot !== 'object') global.db.data.bot = {}
+        if (!isNumber(bot.totalhit)) bot.totalhit = 0
+        if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
+        if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
+        if (!('use' in bot)) bot.use = "public"
+        bot.use === "public" ? (client.public = true) : (client.public = false)
+        
+        let account = global.db.data.users[m.sender].account ==
 } catch (err) {
    console.error(err)
 }
 
-// Ban Chat
-if (db.data.chats[m.chat].banchat && command != "unbanchat") {
-   return
-}
-
 //Account Function
-const processLogin = []
 const accountUserStatus = global.db.data.users[m.sender].account
-const isLogin = accountUserStatus !== "guest" ? global.db.data.account[accountUserStatus] !== undefined : false
+const isLogin = accountUserStatus !== "guest" ? global.db.data.account[accountUserStatus] : false
 
 //Apakah limit User habis
 const isLimit = (sender) => { 
@@ -632,15 +633,8 @@ function formatNumber(number) {
   return variabel
 }
 
-//Membuat Object JSON menjadi String 
-const letChangeJSONToString = (object) => {
-	return JSON.stringify(object)
-}
-
 //Add Hit
-if (isCmd) {
-    (typeof global.db.data.bot.totalhit === 'number' && !isNaN(global.db.data.bot.totalhit)) ? (global.db.data.bot.totalhit++) : (global.db.data.bot.totalhit = 1)
-}
+if (isCmd) global.db.data.bot.totalhit++
  
 //Afk
 let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
@@ -685,6 +679,11 @@ if (global.db.data.chats[m.chat].antilink) {
 //Public dan Self
 if (!client.public) {
     if (!m.key.fromMe) return
+}
+
+// Ban Chat
+if (db.data.chats[m.chat].mute && command != "unmute") {
+   return
 }
 
 //Write Database Every 1 Minute
@@ -1170,17 +1169,17 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
-case 'banchat':  case 'bnct': 
+case 'mute': 
 if (!m.isGroup) return m.reply(mess.group)
-if (!isCreator) return m.reply(mess.owner)
-db.data.chats[m.chat].banchat = true
+if (!isAdmins) return m.reply(mess.admin)
+db.data.chats[m.chat].mute = true
 m.reply('Done!')
 addTypeCmd(command, 1, _cmd)
 break
-case 'unbanchat': case 'ubnc': 
+case 'unmute':
 if (!m.isGroup) return m.reply(mess.group)
-if (!isCreator) return m.reply(mess.owner)
-db.data.chats[m.chat].banchat = false
+if (!isAdmins) return m.reply(mess.admin)
+db.data.chats[m.chat].mute = false
 m.reply('Done!')
 addTypeCmd(command, 1, _cmd)
 break
