@@ -1325,7 +1325,6 @@ if (typeof global.db.data.account[userNameLogin] !== 'object') return m.reply('U
 
 addTypeCmd(command, 1)
 break
-*/
 case 'kuismath':
 case 'math': 
 if (kuismath.hasOwnProperty(m.sender.split('@')[0])) return m.reply("Masih Ada Sesi Yang Belum Diselesaikan!")
