@@ -124,7 +124,7 @@ const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '')
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin"
-const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[accountUsers] === 'object' ? true : false) : "notlogin"
+const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[accountUsers] === 'object' ? true : false) : false
 const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : "notlogin"
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
@@ -1052,7 +1052,7 @@ ${wit} WIT
 
 *Akun*: ${global.db.data.users[m.sender].account}
 *Saldo Neybot:* ${formatNumber('0')} IDR
-*Limit:* ${(isLogin ? ((global.db.data.account[accountUsers].limit !== 'Infinity') ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin")}
+*Limit:* ${isLogin ? (global.db.data.account[accountUsers].limit !== 'Infinity' ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin"}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
 *Game*
