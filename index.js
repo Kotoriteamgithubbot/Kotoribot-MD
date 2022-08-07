@@ -1240,7 +1240,7 @@ const configAllProfile = `*Profil Akun*
 • Premium : ${isPremium ? 'Yes' : 'No'}`
    m.reply(configAllProfile)
 } else if (args[0] == 'change') {
-	const configChange = args[2].trim().tostring()
+	const configChange = args[2].trim().toString()
 	if (args[1] == 'username') {
 		if (accountUsers == configChange) return m.reply('Username tidak diubah!')
 		global.db.data.account[configChange].email = global.db.data.account[accountUsers].email
@@ -1250,7 +1250,7 @@ const configAllProfile = `*Profil Akun*
         delete global.db.data.account[global.db.data.users[m.sender].account]
         global.db.data.users[m.sender].account = configChange
         m.reply(mess.success)
-    }
+    } else m.reply('Profil yang dapat diubah: username, email, password. Contoh penggunaan .profile change usernamebaru')
 }
 addTypeCmd(command, 1)
 break
