@@ -1212,6 +1212,7 @@ if (isCmd && command) {
 //Switch Command
 switch(command) {
 case 'mute': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
 db.data.chats[m.chat].mute = true
@@ -1219,6 +1220,7 @@ m.reply('Done!')
 addTypeCmd(command, 1)
 break
 case 'unmute':
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
 db.data.chats[m.chat].mute = false
@@ -1226,6 +1228,7 @@ m.reply('Done!')
 addTypeCmd(command, 1)
 break
 case 'sticker': case 's': case 'stiker': case 'stick': case 'stik':
+if (!isLogin) return m.reply(mess.logout)
 if (/image/.test(mime)) {
    const mediaImageSticker = await quoted.download()
    const encStickerImg = await client.sendImageAsSticker(m.chat, mediaImageSticker, m, { packname: global.packname, author: global.author })
@@ -1241,11 +1244,13 @@ if (/image/.test(mime)) {
 addTypeCmd(command, 1)
 break
 case 'attp': case 'ttp': 
+if (!isLogin) return m.reply(mess.logout)
 if (!text) return m.reply(`Example : ${prefix + command} text`)
 await client.sendMedia(m.chat, `https://xteam.xyz/${command}?file&text=${text}`, '', '', m, { asSticker: true })
 addTypeCmd(command, 1)
 break
 case 'antilink': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return  m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1267,6 +1272,7 @@ if (global.db.data.chats[m.chat].antilink) return m.reply("Antilink sudah aktif 
 addTypeCmd(command, 1)
 break
 case 'afk': 
+if (!isLogin) return m.reply(mess.logout)
 let userAfk = global.db.data.users[m.sender]
 userAfk.afkTime = + new Date
 userAfk.afkReason = text
@@ -1274,28 +1280,33 @@ m.reply(`${m.pushName} Telah Afk${text ? ': ' + text : ''}`)
 addTypeCmd(command, 1)
 break	
 case 'runtime': case 'uptime':
+if (!isLogin) return m.reply(mess.logout)
 const textRuntimeorUptime = `*${client.user.name}* R U N T I M E
 Waktu Aktif ${runtime(process.uptime())}\n\n${wm}`
 client.sendMessage(m.chat, { text: textRuntimeorUptime }, { quoted: m })
 addTypeCmd(command, 1)
 break
 case 'owner': case 'creator': 
+if (!isLogin) return m.reply(mess.logout)
 client.sendContact(m.chat, owner, m)
 addTypeCmd(command, 1)
 break
 case 'delete': case 'del': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.quoted) return m.reply(mess.reply)
 if (!m.quoted.isBaileys) return m.reply('Pesan tersebut bukan dikirim oleh bot!')
 client.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender }})
 addTypeCmd(command, 1)
 break
 case 'public': 
+if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
 client.public = true
 m.reply('Sukse Change To Public Usage')
 addTypeCmd(command, 1)
 break
 case 'self': 
+if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
 client.public = false
 m.reply('Sukses Change To Self Usage') 
@@ -1304,48 +1315,17 @@ break
 case 'menu':
 case 'help':
 if (!isLogin) return m.reply(mess.logout)
-/**
-- Menu Type Button Location (Slow Respon)
-
- let resizeImageMenu = await client.reSize(logo, 300, 150)
-       var templateMenu = generateWAMessageFromContent(m.chat, {
-          "templateMessage": {
-             "hydratedTemplate": {
-                "locationMessage": {
-                   "degreesLatitude": 0,
-                   "degreesLongitude": 0,
-                   "jpegThumbnail": resizeImageMenu
-                },
-              "hydratedContentText": listmn,
-              "hydratedFooterText": '© CloudbyPsn',
-              "hydratedButtons": [
-                    { urlButton: { displayText: `Website`, url : `blank_` } }, 
-                    { quickReplyButton: { displayText: `Owner`, id: 'owner'} },
-                    { quickReplyButton: { displayText: `Donasi`, id: 'donasi'} },
-                    { quickReplyButton: { displayText: `Profile`, id: 'profile'} }
-                 ]
-              }
-           }
-       }, { userJid: m.chat, quoted: m })
-client.relayMessage(m.chat, templateMenu.message, { messageId: templateMenu.key.id })
-*/
-
-if (global.db.data.users[m.sender].account !== "guest") {
-	var templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: 'profile' }}]
-} else {
-    templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Login', id: 'login' }}]
-}
-
-var templateMessageMenu = {
+const templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: 'profile' }}]
+const templateMessageMenu = {
         text: textTemplateMenu,
         footer: '© CloudbyPsn',
         templateButtons: templateButtonsMenu
 }
-
 client.sendMessage(m.chat, templateMessageMenu)
 addTypeCmd(command, 1)
 break
 case 'donasi': case 'donate': 
+if (!isLogin) return m.reply(mess.logout)
 if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'donasi neybot', buttonText: { displayText: 'NeyBot' }, type: 1 }], textTemplateDonate, '© CloudbyPsn', m)
 	
 if (args[0] === 'neybot') {
@@ -1355,8 +1335,7 @@ if (args[0] === 'neybot') {
 addTypeCmd(command, 1)
 break
 case 'login':
-if (!isCreator) return m.reply('Maaf fitur ini masih ujicoba. Hanya pengguna yang terdaftar sebagai LightBeTest')
-// if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
+if (isLogin) return m.reply(mess.login)
 if (!q) return m.reply(textTemplateLogin)
 if (!q.includes('|')) return m.reply("Gunakan '|' sebagai pemisah!")
 const userNameLogin = q.split('|')[0].trim()
@@ -1371,8 +1350,7 @@ if (typeof global.db.data.account[userNameLogin] === 'object' && global.db.data.
 addTypeCmd(command, 1)
 break
 case 'register':
-if (!isCreator) return m.reply('Maaf fitur ini masih ujicoba. Hanya pengguna yang terdaftar sebagai LightBeTest')
-// if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
+if (isLogin) return m.reply(mess.login)
 if (!q) return m.reply(textTemplateRegister)
 
 const eMailRegister = q.split('|')[0].trim()
@@ -1401,8 +1379,14 @@ if (otp.length === 6) {
 }
 addTypeCmd(command, 1)
 break
+case 'logout':
+if (!isLogin) return m.reply(mess.logout)
+global.db.data.users[m.sender].account = "guest"
+m.reply(mess.succes) 
+break
 case 'kuismath':
 case 'math': 
+if (!isLogin) return m.reply(mess.logout)
 if (kuismath.hasOwnProperty(m.sender.split('@')[0])) return m.reply("Masih Ada Sesi Yang Belum Diselesaikan!")
 let { genMath, modes } = require('./src/math')
 if (!text) return m.reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
@@ -1419,6 +1403,7 @@ await sleep(resultmath.waktu)
 addTypeCmd(command, 1)            
 break
 case 'google': 
+if (!isLogin) return m.reply(mess.logout)
 if (!text) return m.reply(`Example : ${prefix + command} Jokowi Dodo`)
 let google = require('google-it')
 google({'query': text}).then(res => {
@@ -1433,6 +1418,7 @@ google({'query': text}).then(res => {
 addTypeCmd(command, 1)   
 break
 case 'brainly':
+if (!isLogin) return m.reply(mess.logout)
 if (!text) return m.reply(mess.query)
 const resbrainly = await brainly(text)
 const answerbrainly = resbrainly.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
@@ -1440,12 +1426,14 @@ m.reply(answerbrainly)
 addTypeCmd(command, 1)
 break
 case 'react':
+if (!isLogin) return m.reply(mess.logout)
 if (!q) client.sendMessage(m.chat, { text: 'Emojinya Mana?' }, { quoted: m })
 if (!m.quoted) client.sendMessage(m.chat, { text: 'Reply Chatnya!' }, { quoted: m })
 client.relayMessage(m.chat, { reactionMessage: { key: { id: m.quoted.id, remoteJid: m.chat, fromMe: true }, text: q }}, { messageId: m.id })
 addTypeCmd(command, 1)
 break
 case 'play': case 'ytplay':
+if (!isLogin) return m.reply(mess.logout)
 if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
 let yts = require("yt-search")
 let search = await yts(text)
@@ -1475,6 +1463,7 @@ client.sendMessage(m.chat, buttonMessage, { quoted: m })
 addTypeCmd(command, 1)
 break
 case 'ytmp3': case 'ytaudio':
+if (!isLogin) return m.reply(mess.logout)
 let { yta } = require('./lib/y2mate')
 if (!q) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
 let qualityaudio = args[1] ? args[1] : '128kbps'
@@ -1485,6 +1474,7 @@ client.sendMessage(m.chat, { audio: { url: mediaaudio.dl_link }, mimetype: 'audi
 addTypeCmd(command, 1)
 break
 case 'ytmp4': case 'ytvideo': 
+if (!isLogin) return m.reply(mess.logout)
 let { ytv } = require('./lib/y2mate')
 if (!q) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
 let qualityvideo = args[1] ? args[1] : '360p'
@@ -1494,6 +1484,7 @@ client.sendMessage(m.chat, { video: { url: mediavideo.dl_link }, mimetype: 'vide
 addTypeCmd(command, 1)
 break
 case 'suitpvp': case 'suit': 
+if (!isLogin) return m.reply(mess.logout)
 this.suit = this.suit ? this.suit : {}
 let poin = 10
 let poin_lose = 10
@@ -1522,6 +1513,7 @@ this.suit[id] = {
 addTypeCmd(command, 1)
 break
 case 'ttc': case 'ttt': case 'tictactoe': 
+if (!isLogin) return m.reply(mess.logout)
 let TicTacToe = require("./lib/tictactoe")
 this.game = this.game ? this.game : {}
 if (Object.values(this.game).find(room => room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender))) return m.reply('Kamu masih didalam game')
@@ -1572,6 +1564,7 @@ Ketik *nyerah* untuk menyerah dan mengakui kekalahan`
 addTypeCmd(command, 1)
 break
 case 'delttc': case 'delttt': 
+if (!isLogin) return m.reply(mess.logout)
 this.game = this.game ? this.game : {}
 try {
    if (this.game) {
@@ -1586,6 +1579,7 @@ try {
 addTypeCmd(command, 1)
 break
 case 'speedtest': 
+if (!isLogin) return m.reply(mess.logout)
 m.reply('Testing Speed...')
 let cp = require('child_process')
 let { promisify } = require('util')
@@ -1603,6 +1597,7 @@ try {
 addTypeCmd(command, 1)
 break
 case 'speed':case 'ping': case 'botstatus': case 'statusbot': 
+if (!isLogin) return m.reply(mess.logout)
 const used = process.memoryUsage()
 const cpus = os.cpus().map(cpu => {
      cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
@@ -1650,6 +1645,7 @@ m.reply(respon)
 addTypeCmd(command, 1)
 break
 case 'broadcast':
+if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
 if (args.length < 1) return m.reply('Masukkan isi pesannya')
 let sendbroadcastto = await store.chats.all()
@@ -1660,6 +1656,7 @@ for (let i of sendbroadcastto) {
 addTypeCmd(command, 1)
 break
 case 'notice':
+if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
 if (args.length < 1) return m.reply('Masukkan isi pesannya')
 for (let i = 0; i < owner.length; i++) {
@@ -1669,10 +1666,7 @@ for (let i = 0; i < owner.length; i++) {
 addTypeCmd(command, 1)
 break
 case 'request':
-// penutupan
-if (true) return m.reply('Maaf fitur ini ditutup sementara!')
-
-
+if (!isLogin) return m.reply(mess.logout)
 if (!q) return m.reply('Ketikkan fitur yang akan diminta!')
 const textrequest = `*Request Fitur*\n\nPengirim: ${(m.sender).split('@')[0]}\nPermintaan: ${q}`
 //Owners
@@ -1687,6 +1681,7 @@ m.reply('*Terimakasih telah membantu meningkatkan layanan kami!*')
 addTypeCmd(command, 1)
 break
 case 'join': 
+if (!isLogin) return m.reply(mess.logout)
 if (!text) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) client.sendMessage(m.chat, { text: 'Link Invalid!' }, { quoted: m })
 m.reply(mess.wait)
@@ -1695,6 +1690,7 @@ await client.groupAcceptInvite(resultlinkjoin).then((res) => m.reply(jsonformat(
 addTypeCmd(command, 1)
 break
 case 'kick': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1703,6 +1699,7 @@ await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) =
 addTypeCmd(command, 1)
 break
 case 'add': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1711,6 +1708,7 @@ await client.groupParticipantsUpdate(m.chat, [usersadd], 'add').then((res) => m.
 addTypeCmd(command, 1)
 break
 case 'promote': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1719,6 +1717,7 @@ await client.groupParticipantsUpdate(m.chat, [userspromote], 'promote').then((re
 addTypeCmd(command, 1)
 break
 case 'demote': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1727,6 +1726,7 @@ await client.groupParticipantsUpdate(m.chat, [usersdemote], 'demote').then((res)
 addTypeCmd(command, 1)
 break
 case 'group': case 'grup': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1743,7 +1743,8 @@ if (args[0] === 'close') {
  }
 addTypeCmd(command, 1)
 break
-case 'linkgroup': case 'linkgc': case 'link': 
+case 'linkgroup': case 'linkgc': case 'link':
+if (!isLogin) return m.reply(mess.logout) 
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1752,6 +1753,7 @@ client.sendText(m.chat, `https://chat.whatsapp.com/${responselinkgroup}\n\nLink 
 addTypeCmd(command, 1)
 break
 case 'hidetag': 
+if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
@@ -1759,6 +1761,7 @@ client.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a =>
 addTypeCmd(command, 1)
 break
 case 'getsession':
+if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
 m.reply('Tunggu Sebentar, Proses Getting File session.json')
 const sessionget = await fs.readFileSync('./session.json')
