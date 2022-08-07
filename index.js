@@ -709,7 +709,7 @@ if (db.data.chats[m.chat].mute && command != "unmute") {
 
 //Function Register
 if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
-	if (budy === global.db.data.users[m.sender].pendingRegister.otp) {
+	if (budy == global.db.data.users[m.sender].pendingRegister.otp) {
 		//Auto Login
        const configPendingRegister = global.db.data.users[m.sender].pendingRegister
 		global.db.data.account[configPendingRegister.username] = {
