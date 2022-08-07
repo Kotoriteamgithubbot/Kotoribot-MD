@@ -43,6 +43,8 @@ const { EmojiAPI } = require("emoji-api")
 const imgbbUploader = require('imgbb-uploader')
 const primbon = new Primbon()
 const emoji = new EmojiAPI()
+const nodemailer = require("nodemailer");
+const Hogan = require("hogan.js");
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/function');
 const { addBalance, kurangBalance, getBalance } = require('./lib/balance');
 const didyoumean = require('didyoumean');
@@ -430,7 +432,7 @@ if (isCmd) {
      }
 }
 
-//Function Hitung mundur
+//Function Hitung Mundur
 async function hitungmundur(bulan, tanggal) { 
      let from = new Date(`${bulan} ${tanggal}, 2022 00:00:00`).getTime();
      let now = Date.now();
@@ -477,7 +479,7 @@ try {
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         if (account !== "notlogin" && typeof account === 'string') {
        	if (!('banned' in account)) account.banned = false
-           if (!('premium' in account)) account.premium = (isCreator ? "premium" : isPremium)
+           if (!('premium' in account)) account.premium = isCreator ? "premium" : isPremium
            if (!('limit' in account)) account.limit = limitUser
            if (!('cloud' in account)) account.cloud = "notcreated"
            if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
@@ -485,6 +487,21 @@ try {
         }
 } catch (err) {
    console.error(err)
+}
+
+//Email sender
+function sendMail(mailTo, mailSubject, mailHtml, mailText) {
+   const transporter = nodemailer.createTransport({
+      service : 'gmail',
+      auth : { user : global.db.data.bot.mail, pass : global.db.data.bot.passmail }
+   });
+
+   return transporter.sendMail({
+      from : global.db.data.bot.mail,
+      to : mailTo,
+      subject : mailSubject,
+      html: Hogan.compile(fs.readFileSync('./src/media/html/' + mailHtml + '.html', 'utf8')).render({ quoted: mailText })
+   });
 }
 
 //Apakah limit User habis
@@ -688,6 +705,22 @@ if (!client.public) {
 // Ban Chat
 if (db.data.chats[m.chat].mute && command != "unmute") {
    return
+}
+
+//Function Register
+if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
+	if (budy === global.db.data.users[m.sender].pendingRegister.otp) {
+		//Auto Login
+       const configPendingRegister = global.db.data.users[m.sender].pendingRegister
+		global.db.data.account[configPendingRegister.username] = {
+			password: configPendingRegister.password,
+			email: configPendingRegister.email
+        }
+        m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
+        delete global.db.data.users[m.sender].pendingRegister
+	} else {
+      m.reply('Kode otp salah!')
+    }
 }
 
 //Write Database Every 1 Minute
@@ -1357,10 +1390,12 @@ while(otp.length < 6) {
     otp.push(randomOtp);
 }
 if (!statusRegister) global.db.data.users[m.sender].pendingRegister = {
-  otp: otp,
+  otp: otp[0],
+  username: userNameRegister,
   password: passWordRegister,
   email: eMailRegister
 }
+await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp[0])
 m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 addTypeCmd(command, 1)
 break
