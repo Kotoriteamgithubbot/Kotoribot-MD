@@ -127,7 +127,7 @@ const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin" : "notlogin"
 const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[accountUsers] === 'object' ? true : false) : false
-const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : "notlogin"
+const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : false
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
 const mime = (quoted.msg || quoted).mimetype || ''
@@ -479,7 +479,7 @@ try {
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         if (account !== "notlogin" && typeof account === 'object') {
        	if (!('banned' in account)) account.banned = false
-           if (!('premium' in account)) account.premium = isCreator ? "premium" : isPremium
+           if (!('premium' in account)) account.premium = isCreator ? true : isPremium
            if (!('limit' in account)) account.limit = limitUser
            if (!('cloud' in account)) account.cloud = "notcreated"
            if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
@@ -1230,13 +1230,27 @@ if (isCmd && command) {
 switch(command) {
 case 'profile':
 if (!isLogin) return m.reply(mess.logout)
+if (!q) {
 const configAllProfile = `*Profil Akun*
 
 • Username : ${global.db.data.users[m.sender].account}
 • Password : ${global.db.data.account[accountUsers].password}
 • Email : ${global.db.data.account[accountUsers].email}
-• Limit : ${global.db.data.account[accountUsers].limit}`
-m.reply(configAllProfile)
+• Limit : ${global.db.data.account[accountUsers].limit}
+• Premium : ${isPremium ? 'Yes' : 'No'}`
+   m.reply(configAllProfile)
+} else if (args[0] == 'change') {
+	const configChange = args[2].trim().tostring()
+	if (args[1] == 'username') {
+		if (accountUsers == configChange) return m.reply('Username tidak diubah!')
+		global.db.data.account[configChange].email = global.db.data.account[accountUsers].email
+        global.db.data.account[configChange].password = global.db.data.account[accountUsers].password
+        global.db.data.account[configChange].limit = global.db.data.account[accountUsers].limit
+        global.db.data.account[configChange].premium = global.db.data.account[accountUsers].premium
+        delete global.db.data.account[accountUsers]
+        global.db.data.users[m.sender].account = configChange
+    }
+}
 addTypeCmd(command, 1)
 break
 case 'mute': 
