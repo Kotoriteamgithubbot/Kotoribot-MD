@@ -735,7 +735,7 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
         delete global.db.data.users[m.sender].pendingRegister
 	} else if (budy.toLowerCase() == 'batal daftar') {
        delete global.db.data.users[m.sender].pendingRegister
-       m.reply(mess.succes)
+       m.reply(mess.success)
     } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal daftar"')
 }
 
@@ -1370,15 +1370,13 @@ case 'register':
 if (isLogin) return m.reply(mess.login)
 if (!q) return m.reply(textTemplateRegister)
 
-const eMailRegister = q.split('|')[0].trim()
-const userNameRegister = q.split('|')[1].trim()
-const passWordRegister = q.split('|')[2].trim()
+const eMailRegister = q.split('|')[0].trim().toSring()
+const userNameRegister = q.split('|')[1].trim().toSring()
+const passWordRegister = q.split('|')[2].trim().toSring()
 
 if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
 
-if (typeof global.db.data.account[userNameRegister] === 'object') {
-  m.reply(mess.register) 
-} else if (global.db.data.account[userNameRegister] && global.db.data.account[userNameRegister].email && (global.db.data.account[userNameRegister].email === eMailRegister)) {
+if (global.db.data.account[userNameRegister]) {
     m.reply(mess.register)
 } else {
   global.db.data.users[m.sender].pendingRegister = { otp: makeOtp(6), username: userNameRegister, password: passWordRegister, email: eMailRegister }
