@@ -702,7 +702,7 @@ if (!client.public) {
     if (!m.key.fromMe) return
 }
 
-// Ban Chat
+// Mute
 if (db.data.chats[m.chat].mute && command != "unmute") {
    return
 }
