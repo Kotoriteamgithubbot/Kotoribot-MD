@@ -1247,8 +1247,9 @@ const configAllProfile = `*Profil Akun*
         global.db.data.account[configChange].password = global.db.data.account[accountUsers].password
         global.db.data.account[configChange].limit = global.db.data.account[accountUsers].limit
         global.db.data.account[configChange].premium = global.db.data.account[accountUsers].premium
-        delete global.db.data.account[accountUsers]
+        delete global.db.data.account[global.db.data.users[m.sender].account]
         global.db.data.users[m.sender].account = configChange
+        m.reply(mess.success)
     }
 }
 addTypeCmd(command, 1)
