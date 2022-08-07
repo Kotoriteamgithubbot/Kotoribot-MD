@@ -716,11 +716,10 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 			password: configPendingRegister.password,
 			email: configPendingRegister.email
         }
+        global.db.data.users[m.sender].account = configPendingRegister.username
         m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
         delete global.db.data.users[m.sender].pendingRegister
-	} else {
-      m.reply('Kode otp salah!')
-    }
+	} else return m.reply('Kode otp salah!')
 }
 
 //Write Database Every 1 Minute
@@ -1212,15 +1211,6 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
-case 'getotp': 
-if (!isCreator) return m.reply(mess.owner)
-if (typeof global.db.data.users[q + '@s.whatsapp.net'].pendingRegister === 'object') {
-	m.reply(`Kode : ${global.db.data.users[q + '@s.whatsapp.net'].pendingRegister.otp}`)
-} else {
-	m.reply('Status user tidak dalam pending register!')
-}
-addTypeCmd(command, 1)
-break
 case 'mute': 
 if (!m.isGroup) return m.reply(mess.group)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
@@ -1368,16 +1358,16 @@ case 'login':
 if (!isCreator) return m.reply('Maaf fitur ini masih ujicoba. Hanya pengguna yang terdaftar sebagai LightBeTest')
 // if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
 if (!q) return m.reply(textTemplateLogin)
-
+if (!q.includes('|')) return m.reply("Gunakan '|' sebagai pemisah!")
 const userNameLogin = q.split('|')[0].trim()
 const passWordLogin = q.split('|')[1].trim()
 
 if (!userNameLogin || !passWordLogin) return m.reply('Ketikkan username dan password!')
 
-if (typeof global.db.data.account[userNameLogin] === 'object') {
-	m.reply('Akun ditemukan namun fitur masih ujicoba:)')
-} else m.reply('Username tidak ditemukan! Silahkan daftar terlebih dahulu dengan .register')
-
+if (typeof global.db.data.account[userNameLogin] === 'object' && global.db.data.account[userNameLogin].password === passWordLogin) {
+	global.db.data.users[m.sender].account = userNameLogin
+	m.reply(mess.succes)
+} else m.reply('Username dan password salah atau tidak terdaftar! Silahkan daftar terlebih dahulu dengan .register')
 addTypeCmd(command, 1)
 break
 case 'register':
