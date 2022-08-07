@@ -8,8 +8,8 @@ const { spawn }  = require('child_process');
 
 let handler = async(client, m) => {
     if (!process.send) m.reply('Dont: node main.js\nDo: node start.js')
-    await m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
-    process.send('reset')
+    m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
+    await process.send('reset')
     m.reply('Selesai Mereset Bot...')
 }
 
