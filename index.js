@@ -1230,7 +1230,6 @@ if (isCmd && command) {
 switch(command) {
 case 'profile': case 'profil':
 if (!isLogin) return m.reply(mess.logout)
-if (!q) {
 const configAllProfile = `*Profil Akun*
 
 • Username : ${global.db.data.users[m.sender].account}
@@ -1239,25 +1238,6 @@ const configAllProfile = `*Profil Akun*
 • Limit : ${global.db.data.account[accountUsers].limit}
 • Premium : ${isPremium ? 'Yes' : 'No'}`
    m.reply(configAllProfile)
-} else {
-	const selectType = q.split(':')[0] ? q.split(':')[0].trim().toString() : ''
-	const queryType = q.split(':')[1] ? q.split(':')[1].trim().toString() : ''
-    if (selectType == 'username') {
-    	if (!queryType) return m.reply(`Masukkan input yang ingin diubah contoh .profile ${selectType}: usernamebaru`)
-    	if (accountUsers == queryType) return m.reply('Username tidak diubah!');
-		global.db.data.account[queryType].email = global.db.data.account[accountUsers].email;
-        global.db.data.account[queryType].password = global.db.data.account[accountUsers].password;
-        global.db.data.account[queryType].limit = global.db.data.account[accountUsers].limit;
-        global.db.data.account[queryType].premium = global.db.data.account[accountUsers].premium;
-        delete global.db.data.account[global.db.data.users[m.sender].account];
-        global.db.data.users[m.sender].account = queryType;
-        m.reply(mess.success)
-    } else if (selectType == 'password') {
-    	if (!queryType) return m.reply(`Masukkan input yang ingin diubah contoh .profile ${selectType}: usernamebaru`)
-        global.db.data.account[accountUsers].password = queryType;
-        m.reply(mess.success)
-    } else m.reply('Contoh cara mengubah profile .profile username: usernamebaru')
-}
 addTypeCmd(command, 1)
 break
 case 'mute': 
