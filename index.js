@@ -1377,7 +1377,7 @@ if (typeof global.db.data.account[userNameRegister] === 'object') m.reply(mess.r
 else if (global.db.data.account[userNameRegister] ? global.db.data.account[userNameRegister].email ?  global.db.data.account[userNameRegister].email === eMailRegister : false : false) m.reply(mess.register)
 else {
   global.db.data.users[m.sender].pendingRegister = { otp: makeOtp(6), username: userNameRegister, password: passWordRegister, email: eMailRegister }
-  await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', makeOtp(6))
+  await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', `http://wa.me/${client.decodeJid(client.user.id)}?text=${global.db.data.users[m.sender].pendingRegister.otp}`)
   m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 }
 addTypeCmd(command, 1)
