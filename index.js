@@ -1052,7 +1052,7 @@ ${wit} WIT
 
 *Akun*: ${global.db.data.users[m.sender].account}
 *Saldo Neybot:* ${formatNumber('0')} IDR
-*Limit:* ${((global.db.data.account[accountUsers].limit !== 'Infinity') ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit)}
+*Limit:* ${(isLogin ? ((global.db.data.account[accountUsers].limit !== 'Infinity') ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin")}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
 *Game*
