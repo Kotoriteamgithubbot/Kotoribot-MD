@@ -733,7 +733,10 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
         global.db.data.users[m.sender].account = configPendingRegister.username
         m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
         delete global.db.data.users[m.sender].pendingRegister
-	} else return m.reply('Kode otp salah!')
+	} else if (budy.toLowerCase == 'batal daftar') {
+       delete global.db.data.users[m.sender].pendingRegister
+       m.reply(mess.succes)
+    } else return m.reply('Kode otp salah!')
 }
 
 //Write Database Every 1 Minute
@@ -1373,9 +1376,11 @@ const passWordRegister = q.split('|')[2].trim()
 
 if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
 
-if (typeof global.db.data.account[userNameRegister] === 'object') m.reply(mess.register)
-else if (global.db.data.account[userNameRegister] ? global.db.data.account[userNameRegister].email ?  global.db.data.account[userNameRegister].email === eMailRegister : false : false) m.reply(mess.register)
-else {
+if (typeof global.db.data.account[userNameRegister] === 'object') {
+  m.reply(mess.register) 
+} else if (global.db.data.account[userNameRegister] && global.db.data.account[userNameRegister].email && (global.db.data.account[userNameRegister].email === eMailRegister)) {
+    m.reply(mess.register)
+} else {
   global.db.data.users[m.sender].pendingRegister = { otp: makeOtp(6), username: userNameRegister, password: passWordRegister, email: eMailRegister }
   await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', `http://wa.me/${client.decodeJid(client.user.id)}?text=${global.db.data.users[m.sender].pendingRegister.otp}`)
   m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
