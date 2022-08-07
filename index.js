@@ -124,6 +124,7 @@ const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '')
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = global.db.data.users[m.sender].account
+const isLogin = global.db.data.account[accountUsers] ? true : false
 const isPremium =  global.db.data.account[accountUsers].premium ? true : isCreator ? true : false
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
@@ -1264,6 +1265,7 @@ addTypeCmd(command, 1)
 break
 case 'menu':
 case 'help':
+if (!isLogin) return m.reply(mess.logout)
 /**
 - Menu Type Button Location (Slow Respon)
 
