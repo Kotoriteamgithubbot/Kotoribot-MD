@@ -1369,12 +1369,14 @@ break
 case 'register':
 if (isLogin) return m.reply(mess.login)
 if (!q) return m.reply(textTemplateRegister)
+if (!q.includes('|')) return m.reply("Gunakan '|' sebagai pemisah!")
 
-const eMailRegister = q.split('|')[0].trim().toSring()
-const userNameRegister = q.split('|')[1].trim().toSring()
-const passWordRegister = q.split('|')[2].trim().toSring()
+const eMailRegister = q.split('|')[0].trim().toString()
+const userNameRegister = q.split('|')[1].trim().toString()
+const passWordRegister = q.split('|')[2].trim().toString()
 
 if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
+if (/\S/.test(userNameRegister) || /\S/.test(passWordRegister)) return m.reply('Jangan berikan spasi pada username atau password!')
 
 if (global.db.data.account[userNameRegister]) {
     m.reply(mess.register)
