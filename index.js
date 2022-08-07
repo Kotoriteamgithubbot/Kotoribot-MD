@@ -1345,7 +1345,7 @@ if (!userNameLogin || !passWordLogin) return m.reply('Ketikkan username dan pass
 
 if (typeof global.db.data.account[userNameLogin] === 'object' && global.db.data.account[userNameLogin].password === passWordLogin) {
 	global.db.data.users[m.sender].account = userNameLogin
-	m.reply(mess.succes)
+	m.reply(mess.success)
 } else m.reply('Username dan password salah atau tidak terdaftar! Silahkan daftar terlebih dahulu dengan .register')
 addTypeCmd(command, 1)
 break
@@ -1382,7 +1382,7 @@ break
 case 'logout':
 if (!isLogin) return m.reply(mess.logout)
 global.db.data.users[m.sender].account = "guest"
-m.reply(mess.succes) 
+m.reply(mess.success) 
 break
 case 'kuismath':
 case 'math': 
