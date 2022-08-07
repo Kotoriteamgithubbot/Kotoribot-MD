@@ -1,3 +1,0 @@
-/**
-- Managed by Aineteam  
- */
