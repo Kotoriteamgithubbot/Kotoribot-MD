@@ -1136,7 +1136,15 @@ const textTemplateLogin = `*Masuk*
 
 Format :
 
-.login username|password`
+.login username | password`
+
+const textTemplateRegister = `*Buat Akun*
+
+Format :
+
+.register email | username | password
+
+Mohon gunakan email valid untuk pengiriman kode konfirmasi!`
 
 //Ada quoted (False or True)
 const thereQuoted = m.quoted? "true":"false"
@@ -1318,8 +1326,8 @@ case 'login':
 // if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
 if (!q) return m.reply(textTemplateLogin)
 
-const userNameLogin = q.split('|')[0]
-const passWordLogin = q.split('|')[1]
+const userNameLogin = q.split('|')[0].trim()
+const passWordLogin = q.split('|')[1].trim()
 
 if (!userNameLogin || !passWordLogin) return m.reply('Ketikkan username dan password!')
 
@@ -1327,6 +1335,26 @@ if (typeof global.db.data.account[userNameLogin] === 'object') {
 	m.reply('Akun ditemukan namun fitur masih ujicoba:)')
 } else m.reply('Username tidak ditemukan! Silahkan daftar terlebih dahulu dengan .register')
 
+addTypeCmd(command, 1)
+break
+case 'register':
+if (!isCreator) return m.reply('Maaf fitur ini masih ujicoba. Hanya pengguna yang terdaftar sebagai LightBeTest')
+// if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
+if (!q) return m.reply(textTemplateRegister)
+
+const eMailRegister = q.split('|')[0].trim()
+const userNameRegister = q.split('|')[1].trim()
+const passWordRegister = q.split('|')[2].trim()
+
+if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
+
+let configRegister = global.db.data.account[userNameRegister]
+if (typeof configRegister !== 'object') return m.reply(mess.register)
+if (!configRegister) global.db.data.account[userNameRegister] = {
+  password: passWordRegister,
+  email: eMailRegister
+}
+m.reply(mess.succes)
 addTypeCmd(command, 1)
 break
 case 'kuismath':
