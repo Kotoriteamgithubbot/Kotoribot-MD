@@ -1359,23 +1359,12 @@ const passWordRegister = q.split('|')[2].trim()
 
 if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
 
-const statusRegister = global.db.data.account[userNameRegister]
-if (typeof statusRegister === 'object') return m.reply(mess.register)
-var otp = []
-while(otp.length < 6) {
-    var randomOtp = Math.floor(Math.random()*100) + 1;
-    otp.push(randomOtp);
-}
-
-if (otp.length === 6) {
-   if (!statusRegister) global.db.data.users[m.sender].pendingRegister = {
-     otp: otp[0],
-     username: userNameRegister,
-     password: passWordRegister,
-     email: eMailRegister
-   }
-   await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp[0])
-   m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
+if (typeof global.db.data.account[userNameRegister] === 'object') {
+  m.reply(mess.register)
+} else {
+  global.db.data.users[m.sender].pendingRegister = { otp: otp, username: userNameRegister, password: passWordRegister, email: eMailRegister }
+  await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp)
+  m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 }
 addTypeCmd(command, 1)
 break
