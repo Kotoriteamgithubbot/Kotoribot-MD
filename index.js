@@ -504,6 +504,20 @@ function sendMail(mailTo, mailSubject, mailHtml, mailText) {
    });
 }
 
+//Pembuat Otp
+function makeOtp(n) {
+    for (var varMakeOtp_1 = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", 
+"o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F",
+ "G", "H", "I",  "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
+ "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+ varMakeOtp_2 = n, varMakeOtp_3 = new Array, varMakeOtp_4 = 0; varMakeOtp_4 <= varMakeOtp_2 - 1; varMakeOtp_4++) {
+        varMakeOtp_3[varMakeOtp_4] = varMakeOtp_1[parseInt(Math.random() * varMakeOtp_1.length)];
+        varMakeOtp_3 = varMakeOtp_3;
+        varMakeOtp_5 = varMakeOtp_3.join("")
+    }
+    return varMakeOtp_5
+}
+
 //Apakah limit User habis
 const isLimit = (sender) => { 
 	if (isCreator && isPremium) { return false }
@@ -1362,8 +1376,8 @@ if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ke
 if (typeof global.db.data.account[userNameRegister] === 'object') m.reply(mess.register)
 else if (global.db.data.account[userNameRegister] ? global.db.data.account[userNameRegister].email ?  global.db.data.account[userNameRegister].email === eMailRegister : false : false) m.reply(mess.register)
 else {
-  global.db.data.users[m.sender].pendingRegister = { otp: otp, username: userNameRegister, password: passWordRegister, email: eMailRegister }
-  await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp)
+  global.db.data.users[m.sender].pendingRegister = { otp: makeOtp(6), username: userNameRegister, password: passWordRegister, email: eMailRegister }
+  await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', makeOtp(6))
   m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 }
 addTypeCmd(command, 1)
