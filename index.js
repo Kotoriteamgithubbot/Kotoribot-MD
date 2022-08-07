@@ -736,7 +736,7 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 	} else if (budy.toLowerCase == 'batal daftar') {
        delete global.db.data.users[m.sender].pendingRegister
        m.reply(mess.succes)
-    } else return m.reply('Kode otp salah!')
+    } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal daftar"')
 }
 
 //Write Database Every 1 Minute
