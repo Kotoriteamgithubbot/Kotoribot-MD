@@ -1385,7 +1385,7 @@ if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ke
 const statusRegister = global.db.data.account[userNameRegister]
 if (typeof statusRegister === 'object') return m.reply(mess.register)
 var otp = []
-await while(otp.length < 6) {
+while(otp.length < 6) {
     var randomOtp = Math.floor(Math.random()*100) + 1;
     otp.push(randomOtp);
 }
