@@ -1228,6 +1228,12 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'profile':
+if (!isLogin) return m.reply(mess.logout)
+const configAllProfile = `*Profil Akun*
+
+user`
+break
 case 'mute': 
 if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
