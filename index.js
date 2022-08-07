@@ -1323,6 +1323,7 @@ if (args[0] === 'neybot') {
 addTypeCmd(command, 1)
 break
 case 'login':
+if (!isCreator) return m.reply('Maaf fitur ini masih ujicoba. Hanya pengguna yang terdaftar sebagai LightBeTest')
 // if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
 if (!q) return m.reply(textTemplateLogin)
 
@@ -1348,13 +1349,19 @@ const passWordRegister = q.split('|')[2].trim()
 
 if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
 
-let configRegister = global.db.data.account[userNameRegister]
-if (typeof configRegister !== 'object') return m.reply(mess.register)
-if (!configRegister) global.db.data.account[userNameRegister] = {
+const statusRegister = global.db.data.account[userNameRegister]
+if (typeof statusRegister === 'object') return m.reply(mess.register)
+var otp = []
+while(otp.length < 6) {
+    var randomOtp = Math.floor(Math.random()*100) + 1;
+    otp.push(randomOtp);
+}
+if (!statusRegister) global.db.data.users[m.sender].pendingRegister = {
+  otp: otp,
   password: passWordRegister,
   email: eMailRegister
 }
-m.reply(mess.succes)
+m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 addTypeCmd(command, 1)
 break
 case 'kuismath':
