@@ -29,7 +29,7 @@ global.antitags = true
 global.mess = {
 	logout: 'Kamu harus login terlebih dahulu! Ketik .login',
 	login: 'Kamu sudah login sebelumnya!',
-	register: 'Username sudah pernah terdaftar!',
+	register: 'Username atau email sudah pernah terdaftar!',
     success: 'Success',
     admin: 'Fitur Khusus Admin Group!',
     botAdmin: 'Bot Harus Menjadi Admin Terlebih Dahulu!',
