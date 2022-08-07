@@ -1360,7 +1360,7 @@ const passWordRegister = q.split('|')[2].trim()
 if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ketikkan email, username dan password untuk melakukan pendaftaran!')
 
 if (typeof global.db.data.account[userNameRegister] === 'object') m.reply(mess.register)
-else if (global.db.data.account[userNameRegister].email === eMailRegister) m.reply(mess.register)
+else if (typeof global.db.data.account[userNameRegister].email === 'string' && global.db.data.account[userNameRegister].email == eMailRegister) m.reply(mess.register)
 else {
   global.db.data.users[m.sender].pendingRegister = { otp: otp, username: userNameRegister, password: passWordRegister, email: eMailRegister }
   await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp)
