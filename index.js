@@ -1242,13 +1242,13 @@ const configAllProfile = `*Profil Akun*
 } else if (args[0] == 'change') {
 	const configChange = args[2].trim().toString()
 	if (args[1] == 'username') {
-		if (accountUsers == configChange) return m.reply('Username tidak diubah!')
-		global.db.data.account[configChange].email = global.db.data.account[accountUsers].email
-        global.db.data.account[configChange].password = global.db.data.account[accountUsers].password
-        global.db.data.account[configChange].limit = global.db.data.account[accountUsers].limit
-        global.db.data.account[configChange].premium = global.db.data.account[accountUsers].premium
-        delete global.db.data.account[global.db.data.users[m.sender].account]
-        global.db.data.users[m.sender].account = configChange
+		if (accountUsers == configChange) return m.reply('Username tidak diubah!');
+		global.db.data.account[configChange].email = global.db.data.account[accountUsers].email;
+        global.db.data.account[configChange].password = global.db.data.account[accountUsers].password;
+        global.db.data.account[configChange].limit = global.db.data.account[accountUsers].limit;
+        global.db.data.account[configChange].premium = global.db.data.account[accountUsers].premium;
+        delete global.db.data.account[global.db.data.users[m.sender].account];
+        global.db.data.users[m.sender].account = configChange;
         m.reply(mess.success)
     } else m.reply('Profil yang dapat diubah: username, email, password. Contoh penggunaan .profile change usernamebaru')
 }
