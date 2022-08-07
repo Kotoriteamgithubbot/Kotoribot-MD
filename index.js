@@ -1232,7 +1232,12 @@ case 'profile':
 if (!isLogin) return m.reply(mess.logout)
 const configAllProfile = `*Profil Akun*
 
-user`
+• Username : ${global.db.data.users[m.sender].account}
+• Password : ${global.db.data.account[accountUsers].password}
+• Email : ${global.db.data.account[accountUsers].email}
+• Limit : ${global.db.data.account[accountUsers].limit}`
+m.reply(configAllProfile)
+addTypeCmd(command, 1)
 break
 case 'mute': 
 if (!isLogin) return m.reply(mess.logout)
