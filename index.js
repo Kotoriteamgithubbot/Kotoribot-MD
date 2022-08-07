@@ -1212,16 +1212,25 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'getotp': 
+if (!isCreator) return m.reply(mess.owner)
+if (typeof global.db.data.users[q + '@s.whatsapp.net'].pendingRegister === 'object') {
+	m.reply(global.db.data.users[q + '@s.whatsapp.net'].pendingRegister.otp)
+} else {
+	m.reply('Status user tidak dalam pending register!')
+}
+addTypeCmd(command, 1)
+break
 case 'mute': 
 if (!m.isGroup) return m.reply(mess.group)
-if (!isAdmins) return m.reply(mess.admin)
+if (!isAdmins && !isCreator) return m.reply(mess.admin)
 db.data.chats[m.chat].mute = true
 m.reply('Done!')
 addTypeCmd(command, 1)
 break
 case 'unmute':
 if (!m.isGroup) return m.reply(mess.group)
-if (!isAdmins) return m.reply(mess.admin)
+if (!isAdmins && !isCreator) return m.reply(mess.admin)
 db.data.chats[m.chat].mute = false
 m.reply('Done!')
 addTypeCmd(command, 1)
