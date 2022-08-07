@@ -1215,7 +1215,7 @@ switch(command) {
 case 'getotp': 
 if (!isCreator) return m.reply(mess.owner)
 if (typeof global.db.data.users[q + '@s.whatsapp.net'].pendingRegister === 'object') {
-	m.reply(JSON.stringify(global.db.data.users[q + '@s.whatsapp.net'].pendingRegister.otp))
+	m.reply(`Kode : ${global.db.data.users[q + '@s.whatsapp.net'].pendingRegister.otp}`)
 } else {
 	m.reply('Status user tidak dalam pending register!')
 }
