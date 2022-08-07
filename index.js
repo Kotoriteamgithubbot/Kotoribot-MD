@@ -1321,7 +1321,11 @@ if (!q) return m.reply(textTemplateLogin)
 const userNameLogin = q.split('|')[0]
 const passWordLogin = q.split('|')[1]
 
-if (typeof global.db.data.account[userNameLogin] !== 'object') return m.reply('Username tidak ditemukan! Silahkan daftar terlebih dahulu dengan .register')
+if (!userNameLogin || !passWordLogin) return m.reply('Ketikkan username dan password!')
+
+if (typeof global.db.data.account[userNameLogin] === 'object') {
+	m.reply('Akun ditemukan namun fitur masih ujicoba:)')
+} else m.reply('Username tidak ditemukan! Silahkan daftar terlebih dahulu dengan .register')
 
 addTypeCmd(command, 1)
 break
