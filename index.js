@@ -123,7 +123,7 @@ const botNumber = await client.decodeJid(client.user.id)
 const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
-const accountUsers = global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin"
+const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin" : "notlogin"
 const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[accountUsers] === 'object' ? true : false) : false
 const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : "notlogin"
 const from = m.chat
@@ -1134,11 +1134,9 @@ https://trakteer.id/staflightgreen/tip`
 
 const textTemplateLogin = `*Masuk*
 
-Login untuk mendapatkan hak akses:
-- Cloud Storage 5 GB 
-- Store Menu
-- Unlimited Kouta
-- Sharing Media`
+Format :
+
+.login username|password`
 
 //Ada quoted (False or True)
 const thereQuoted = m.quoted? "true":"false"
@@ -1316,14 +1314,14 @@ if (args[0] === 'neybot') {
 
 addTypeCmd(command, 1)
 break
-/*
 case 'login':
-if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
+// if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'login confirmed', buttonText: { displayText: 'Masuk' }, type: 1 }, { buttonId: 'login register', buttonText: { displayText: 'Buat Akun' }, type: 1 }], textTemplateLogin, '© CloudbyPsn', m)
+if (!q) return m.reply(textTemplateLogin)
 
-if (args[0] === 'confirmed') {
-	loginprocess.push(m.sender)
-    fs.writeFileSync('./database/account/login/process.json', JSON.stringify(loginprocess))
-}
+const userNameLogin = q.split('|')[0]
+const passWordLogin = q.split('|')[1]
+
+if (typeof global.db.data.account[userNameLogin] !== 'object') return m.reply('Username tidak ditemukan! Silahkan daftar terlebih dahulu dengan .register')
 
 addTypeCmd(command, 1)
 break
