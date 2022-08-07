@@ -1385,18 +1385,21 @@ if (!eMailRegister || !userNameRegister || !passWordRegister) return m.reply('Ke
 const statusRegister = global.db.data.account[userNameRegister]
 if (typeof statusRegister === 'object') return m.reply(mess.register)
 var otp = []
-while(otp.length < 6) {
+await while(otp.length < 6) {
     var randomOtp = Math.floor(Math.random()*100) + 1;
     otp.push(randomOtp);
 }
-if (!statusRegister) global.db.data.users[m.sender].pendingRegister = {
-  otp: otp[0],
-  username: userNameRegister,
-  password: passWordRegister,
-  email: eMailRegister
+
+if (otp.length === 6) {
+   if (!statusRegister) global.db.data.users[m.sender].pendingRegister = {
+     otp: otp[0],
+     username: userNameRegister,
+     password: passWordRegister,
+     email: eMailRegister
+   }
+   await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp[0])
+   m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 }
-await sendMail(eMailRegister, 'Konfirmasi Email', 'otpTemplate', otp[0])
-m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail.\n\nJika belum terkirim tunggu 1-5 menit!')
 addTypeCmd(command, 1)
 break
 case 'kuismath':
