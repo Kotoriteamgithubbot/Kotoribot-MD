@@ -123,9 +123,9 @@ const botNumber = await client.decodeJid(client.user.id)
 const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
-const accountUsers = global.db.data.users[m.sender].account
-const isLogin = global.db.data.account[accountUsers] ? true : false
-const isPremium =  global.db.data.account[accountUsers].premium ? true : isCreator ? true : false
+const accountUsers = global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin"
+const isLogin = accountUsers !== "notlogin" ? (global.db.data.account[accountUsers] ? true : false) : "notlogin"
+const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : "notlogin"
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
 const mime = (quoted.msg || quoted).mimetype || ''
@@ -473,9 +473,9 @@ try {
         if (!('use' in bot)) bot.use = "public"
         bot.use === "public" ? (client.public = true) : (client.public = false)
         
-        let account = global.db.data.users[m.sender].account !== "guest" ? global.db.data.account[accountUsers] : false
+        let account = isLogin ? global.db.data.account[accountUsers] : "notlogin"
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-        if (account && typeof account === 'string') {
+        if (account !== "notlogin" && typeof account === 'string') {
        	if (!('banned' in account)) account.banned = false
            if (!('premium' in account)) account.premium = (isCreator ? "premium" : isPremium)
            if (!('limit' in account)) account.limit = limitUser
@@ -490,7 +490,7 @@ try {
 //Apakah limit User habis
 const isLimit = (sender) => { 
 	if (isCreator && isPremium) { return false }
-    if (global.db.data.account[accountUsers]) { 
+    if (isLogin && global.db.data.account[accountUsers]) { 
 	    let limits = global.db.data.account[accountUsers].limit
 	    (limits <= 0 ) ? true : false
     }
@@ -498,7 +498,7 @@ const isLimit = (sender) => {
 
 //Mengurangi limit User
 const reduceLimit = (sender, amount) => {
-	if (global.db.data.account[accountUsers]) {
+	if (isLogin && global.db.data.account[accountUsers]) {
 	    let currentLimit = global.db.data.account[accountUsers].limit
         if ( currentLimit == 'Infinity' ) {
 	        global.db.data.account[accountUsers].limit = 'Infinity'
