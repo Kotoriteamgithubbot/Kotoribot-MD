@@ -743,7 +743,7 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
         global.db.data.users[m.sender].pendingResetPassword = true
-        m.reply('Silahkan ketikkan password baru!');
+        m.reply('Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"');
         delete global.db.data.users[m.sender].confirmPasswordReset
 	} else if (budy.toLowerCase() == 'batal ganti') {
        delete global.db.data.users[m.sender].confirmPasswordReset
@@ -752,10 +752,13 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 }
 
 if (global.db.data.users[m.sender].pendingResetPassword) {
-  const textChangePassword = `Password baru kamu : ${budy}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
-  m.reply(textChangePassword)
-  delete global.db.data.users[m.sender].pendingResetPassword
-  global.db.data.users[m.sender].temporaryPassword = budy
+  const newPasswordPrefix = q ? q.startsWith('newpassword') ? q.slice(10).startsWith(':') ? q.split(':')[0] : '' : '' : ''
+  if (newPasswordPrefix) {
+     const textChangePassword = `Password baru kamu : ${budy}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
+     m.reply(textChangePassword)
+     delete global.db.data.users[m.sender].pendingResetPassword
+     global.db.data.users[m.sender].temporaryPassword = budy
+  } else return m.reply('Cara penggunaan : newpassword: isipasswordbaru')
 }
 
 if (global.db.data.users[m.sender].temporaryPassword) {
