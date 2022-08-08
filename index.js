@@ -742,13 +742,13 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 //Function Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        await m.reply('Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"');
+        await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"', wm, m)
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
 	} else if (budy.toLowerCase() == 'batal ganti') {
        delete global.db.data.users[m.sender].confirmPasswordReset
        m.reply(mess.success)
-    } else return m.reply('Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal ganti"')
+    } else return await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
 
 if (global.db.data.users[m.sender].pendingResetPassword) {
@@ -756,7 +756,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
   if (newPasswordPrefix == 'newpassword:') {
   	if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
      const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
-     m.reply(textChangePassword)
+     await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
   }  else return
@@ -1242,6 +1242,8 @@ if (isCmd && command) {
              let handler = require("./plugins/" + file)
              if (handler.command.test(command)) {
                  if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+                 if (handler.login && !isLogin) return client.sendMessage(m.chat, { text: mess.logout }, { quoted: m })
+                 if (handler.logout && isLogin) return client.sendMessage(m.chat, { text: mess.login }, { quoted: m })
                  if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
                  if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
                  if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
