@@ -1273,7 +1273,7 @@ break
 case 'resetpassword': case 'resetpw':
 if (!isLogin) return m.reply(mess.logout)
 global.db.data.users[m.sender].confirmPasswordReset = makeOtp(6)
-await sendMail(eMailRegister, 'Konfirmasi Reset Password', 'resetPasswordTemplate', `http://wa.me/${client.decodeJid(client.user.id)}?text=${global.db.data.users[m.sender].confirmPasswordReset}`)
+await sendMail(global.db.data.account[accountUsers].email, 'Konfirmasi Reset Password', 'resetPasswordTemplate', `http://wa.me/${client.decodeJid(client.user.id)}?text=${global.db.data.users[m.sender].confirmPasswordReset}`)
 m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail untuk mengubah password.\n\nJika belum terkirim tunggu 1-5 menit!')
 addTypeCmd(command, 1)
 break
