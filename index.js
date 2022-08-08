@@ -758,7 +758,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
      m.reply(textChangePassword)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(12).trim()
-  } else return m.reply('Cara penggunaan : newpassword: isipasswordbaru')
+  } else return m.reply(`Cara penggunaan : "newpassword: isipasswordbaru" bukan "${newPasswordPrefix}"`)
 }
 
 if (global.db.data.users[m.sender].temporaryPassword) {
