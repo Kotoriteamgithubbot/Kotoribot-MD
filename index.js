@@ -742,8 +742,8 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 //Function Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
+        await m.reply('Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"');
         global.db.data.users[m.sender].pendingResetPassword = true
-        m.reply('Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"');
         delete global.db.data.users[m.sender].confirmPasswordReset
 	} else if (budy.toLowerCase() == 'batal ganti') {
        delete global.db.data.users[m.sender].confirmPasswordReset
@@ -759,7 +759,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
      m.reply(textChangePassword)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
-  } else return m.reply('Format salah!')
+  }  else return
 }
 
 if (global.db.data.users[m.sender].temporaryPassword) {
@@ -770,7 +770,7 @@ if (global.db.data.users[m.sender].temporaryPassword) {
     	global.db.data.account[accountUsers].password = global.db.data.users[m.sender].temporaryPassword
         m.reply(`Sukses mengganti password! Ketik .profile untuk melihat password baru kamu`)
         delete global.db.data.users[m.sender].temporaryPassword
-    } else return m.reply('Format salah!')
+    } else return
 }
 
 //Write Database Every 1 Minute
