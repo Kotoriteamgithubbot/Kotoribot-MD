@@ -1,6 +1,7 @@
 /**
 - Create By Aine Team
 - Powered By CloudbyPsn 
+- Owned by Kotorirpg-MD
 */
 
 require('./config.js')
@@ -32,8 +33,6 @@ const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/function')
 const { color } = require('./lib/color')
-//require("http").createServer((_, res) => res.end("Hallo World!")).listen(8080)
-
 var low
 try {
   low = require('lowdb')
@@ -118,7 +117,7 @@ async function start() {
         try {
            ppgc = await client.profilePictureUrl(pea[0].id, 'image')
         } catch {
-           ppgc = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+           ppgc = 'https://tinyurl.com/yx93l6da'
         }
         let wm_fatih = { url : ppgc }
         if (pea[0].announce == true) {
@@ -145,13 +144,13 @@ async function start() {
                 try {
                     ppuser = await client.profilePictureUrl(num, 'image')
                 } catch {
-                    ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                    ppuser = 'https://tinyurl.com/yx93l6da'
                 }
                 //Get Profile Picture Group
                 try {
                     ppgroup = await client.profilePictureUrl(anu.id, 'image')
                 } catch {
-                    ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                    ppgroup = 'https://tinyurl.com/yx93l6da'
                 }
                 //Get Action
                 if (anu.action == 'add') {
@@ -204,7 +203,7 @@ async function start() {
 	for (let i of kon) {
 	    list.push({
 	    	displayName: await client.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await client.getName(i + '@s.whatsapp.net')}\nFN:${await client.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:cloudbypsn@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://github.com/stafbotz\nitem3.X-ABLabel:Github\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await client.getName(i + '@s.whatsapp.net')}\nFN:${await client.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:cloudbypsn@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://s.id/KotoriRpg-MD\nitem3.X-ABLabel:Website\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
 	    })
 	}
 	client.sendMessage(jid, { contacts: { displayName: `${list.length} Kontak`, contacts: list }, ...opts }, { quoted })
@@ -317,7 +316,7 @@ async function start() {
      * @param {*} options 
      * @returns 
      */
-    client.sendText = (jid, text, quoted = '', options) => client.sendMessage(jid, { text: text, ...options }, { quoted })
+        client.sendText = (jid, text, quoted = '', options) => client.sendMessage(jid, { text: text, ...options }, { quoted, ...options })
 
     /**
      * 
