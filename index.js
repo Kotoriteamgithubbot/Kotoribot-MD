@@ -770,7 +770,7 @@ if (global.db.data.users[m.sender].temporaryPassword) {
     	global.db.data.account[accountUsers].password = global.db.data.users[m.sender].temporaryPassword
         m.reply(`Sukses mengganti password! Ketik .profile untuk melihat password baru kamu`)
         delete global.db.data.users[m.sender].temporaryPassword
-    }
+    } else return m.reply('Format salah!')
 }
 
 //Write Database Every 1 Minute
