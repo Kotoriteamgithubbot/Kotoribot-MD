@@ -755,8 +755,8 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
   const newPasswordPrefix = budy.slice(0, 12)
   if (newPasswordPrefix == 'newpassword:') {
   	if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
-     const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
-     await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], textChangePassword, wm, m)
+     const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
+     await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
   }  else return
