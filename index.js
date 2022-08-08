@@ -752,7 +752,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 }
 
 if (global.db.data.users[m.sender].pendingResetPassword) {
-  const newPasswordPrefix = q ? q.startsWith('newpassword') ? q.slice(10).startsWith(':') ? q.split(':')[0] : '' : '' : ''
+  const newPasswordPrefix = q ? q.startsWith('newpassword') ? q.slice(11).startsWith(':') ? q.split(':')[0] : '' : '' : ''
   if (newPasswordPrefix) {
      const textChangePassword = `Password baru kamu : ${budy}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
      m.reply(textChangePassword)
