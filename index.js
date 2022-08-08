@@ -752,13 +752,14 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 }
 
 if (global.db.data.users[m.sender].pendingResetPassword) {
-  const newPasswordPrefix = budy.slice(0, 11)
+  const newPasswordPrefix = budy.slice(0, 12)
   if (newPasswordPrefix == 'newpassword:') {
-     const textChangePassword = `Password baru kamu : ${budy.slice(12).trim()}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
+  	if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
+     const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
      m.reply(textChangePassword)
      delete global.db.data.users[m.sender].pendingResetPassword
-     global.db.data.users[m.sender].temporaryPassword = budy.slice(12).trim()
-  } else return m.reply(`Cara penggunaan : "newpassword: isipasswordbaru" bukan "${newPasswordPrefix}"`)
+     global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
+  } else return m.reply('Format salah!')
 }
 
 if (global.db.data.users[m.sender].temporaryPassword) {
