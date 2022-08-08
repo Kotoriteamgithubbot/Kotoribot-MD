@@ -739,6 +739,36 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
     } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal daftar"')
 }
 
+//Function Reset Password
+if (global.db.data.users[m.sender].confirmPasswordReset) {
+	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
+        global.db.data.users[m.sender].pendingResetPassword = true
+        m.reply('Silahkan ketikkan password baru!');
+        delete global.db.data.users[m.sender].confirmPasswordReset
+	} else if (budy.toLowerCase() == 'batal ganti') {
+       delete global.db.data.users[m.sender].confirmPasswordReset
+       m.reply(mess.success)
+    } else return m.reply('Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal ganti"')
+}
+
+if (global.db.data.users[m.sender].pendingResetPassword) {
+  const textChangePassword = `Password baru kamu : ${budy}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
+  m.reply(textChangePassword)
+  delete global.db.data.users[m.sender].pendingResetPassword
+  global.db.data.users[m.sender].temporaryPassword = budy
+}
+
+if (global.db.data.users[m.sender].temporaryPassword) {
+	if (budy.toLowerCase() == 'batal ganti') {
+		delete global.db.data.users[m.sender].temporaryPassword
+        m.reply(mess.success)
+    } else if (budy.toLowerCase() == 'konfirmasi password') {
+    	global.db.data.account[accountUsers].password = global.db.data.users[m.sender].temporaryPassword
+        m.reply(`Sukses mengganti password! Ketik .profile untuk melihat password baru kamu`)
+        delete global.db.data.users[m.sender].temporaryPassword
+    }
+}
+
 //Write Database Every 1 Minute
 setInterval(() => {
    fs.writeFileSync('./database/database.json', JSON.stringify(global.db.data, null, 2))
@@ -1238,6 +1268,13 @@ const configAllProfile = `*Profil Akun*
 • Limit : ${global.db.data.account[accountUsers].limit}
 • Premium : ${isPremium ? 'Yes' : 'No'}`
    m.reply(configAllProfile)
+addTypeCmd(command, 1)
+break
+case 'resetpassword': case 'resetpw':
+if (!isLogin) return m.reply(mess.logout)
+global.db.data.users[m.sender].confirmPasswordReset = makeOtp(6)
+await sendMail(eMailRegister, 'Konfirmasi Reset Password', 'resetPasswordTemplate', `http://wa.me/${client.decodeJid(client.user.id)}?text=${global.db.data.users[m.sender].confirmPasswordReset}`)
+m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail untuk mengubah password.\n\nJika belum terkirim tunggu 1-5 menit!')
 addTypeCmd(command, 1)
 break
 case 'mute': 
