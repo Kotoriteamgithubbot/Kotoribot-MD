@@ -1,6 +1,7 @@
 /**
 - Create By Aine Team
-- Powered by CloudbyPsn 
+- Powered by CloudbyPsn
+- Owned by Kotorirpg-MD
  */
  
 process.on('uncaughtException', console.error) //Safe Log Error
@@ -750,6 +751,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
+
 //Function Input New Password
 if (global.db.data.users[m.sender].pendingResetPassword) {
   const newPasswordPrefix = budy.slice(0, 12)
