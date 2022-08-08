@@ -752,12 +752,12 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 }
 
 if (global.db.data.users[m.sender].pendingResetPassword) {
-  const newPasswordPrefix = q ? q.slice(0, 11) : ''
+  const newPasswordPrefix = budy.slice(0, 11)
   if (newPasswordPrefix == 'newpassword:') {
-     const textChangePassword = `Password baru kamu : ${q.slice(12)}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
+     const textChangePassword = `Password baru kamu : ${budy.slice(12).trim()}\n\nKetik "konfirmasi password" untuk melanjutkan atau ketik "batal ganti" untuk membatalkan!`
      m.reply(textChangePassword)
      delete global.db.data.users[m.sender].pendingResetPassword
-     global.db.data.users[m.sender].temporaryPassword = budy
+     global.db.data.users[m.sender].temporaryPassword = budy.slice(12).trim()
   } else return m.reply('Cara penggunaan : newpassword: isipasswordbaru')
 }
 
