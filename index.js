@@ -739,7 +739,7 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
     } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal daftar"')
 }
 
-//Function Reset Password
+//Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
         await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"', wm, m)
@@ -750,7 +750,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
-
+//Function Input New Password
 if (global.db.data.users[m.sender].pendingResetPassword) {
   const newPasswordPrefix = budy.slice(0, 12)
   if (newPasswordPrefix == 'newpassword:') {
@@ -762,6 +762,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
   }  else return
 }
 
+//Function Confirmation Reset Password
 if (global.db.data.users[m.sender].temporaryPassword) {
 	if (budy.toLowerCase() == 'batal ganti') {
 		delete global.db.data.users[m.sender].temporaryPassword
