@@ -1759,7 +1759,7 @@ if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
 const userskick = m.mentionedJid[0] ? m.mentionedJid : m.quoted ? [m.quoted.sender] : [text.replace(/[^0-9]/g, '')+'@s.whatsapp.net']
-await client.groupParticipantsUpdate(m.chat, [userskick], 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+await client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1)
 break
 case 'add': 
@@ -1767,8 +1767,8 @@ if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
-const usersadd = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await client.groupParticipantsUpdate(m.chat, [usersadd], 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+const usersadd = m.mentionedJid[0] ? m.mentionedJid : m.quoted ? [m.quoted.sender] : [text.replace(/[^0-9]/g, '')+'@s.whatsapp.net']
+await client.groupParticipantsUpdate(m.chat, usersadd, 'add').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1)
 break
 case 'promote': 
@@ -1776,8 +1776,8 @@ if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
-const userspromote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await client.groupParticipantsUpdate(m.chat, [userspromote], 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+const userspromote = m.mentionedJid[0] ? m.mentionedJid : m.quoted ? [m.quoted.sender] : [text.replace(/[^0-9]/g, '')+'@s.whatsapp.net']
+await client.groupParticipantsUpdate(m.chat, userspromote, 'promote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1)
 break
 case 'demote': 
@@ -1785,8 +1785,8 @@ if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
-const usersdemote = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-await client.groupParticipantsUpdate(m.chat, [usersdemote], 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+const usersdemote = m.mentionedJid[0] ? m.mentionedJid : m.quoted ? [m.quoted.sender] : [text.replace(/[^0-9]/g, '')+'@s.whatsapp.net']
+await client.groupParticipantsUpdate(m.chat, usersdemote, 'demote').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1)
 break
 case 'group': case 'grup': 
