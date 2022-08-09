@@ -737,13 +737,13 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 	} else if (budy.toLowerCase() == 'batal daftar') {
        delete global.db.data.users[m.sender].pendingRegister
        m.reply(mess.success)
-    } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik "batal daftar"')
+    } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik batal daftar')
 }
 
 //Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format "newpassword: isipasswordbaru"', wm, m)
+        client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format\n\nnewpassword: isipasswordbaru', wm, m)
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
 	} else if (budy.toLowerCase() == 'batal ganti') {
@@ -758,7 +758,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
   if (newPasswordPrefix == 'newpassword:') {
   	if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
      const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
-     await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
+     client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
   }  else return
