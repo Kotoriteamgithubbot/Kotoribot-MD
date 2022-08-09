@@ -693,7 +693,7 @@ if (db.data.users[m.sender].afkTime > -1) {
 //Detect Group Invite 
 if (m.mtype === 'groupInviteMessage') {
     teks = `Ketik .owner untuk bergabung ke group whatsapp anda`
-    //sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./media/image/client.jpg'), 2022, "FardanBot", "6283155687629@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
+    //sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./media/image/client.jpg'), 2022, "Aineteam", "6283170659182@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
 }
 
 //Antilink Auto Kick
@@ -1241,7 +1241,7 @@ var handlerPlugin;
 if (isCmd && command) {
      fs.readdirSync('./plugins').forEach(function(file) {
      	try {
-         	delete require.cache[require.resolve("./plugins/" + file)]
+             delete require.cache[require.resolve("./plugins/" + file)]
              let handler = require("./plugins/" + file)
              if (handler.command.test(command)) {
                  if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
