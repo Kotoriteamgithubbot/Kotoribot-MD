@@ -274,19 +274,54 @@ async function start() {
      * @param {*} options
      * @returns
      */
-    client.send5ButImg = async (jid , text = '' , footer = '', img, but = [], thumb, options = {}) =>{
-        let message = await prepareWAMessageMedia({ image: img, jpegThumbnail:thumb }, { upload: client.waUploadToServer })
-        var template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-        templateMessage: {
-        hydratedTemplate: {
-        imageMessage: message.imageMessage,
-               "hydratedContentText": text,
-               "hydratedFooterText": footer,
-               "hydratedButtons": but
-            }
-            }
-            }), options)
-            client.relayMessage(jid, template.message, { messageId: template.key.id })
+    client.send5ButImg = async (jid , text = '' , footer = '', img, but = [], buff, options = {}) =>{
+       client.sendMessage(jid, { image: img, caption: text, footer: footer, templateButtons: but, ...options })
+    }
+    
+    /** Send Button 5 Location
+       *
+       * @param {*} jid
+       * @param {*} text
+       * @param {*} footer
+       * @param {*} location
+       * @param [*] button
+       * @param {*} options
+       */
+      client.send5ButLoc = async (jid , text = '' , footer = '', lok, but = [], options = {}) =>{
+         let bb = await client.reSize(lok, 300, 150)
+         client.sendMessage(jid, { location: { jpegThumbnail: bb }, caption: text, footer: footer, templateButtons: but, ...options })
+      }
+      
+      /** Send Button 5 Video
+     *
+     * @param {*} jid
+     * @param {*} text
+     * @param {*} footer
+     * @param {*} Video
+     * @param [*] button
+     * @param {*} options
+     * @returns
+     */
+    client.send5ButVid = async (jid , text = '' , footer = '', vid, but = [], buff, options = {}) =>{
+       let lol = await client.reSize(buf, 300, 150)
+       client.sendMessage(jid, { video: vid, jpegThumbnail: lol, caption: text, footer: footer, templateButtons: but, ...options })
+    }
+
+    /** Send Button 5 Gif
+     *
+     * @param {*} jid
+     * @param {*} text
+     * @param {*} footer
+     * @param {*} Gif
+     * @param [*] button
+     * @param {*} options
+     * @returns
+     */
+    client.send5ButGif = async (jid , text = '' , footer = '', gif, but = [], buff, options = {}) =>{
+       let ahh = await client.reSize(buf, 300, 150)
+       let a = [1,2]
+       let b = a[Math.floor(Math.random() * a.length)]
+       client.sendMessage(jid, { video: gif, gifPlayback: true, gifAttribution: b, caption: text, footer: footer, jpegThumbnail: ahh, templateButtons: but, ...options })
     }
 
     /**
