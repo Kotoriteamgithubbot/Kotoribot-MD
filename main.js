@@ -246,14 +246,14 @@ async function start() {
         }
         console.log('Connected...', update)
          if (update.receivedPendingNotifications) {
-          	//Owners
+             //Owners
              owner.forEach((parseOwner) => {
-                 client.sendMessage(parseOwner + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' }, { quoted : m })
+                 client.sendMessage(parseOwner + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
              }) 
              //Group Team
-            groupTeam.forEach((parseGroup) => {
-               client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' }, { quoted: m })
-            })
+             groupTeam.forEach((parseGroup) => {
+               client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
+             })
          } //Made by Muhammad Ridwan Reynaldy 
     })
 
