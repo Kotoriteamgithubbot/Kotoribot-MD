@@ -245,6 +245,16 @@ async function start() {
             else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`) }
         }
         console.log('Connected...', update)
+         if (update.receivedPendingNotifications) {
+          	//Owners
+             owner.forEach((parseOwner) => {
+                 client.sendMessage(parseOwner + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' }, { quoted : m })
+             }) 
+             //Group Team
+            groupTeam.forEach((parseGroup) => {
+               client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' }, { quoted: m })
+            })
+         } //Made by Muhammad Ridwan Reynaldy 
     })
 
     client.ev.on('creds.update', saveState)
