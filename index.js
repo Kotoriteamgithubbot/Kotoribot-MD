@@ -743,10 +743,10 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 //Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format\n\nnewpassword: isipasswordbaru', wm, m)
+        client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format:\n\nnewpassword: isipasswordbaru', wm, m)
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
-	} else if (budy.toLowerCase() == 'batal ganti') {
+	} else if (command == 'batal ganti') {
        delete global.db.data.users[m.sender].confirmPasswordReset
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
