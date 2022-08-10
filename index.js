@@ -1383,7 +1383,7 @@ case 'public':
 if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
 global.db.data.bot.use = "public"
-m.reply('Sukse Change To Public Usage')
+m.reply('Sukses Change To Public Usage')
 addTypeCmd(command, 1)
 break
 case 'self': 
