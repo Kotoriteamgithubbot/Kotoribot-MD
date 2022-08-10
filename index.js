@@ -1629,17 +1629,7 @@ addTypeCmd(command, 1)
 break
 case 'delttc': case 'delttt': 
 if (!isLogin) return m.reply(mess.logout)
-this.game = this.game ? this.game : {}
-try {
-   if (this.game) {
-       delete this.game
-       client.sendText(m.chat, `Berhasil delete session TicTacToe`, m)
-   } else if (!this.game) {
-      m.reply(`Session TicTacToe🎮 tidak ada`)
-   } else throw '?'
-} catch (e) {
-   m.reply('rusak')
-}
+const sessionRoomTictactoe = Object.values(this.game).find(room => room.id.startWith('tictactoe') && 
 addTypeCmd(command, 1)
 break
 case 'speedtest': 
