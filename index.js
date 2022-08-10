@@ -766,8 +766,8 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
 
 //Function Confirmation Reset Password
 if (global.db.data.users[m.sender].temporaryPassword) {
-	if (budy.toLowerCase() == 'batal ganti') {
-		delete global.db.data.users[m.sender].temporaryPassword
+    if (budy.toLowerCase() == 'batal ganti') {
+	delete global.db.data.users[m.sender].temporaryPassword
         m.reply(mess.success)
     } else if (budy.toLowerCase() == 'konfirmasi password') {
     	global.db.data.account[accountUsers].password = global.db.data.users[m.sender].temporaryPassword
@@ -1629,7 +1629,10 @@ addTypeCmd(command, 1)
 break
 case 'delttc': case 'delttt': 
 if (!isLogin) return m.reply(mess.logout)
-const sessionRoomTictactoe = Object.values(this.game).find(room => room.id.startWith('tictactoe') && 
+const sessionRoomTictactoe = Object.values(this.game).find(room => room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender)) 
+if (!sessionRoomTictactoe) return m.reply('Kamu sedang tidak berada di room tictactoe !')
+delete this.game[sessionRoomTictactoe.id]
+m.reply('Berhasil delete session room tictactoe !')  
 addTypeCmd(command, 1)
 break
 case 'speedtest': 
