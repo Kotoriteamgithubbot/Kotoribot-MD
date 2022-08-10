@@ -474,7 +474,13 @@ try {
         if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
         if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
         if (!('use' in bot)) bot.use = "public"
-        bot.use === "public" ? (client.public = true) : (client.public = false)
+        if (bot.use == "public") {
+           client.public = true
+        } else if (bot.use == "self") {
+           if (isCreator) { client.public = true }
+           else if (!isCreator) { client.public = false }
+        } else { client.public = true }
+   
         
         let account = isLogin ? global.db.data.account[accountUsers] : "notlogin"
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
