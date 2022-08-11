@@ -1256,7 +1256,9 @@ if (isCmd && command) {
      	try {
              delete require.cache[require.resolve("./plugins/" + file)]
              let handler = require("./plugins/" + file)
-             if (handler.command.test(command)) {
+             if (handler.before) {
+               handler(client, m, text, args, prefix)
+             } else if (handler.command.test(command)) {
                  if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
                  if (handler.login && !isLogin) return client.sendMessage(m.chat, { text: mess.logout }, { quoted: m })
                  if (handler.logout && isLogin) return client.sendMessage(m.chat, { text: mess.login }, { quoted: m })
