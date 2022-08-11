@@ -131,6 +131,7 @@ const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[acc
 const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : false
 const from = m.chat
 const quoted = m.quoted ? m.quoted : m
+const qmsg = (quoted.msg || quoted)
 const mime = (quoted.msg || quoted).mimetype || ''
 const isMedia = /image|video|sticker|audio/.test(mime)
 const more = String.fromCharCode(8206)
@@ -1155,6 +1156,12 @@ ${wit} WIT
 *Fun*
 ▢ ${prefix}react
 ▢ ${prefix}math
+
+*Account*
+▢ ${prefix}login
+▢ ${prefix}register
+▢ ${prefix}resetpassword 
+▢ ${prefix}logout
 
 *Sticker*
 ▢ ${prefix}stiker
