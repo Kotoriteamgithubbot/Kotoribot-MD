@@ -483,9 +483,9 @@ try {
         } else { client.public = true }
    
         
-        let account = isLogin ? global.db.data.account[accountUsers] : "notlogin"
+        let account = isLogin ? global.db.data.account[accountUsers] : false
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-        if (account !== "notlogin" && typeof account === 'object') {
+        if (account  && typeof account === 'object') {
        	if (!('banned' in account)) account.banned = false
            if (!('premium' in account)) account.premium = isCreator ? true : isPremium
            if (!('limit' in account)) account.limit = limitUser
