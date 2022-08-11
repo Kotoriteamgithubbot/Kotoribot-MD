@@ -27,9 +27,9 @@ global.linkgrupbot = "https://chat.whatsapp.com/K0XVQIMhD3oFQgb5UnaNPB"
 global.antitags = true
 
 global.mess = {
-	logout: 'Kamu harus login terlebih dahulu! Ketik .login',
-	login: 'Kamu sudah login sebelumnya! Untuk keluar ketik .logout',
-	register: 'Username sudah pernah terdaftar, coba username lain!',
+    logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
+    login: 'Kamu sudah login sebelumnya! Untuk keluar ketik .logout',
+    register: 'Username sudah pernah terdaftar, coba username lain!',
     success: 'Success',
     admin: 'Fitur Khusus Admin Group!',
     botAdmin: 'Bot Harus Menjadi Admin Terlebih Dahulu!',
