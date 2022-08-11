@@ -130,7 +130,7 @@ const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global
 const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[accountUsers] === 'object' ? true : false) : false
 const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : false
 const from = m.chat
-const quoted = m.quoted ? m.quoted : m
+const quoted = ((m.quoted || m).mtype == 'buttonsMessage') ? m.quoted[Object.keys(m.quoted)[1]] : ((m.quoted || m).mtype == 'templateMessage') ? m.quoted.hydratedTemplate[Object.keys(m.quoted.hydratedTemplate)[1]] : ((m.quoted || m).mtype == 'product') ? m.quoted[Object.keys(m.quoted)[0]] : m.quoted ? m.quoted : m
 const qmsg = (quoted.msg || quoted)
 const mime = (quoted.msg || quoted).mimetype || ''
 const isMedia = /image|video|sticker|audio/.test(mime)
