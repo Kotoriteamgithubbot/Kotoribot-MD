@@ -17,26 +17,26 @@ const {
      areJidsSameUser, 
      getContentType, 
      WAFlag 
-} = require('@adiwajshing/baileys')
-const fs = require('fs')
-const util = require('util')
-const chalk = require('chalk')
-const { exec, spawn, execSync } = require("child_process")
-const axios = require('axios')
-const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
-const path = require('path')
-const os = require('os')
-const { TiktokDownloader } = require('./lib/tiktokdl') 
-const moment = require('moment-timezone')
-const { JSDOM } = require('jsdom')
-const speed = require('performance-now')
-const hx = require("hxz-api")
-const hxz = require('./lib/hxz-api')
-const bdr = require('rumus-bdr')
-const yogipw = require("tod-api")
-const { color, bgcolor } = require('./lib/color')
-const thiccysapi = require('textmaker-thiccy')
-const toHur = require('@develoka/angka-terbilang-js')
+} = require('@adiwajshing/baileys');
+const fs = require('fs');
+const util = require('util');
+const chalk = require('chalk');
+const { exec, spawn, execSync } = require("child_process");
+const axios = require('axios');
+const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
+const path = require('path');
+const os = require('os');
+const { TiktokDownloader } = require('./lib/tiktokdl');
+const moment = require('moment-timezone');
+const { JSDOM } = require('jsdom');
+const speed = require('performance-now');
+const hx = require("hxz-api");
+const hxz = require('./lib/hxz-api');
+const bdr = require('rumus-bdr');
+const yogipw = require("tod-api");
+const { color, bgcolor } = require('./lib/color');
+const thiccysapi = require('textmaker-thiccy');
+const toHur = require('@develoka/angka-terbilang-js');
 const mathjs = require('mathjs')
 const { performance } = require('perf_hooks')
 const { Primbon } = require('scrape-primbon')
@@ -1259,18 +1259,18 @@ if (isCmd && command) {
              if (handler.before) {
                handler(client, m, text, args, prefix)
              } else if (handler.command.test(command)) {
-                 if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-                 if (handler.login && !isLogin) return client.sendMessage(m.chat, { text: mess.logout }, { quoted: m })
-                 if (handler.logout && isLogin) return client.sendMessage(m.chat, { text: mess.login }, { quoted: m })
-                 if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
-                 if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
-                 if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-                 const responseplugin = handler(client, m, text, args, prefix)
-                 if (responseplugin) {
-                     handlerPlugin = true
-                     return addTypeCmd(command, 1)
-                 }
-              }
+               if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+               if (handler.login && !isLogin) return client.sendMessage(m.chat, { text: mess.logout }, { quoted: m })
+               if (handler.logout && isLogin) return client.sendMessage(m.chat, { text: mess.login }, { quoted: m })
+               if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
+               if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
+               if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
+               const responseplugin = handler(client, m, text, args, prefix)
+               if (responseplugin) {
+                 handlerPlugin = true
+                 return addTypeCmd(command, 1)
+               }
+             }
           } catch (err) {
           	owner.forEach((parseOwner) => {
                    client.sendMessage(parseOwner + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\nError: ${err}` })
@@ -1320,16 +1320,18 @@ break
 case 'sticker': case 's': case 'stiker': case 'stick': case 'stik':
 if (!isLogin) return m.reply(mess.logout)
 if (/image/.test(mime)) {
-   const mediaImageSticker = await quoted.download()
+   m.reply(mess.wait)
+   const mediaImageSticker = await client.downloadMediaMessage(qmsg)
    const encStickerImg = await client.sendImageAsSticker(m.chat, mediaImageSticker, m, { packname: global.packname, author: global.author })
    await fs.unlinkSync(encStickerImg)
 } else if (/video/.test(mime)) {
-   if ((quoted.msg || quoted).seconds > 11) return m.reply('Maksimal 10 detik!')
-   const mediaVideoSticker = await quoted.download()
+   m.reply(mess.wait)
+   if qmsg.seconds > 11) return m.reply('Maksimal 10 detik!')
+   const mediaVideoSticker = await client.downloadMediaMessage(qmsg)
    const encStickerVid = await client.sendVideoAsSticker(m.chat, mediaVideoSticker, m, { packname: global.packname, author: global.author })
    await fs.unlinkSync(encStickerVid)
 } else {
-    m.reply(`Kirim Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`)
+    m.reply(`Kirim Reply Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`)
 }
 addTypeCmd(command, 1)
 break
