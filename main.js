@@ -1,5 +1,5 @@
 /**
-- Create By Aine Team
+- Create By Kotori team
 - Powered By CloudbyPsn 
 - Owned by Kotorirpg-MD
 */
@@ -59,6 +59,7 @@ global.loadDatabase = async function loadDatabase() {
     database: {},
     game: {},
     others: {},
+    typecmd: {},
     bot: {},
     chats: {},
     account: {},
