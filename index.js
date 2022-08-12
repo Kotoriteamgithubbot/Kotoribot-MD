@@ -763,7 +763,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 if (global.db.data.users[m.sender].pendingResetPassword) {
   const newPasswordPrefix = budy.slice(0, 12)
   if (newPasswordPrefix == 'newpassword:') {
-  	if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
+     if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
      const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
      client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
@@ -1326,7 +1326,7 @@ if (/image/.test(mime)) {
    await fs.unlinkSync(encStickerImg)
 } else if (/video/.test(mime)) {
    m.reply(mess.wait)
-   if qmsg.seconds > 11) return m.reply('Maksimal 10 detik!')
+   if (qmsg.seconds > 11) return m.reply('Maksimal 10 detik!')
    const mediaVideoSticker = await client.downloadMediaMessage(qmsg)
    const encStickerVid = await client.sendVideoAsSticker(m.chat, mediaVideoSticker, m, { packname: global.packname, author: global.author })
    await fs.unlinkSync(encStickerVid)
