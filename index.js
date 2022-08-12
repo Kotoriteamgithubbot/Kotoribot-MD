@@ -3,7 +3,6 @@
 - Powered by CloudbyPsn
 - Owned by Kotorirpg-MD
  */
- 
 process.on('uncaughtException', console.error) //Safe Log Error
 require('./config') //File Config
 const { 
@@ -109,6 +108,13 @@ let week = d.toLocaleDateString(locale, { weekday: 'long' })
 //Baileys
 module.exports = client = async (client, m, chatUpdate, store) => {
 try {
+// Push Owner
+global.owners = [];
+owner.forEach((v) => { 
+    owners.push(v.id)
+});
+
+//Cmd
 const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
 const budy = (typeof m.text == 'string' ? m.text : '')
 const prefix = /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi)[0] : ""
@@ -123,11 +129,7 @@ const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase(
 const args = body.trim().split(/ +/).slice(1)
 const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id);
-const isCreator = owner.forEach((v) => {
-   if ((v.id + '@s.whatsapp.net') == m.sender ) { true }
-   else if (botNumber == m.sender) { true }
-   else { false }
-})
+const isCreator = [botNumber, ...global.owners].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin" : "notlogin"
@@ -136,7 +138,7 @@ const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[account
 const from = m.chat
 const quoted = ((m.quoted || m).mtype == 'buttonsMessage') ? m.quoted[Object.keys(m.quoted)[1]] : ((m.quoted || m).mtype == 'templateMessage') ? m.quoted.hydratedTemplate[Object.keys(m.quoted.hydratedTemplate)[1]] : ((m.quoted || m).mtype == 'product') ? m.quoted[Object.keys(m.quoted)[0]] : m.quoted ? m.quoted : m
 const qmsg = (quoted.msg || quoted)
-const mime = (quoted.msg || quoted).mimetype || ''
+const mime = qmsg.mimetype || ''
 const isMedia = /image|video|sticker|audio/.test(mime)
 const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
