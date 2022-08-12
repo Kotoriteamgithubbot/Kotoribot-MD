@@ -113,24 +113,23 @@ async function start() {
     
     //Grup Update
     client.ev.on('groups.update', async pea => {
-        //console.log(pea)
         //Get Profile Picture Group
         try {
            ppgc = await client.profilePictureUrl(pea[0].id, 'image')
         } catch {
            ppgc = 'https://tinyurl.com/yx93l6da'
         }
-        let wm_fatih = { url : ppgc }
+        let picture = { url : ppgc }
         if (pea[0].announce == true) {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup telah ditutup oleh admin, Sekarang hanya admin yang dapat mengirim pesan !`, `Group Settings Change Message`, wm_fatih, [])
+           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup telah ditutup oleh admin, Sekarang hanya admin yang dapat mengirim pesan !`, `Group Settings Change Message`, picture, [])
         } else if(pea[0].announce == false) {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup telah dibuka oleh admin, Sekarang peserta dapat mengirim pesan !`, `Group Settings Change Message`, wm_fatih, [])
+           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup telah dibuka oleh admin, Sekarang peserta dapat mengirim pesan !`, `Group Settings Change Message`, picture, [])
         } else if (pea[0].restrict == true) {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nInfo group telah dibatasi, Sekarang hanya admin yang dapat mengedit info group !`, `Group Settings Change Message`, wm_fatih, [])
+           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nInfo group telah dibatasi, Sekarang hanya admin yang dapat mengedit info group !`, `Group Settings Change Message`, picture, [])
         } else if (pea[0].restrict == false) {
            client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nInfo group telah dibuka, Sekarang peserta dapat mengedit info group !`, `Group Settings Change Message`, wm_fatih, [])
         } else {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup Subject telah diganti menjadi *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
+           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup Subject telah diganti menjadi *${pea[0].subject}*`, `Group Settings Change Message`, picture, [])
         }
     })
     
@@ -203,8 +202,8 @@ async function start() {
 	let list = []
 	for (let i of kon) {
 	    list.push({
-	    	displayName: await client.getName(i + '@s.whatsapp.net'),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await client.getName(i + '@s.whatsapp.net')}\nFN:${await client.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:cloudbypsn@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://s.id/KotoriRpg-MD\nitem3.X-ABLabel:Website\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+	    	displayName: await client.getName(i.id + '@s.whatsapp.net'),
+	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await client.getName(i.id + '@s.whatsapp.net')}\nFN:${await client.getName(i.id + '@s.whatsapp.net')}\nitem1.TEL;waid=${i.id}:${i.id}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:${i.email}\nitem2.X-ABLabel:Email\nitem3.URL:${i.web}\nitem3.X-ABLabel:Website\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
 	    })
 	}
 	client.sendMessage(jid, { contacts: { displayName: `${list.length} Kontak`, contacts: list }, ...opts }, { quoted })
