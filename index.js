@@ -1262,20 +1262,22 @@ if (isCmd && command) {
      	try {
              delete require.cache[require.resolve("./plugins/" + file)]
              let handler = require("./plugins/" + file)
-             if (handler.before) {
-               handler(client, m, text, args, prefix)
-             } else if (handler.command.test(command)) {
-               if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
-               if (handler.login && !isLogin) return client.sendMessage(m.chat, { text: mess.logout }, { quoted: m })
-               if (handler.logout && isLogin) return client.sendMessage(m.chat, { text: mess.login }, { quoted: m })
-               if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
-               if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
-               if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-               const responseplugin = handler(client, m, text, args, prefix)
-               if (responseplugin) {
-                 handlerPlugin = true
-                 return addTypeCmd(command, 1)
+             if (handler.command) {
+               if (handler.command.test(command)) {
+                  if (handler.owner && !isCreator) return client.sendMessage(m.chat, { text: mess.owner }, { quoted: m })
+                  if (handler.login && !isLogin) return client.sendMessage(m.chat, { text: mess.logout }, { quoted: m })
+                  if (handler.logout && isLogin) return client.sendMessage(m.chat, { text: mess.login }, { quoted: m })
+                  if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
+                  if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
+                  if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
+                  const responseplugin = handler(client, m, text, args, prefix)
+                  if (responseplugin) {
+                    handlerPlugin = true
+                    return addTypeCmd(command, 1)
+                  }
                }
+             } else if (!handler.command) {
+             	handler(m, client, text, args, prefix)
              }
           } catch (err) {
           	owner.forEach((parseOwner) => {
