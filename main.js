@@ -248,7 +248,7 @@ async function start() {
          if (update.receivedPendingNotifications) {
              //Owners
              owner.forEach((parseOwner) => {
-                 client.sendMessage(parseOwner + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
+                 client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
              }) 
              //Group Team
              groupTeam.forEach((parseGroup) => {
