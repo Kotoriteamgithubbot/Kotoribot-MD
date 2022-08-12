@@ -123,7 +123,7 @@ const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase(
 const args = body.trim().split(/ +/).slice(1)
 const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id)
-const isCreator = [botNumber, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+const isCreator = [botNumber, ...global.owner].map(v => (v.id).replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin" : "notlogin"
