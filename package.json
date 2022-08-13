@@ -2,10 +2,10 @@
   "name": "CloudbyPsn",
   "description": "Whatsapp Using Lib Baileys Multi Device",
   "version": "3.0.1",
-  "main": "start.js",
+  "main": "main.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node start.js"
+    "start": "node main.js"
   },
   "keywords": [
     "termux",
