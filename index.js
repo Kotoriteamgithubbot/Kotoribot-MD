@@ -478,7 +478,7 @@ try {
         if (!('owner' in bot)) bot.owner = []
         //Push owner ID
         owner.forEach((v) => { 
-          global.db.data.bot.push(v.id) 
+          (global.db.data.bot.owner).push(v.id) 
         })
         if (bot.use == "public") {
            client.public = true
