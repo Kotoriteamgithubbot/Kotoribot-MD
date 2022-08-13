@@ -124,13 +124,10 @@ const args = body.trim().split(/ +/).slice(1)
 const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id);
 const isCreator = () => {
-    if (botNumber + '@s.whatsapp.net' == m.sender) {
-       true //Simple
-    } else {
-         for (let i = 0; i < owner.length; i++) {
-            owner[i].id == m.sender ? true : false
-         }
-   }
+    if (botNumber + '@s.whatsapp.net' == m.sender) return true
+    for (let i = 0; i < owner.length; i++) {
+        owner[i].id == m.sender ? true : false
+    }
 }
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
