@@ -123,7 +123,7 @@ const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase(
 const args = body.trim().split(/ +/).slice(1)
 const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id);
-const isCreator = [botNumber, (global.db.data.bot.owner ? ...global.db.data.bot.owner : [])].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+const isCreator = botNumber + '@s.whatsapp.net'.includes(m.sender) || for (let i = 0; i < owner.length; i++) { owner[i].id == m.sender }
 const itsMe = m.sender == botNumber ? true : false
 const text = args.join(" ")
 const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin" : "notlogin"
@@ -475,11 +475,6 @@ try {
         if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
         if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
         if (!('use' in bot)) bot.use = "public"
-        if (!('owner' in bot)) bot.owner = []
-        //Push owner ID
-        owner.forEach((v) => { 
-          (global.db.data.bot.owner).push(v.id) 
-        })
         if (bot.use == "public") {
            client.public = true
         } else if (bot.use == "self") {
