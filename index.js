@@ -108,12 +108,6 @@ let week = d.toLocaleDateString(locale, { weekday: 'long' })
 //Baileys
 module.exports = client = async (client, m, chatUpdate, store) => {
 try {
-// Push Owner
-global.owners = [];
-owner.forEach((v) => { 
-    owners.push(v.id)
-});
-
 //Cmd
 const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
 const budy = (typeof m.text == 'string' ? m.text : '')
@@ -481,6 +475,11 @@ try {
         if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
         if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
         if (!('use' in bot)) bot.use = "public"
+        if (!('owner' in bot)) bot.owner = []
+        //Push owner ID
+        owner.forEach((v) => { 
+          global.db.data.bot.push(v.id) 
+        })
         if (bot.use == "public") {
            client.public = true
         } else if (bot.use == "self") {
