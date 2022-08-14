@@ -766,7 +766,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 
 //Function Input New Password
 if (global.db.data.users[m.sender].pendingResetPassword) {
-  if (m.quoted.id == global.db.data.users[m.sender].chatConfirmKey) {
+  if (m.quoted && m.quoted.id == global.db.data.users[m.sender].chatConfirmKey) {
      if (!budy.trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
      const textChangePassword = `Password baru kamu : ${budy.trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
      client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
