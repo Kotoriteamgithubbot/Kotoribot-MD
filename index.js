@@ -771,8 +771,9 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
      const textChangePassword = `Password baru kamu : ${budy.trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
      client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
-     global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
-  }  else delete global.db.data.users[m.sender].pendingResetPassword
+     global.db.data.users[m.sender].temporaryPassword = budy.trim()
+     delete global.db.data.users[m.sender].chatConfirmKey
+  }  else return m.reply('Balas pesan sebelumnya untuk mengganti password!')
 }
 
 //Function Confirmation Reset Password
