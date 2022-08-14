@@ -758,7 +758,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
         global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
-	} else if (body == 'batal ganti') {
+	} else if (budy == 'batal ganti') {
        delete global.db.data.users[m.sender].confirmPasswordReset
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
@@ -772,7 +772,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
      client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
-  }  else return
+  }  else return delete global.db.data.users[m.sender].pendingResetPassword
 }
 
 //Function Confirmation Reset Password
