@@ -754,7 +754,7 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 //Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        const confirmKey = client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan membalas pesan ini!', wm, m)
+        const confirmKey = await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan membalas pesan ini!', wm, m)
         global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
@@ -777,7 +777,7 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
 
 //Function Confirmation Reset Password
 if (global.db.data.users[m.sender].temporaryPassword) {
-    if (body == 'batal ganti') {
+    if (budy == 'batal ganti') {
 	delete global.db.data.users[m.sender].temporaryPassword
         m.reply(mess.success)
     } else if (body == 'konfirmasi password') {
