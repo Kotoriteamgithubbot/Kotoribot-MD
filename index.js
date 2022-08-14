@@ -754,7 +754,8 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 //Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        const confirm_1 = client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan membalas pesan ini!', wm, m)
+        const confirmKey = client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan membalas pesan ini!', wm, m)
+        global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
 	} else if (body == 'batal ganti') {
@@ -765,7 +766,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 
 //Function Input New Password
 if (global.db.data.users[m.sender].pendingResetPassword) {
-  if (m.quoted.id == confirm_1.id) {
+  if (m.quoted.id == global.db.data.users[m.sender].chatConfirmKey) {
      if (!budy.trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
      const textChangePassword = `Password baru kamu : ${budy.trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
      client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
