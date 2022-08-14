@@ -181,12 +181,11 @@ _sewa.expiredCheck(client, sewa)
 // Auto Group sticker
 if (isAutoSticker) {
     if (/image/.test(mime) && !/webp/.test(mime)) {
-        let mediac = await quoted.download()
+        let mediac = await client.downloadMediaMessage(qmsg)
         await client.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
-        console.log(`Detec Autosticker`)
      } else if (/video/.test(mime)) {
-        if ((quoted.msg || quoted).seconds > 11) return
-        let mediac = await quoted.download()
+        if (qmsg.seconds > 11) return
+        let mediac = await client.downloadMediaMessage(qmsg)
         await client.sendVideoAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
      }
 }
@@ -755,10 +754,10 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 //Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
 	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan format:\n\nnewpassword: isipasswordbaru', wm, m)
+        const confirm_1 = client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Silahkan ketikkan password baru dengan membalas pesan ini!', wm, m)
         global.db.data.users[m.sender].pendingResetPassword = true
         delete global.db.data.users[m.sender].confirmPasswordReset
-	} else if (command == 'batal ganti') {
+	} else if (body == 'batal ganti') {
        delete global.db.data.users[m.sender].confirmPasswordReset
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
@@ -767,9 +766,9 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
 //Function Input New Password
 if (global.db.data.users[m.sender].pendingResetPassword) {
   const newPasswordPrefix = budy.slice(0, 12)
-  if (newPasswordPrefix == 'newpassword:') {
-     if (!budy.slice(13).trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
-     const textChangePassword = `Password baru kamu : ${budy.slice(13).trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
+  if (m.quoted.id == confirm_1.key.id) {
+     if (!budy.trim()) return m.reply('Password yang ingin diubah tidak boleh kosong!')
+     const textChangePassword = `Password baru kamu : ${budy.trim()}\n\nTekan tombol Konfirmasi untuk melanjutkan atau tekan tombol Batal untuk membatalkan!`
      client.sendButtonText(m.chat, [{ buttonId: 'batal ganti', buttonText: { displayText: 'Batal' }, type: 1 }, { buttonId: 'konfirmasi password', buttonText: { displayText: 'Konfirmasi' }, type: 1 }], textChangePassword, wm, m)
      delete global.db.data.users[m.sender].pendingResetPassword
      global.db.data.users[m.sender].temporaryPassword = budy.slice(13).trim()
@@ -778,10 +777,10 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
 
 //Function Confirmation Reset Password
 if (global.db.data.users[m.sender].temporaryPassword) {
-    if (budy.toLowerCase() == 'batal ganti') {
+    if (body == 'batal ganti') {
 	delete global.db.data.users[m.sender].temporaryPassword
         m.reply(mess.success)
-    } else if (budy.toLowerCase() == 'konfirmasi password') {
+    } else if (body == 'konfirmasi password') {
     	global.db.data.account[accountUsers].password = global.db.data.users[m.sender].temporaryPassword
         m.reply(`Sukses mengganti password! Ketik .profile untuk melihat password baru kamu`)
         delete global.db.data.users[m.sender].temporaryPassword
