@@ -1285,6 +1285,16 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'getcase': 
+if (!isLogin) return m.reply(mess.logout)
+if (!args[0]) return m.reply('Mau ngambil case apa?')
+try {
+   m.reply('case ' + `'${args[0]}'` + fs.readFileSync('./index.js').toString().split(`case '${args[0]}'`)[1].split(`break`)[0] + `break`)
+} catch {
+   m.reply('Case tidak ditemukan!')
+}
+addTypeCmd(command, 1)
+break
 case 'profile': case 'profil':
 if (!isLogin) return m.reply(mess.logout)
 const configAllProfile = `*Profil Akun*
