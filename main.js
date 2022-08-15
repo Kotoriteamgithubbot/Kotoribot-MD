@@ -613,7 +613,7 @@ async function start() {
     client.sendFile = async(jid, PATH, fileName, quoted = {}, options = {}) => {
         let types = await client.getFile(PATH, true)
         let { filename, size, ext, mime, data } = types
-        let type = '', mimetype = mime, pathFile = `./${filename}`
+        let type = '', mimetype = mime, pathFile = filename
         if (options.asDocument) type = 'document'
         if (options.asSticker || /webp/.test(mime)) {
             let { writeExif } = require('./lib/sticker.js')
