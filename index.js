@@ -1855,6 +1855,9 @@ const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
 addTypeCmd(command, 1)
 break
+
+let addCaseDefaultVariabelByPSN;
+
 // Default
 default:
        if (isCmd && prefix != '' && !handlerPlugin) {
