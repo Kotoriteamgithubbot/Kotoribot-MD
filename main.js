@@ -633,7 +633,9 @@ async function start() {
     client.parseMention = async(text) => {
         return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
     }
-
+    client.sendFileTextExistPsn = async(path, m) => {
+        return client.sendMessage(jid, { document: { url: path }, 'document/txt', 'File Text' }, { quoted: m })
+    }
     return client
 }
 
