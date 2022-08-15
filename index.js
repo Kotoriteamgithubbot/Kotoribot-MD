@@ -1856,13 +1856,8 @@ await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/
 addTypeCmd(command, 1)
 break
 case 'addcase':
-const restoreVariabelCaseDefaultByPSN = `
-
-let addCaseDefaultVariabelByPSN
-
-`
 const codeIndexBefore = await fs.readFileSync('./index.js', 'utf-8')
-const codeIndexAfter = codeIndexBefore.replace('let addCaseDefaultVariabelByPSN;', (m.quoted.text + restoreVariabelCaseDefaultByPSN))
+const codeIndexAfter = codeIndexBefore.replace('let addCaseDefaultVariabelByPSN;', m.quoted.text)
 await fs.writeFileSync('index.js', codeIndexAfter)
 m.reply(mess.success)
 break
