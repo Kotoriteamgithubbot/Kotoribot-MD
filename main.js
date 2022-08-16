@@ -618,7 +618,7 @@ async function start() {
         if (options.asSticker || /webp/.test(mime)) {
             let { writeExif } = require('./lib/sticker.js')
             let media = { mimetype: mime, data }
-            pathFile = await writeExif(media, { packname: global.packname, author: global.packname2, categories: options.categories ? options.categories : [] })
+            pathFile = await writeExif(media, { packname: global.packname, author: global.author, categories: options.categories ? options.categories : [] })
             await fs.promises.unlink(filename)
             type = 'sticker'
             mimetype = 'image/webp'
