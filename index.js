@@ -1891,13 +1891,6 @@ return m.reply(JSON.stringify(eval(`${args.join(' ')}`),null,'\t'))
 m.reply(e)
 }
 }
-if (budy.startsWith('$')) {
-if (!isCreator) return m.reply(mess.owner)
-exec(budy.slice(2), (err, stdout) => {
-if(err) return m.reply(String(err))
-if (stdout) return m.reply(stdout)
-})
-}
        /*
        if (isCmd && prefix != '' && !handlerPlugin) {
            //Match List Command JSON
