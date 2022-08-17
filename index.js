@@ -725,7 +725,7 @@ if (global.db.data.chats[m.chat].antilink) {
     }
 }
 
-if (global.db.data.chats[m.chat].membersAwaitKick.silent.includes(m.sender)) {
+if (global.db.data.chats[m.chat].membersAwaitKick.silent && global.db.data.chats[m.chat].membersAwaitKick.silent.includes(m.sender)) {
   client.sendText(m.chat, `@${m.sender.split('@')[0]} mengirim chat!`, m, { mentions: m.sender })
   global.db.data.chats[m.chat].membersAwaitKick.silent.splice( global.db.data.chats[m.chat].membersAwaitKick.silent.indexOf(m.sender), 1 );
 }
