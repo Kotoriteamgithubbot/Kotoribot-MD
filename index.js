@@ -1782,7 +1782,19 @@ if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
 const userskick = m.mentionedJid[0] ? m.mentionedJid : m.quoted ? [m.quoted.sender] : [text.replace(/[^0-9]/g, '')+'@s.whatsapp.net']
-await client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+if (args[0] === "silent") {
+	const timeAwaitKickSilent = args[2] ? args[2] * 1000 : args[1] * 1000
+    client.sendTextWithMentions(m.chat, `@${(m.mentionedJid[0]).split('@')[0]} akan dikick jika tidak mengirim chat apapun di grup ini dalam ${args[2] ? args[2] : args[1]} detik`, q)
+	const timeOutSilentKick = setTimeout(() => {
+      await client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+    }, timeAwaitKickSilent)
+    if (m.sender == userskick) {
+      clearTimeout(timeOutSilentKick)
+      client.sendTextWithMentions(m.chat, `@${(m.mentionedJid[0]).split('@')[0]} mengirim chat!`, q)
+    }
+} else {
+   await client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+}
 addTypeCmd(command, 1)
 break
 case 'add': 
