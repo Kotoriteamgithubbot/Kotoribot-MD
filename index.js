@@ -726,7 +726,7 @@ if (global.db.data.chats[m.chat].antilink) {
 }
 
 if (global.db.data.chats[m.chat].membersAwaitKick.silent && global.db.data.chats[m.chat].membersAwaitKick.silent.includes(m.sender)) {
-  client.sendText(m.chat, `@${m.sender.split('@')[0]} mengirim chat!`, m, { mentions: [m.sender] })
+  client.sendText(m.chat, `@${m.sender.split('@')[0]} mengirim chat!`, m, { mentions: m.sender })
   global.db.data.chats[m.chat].membersAwaitKick.silent.splice( global.db.data.chats[m.chat].membersAwaitKick.silent.indexOf(m.sender), 1 );
 }
 //Public dan Self
@@ -1792,7 +1792,7 @@ if (args[0] === "silent") {
 	const timeAwaitKickSilent = args[2] ? args[2] * 1000 : args[1] * 1000;
     client.sendText(m.chat, `@${m.mentionedJid[0].split('@')[0]} akan dikick jika tidak mengirim chat apapun di grup ini dalam ${args[2] ? args[2] : args[1]} detik`, m, { mentions: m.mentionedJid })
     if(!global.db.data.chats[m.chat].membersAwaitKick.silent) global.db.data.chats[m.chat].membersAwaitKick.silent = []
-    global.db.data.chats[m.chat].membersAwaitKick.silent.push(userskick)
+    global.db.data.chats[m.chat].membersAwaitKick.silent.push(m.mentionedJid[0])
 	const timeOutSilentKick = setTimeout(() => {
        if (global.db.data.chats[m.chat].membersAwaitKick.silent.includes(userskick)) { 
          m.reply('Kick simulasi!') 
