@@ -1794,7 +1794,7 @@ if (args[0] === "silent") {
     if(!global.db.data.chats[m.chat].membersAwaitKick.silent) global.db.data.chats[m.chat].membersAwaitKick.silent = []
     global.db.data.chats[m.chat].membersAwaitKick.silent.push(m.mentionedJid[0])
 	const timeOutSilentKick = setTimeout(() => {
-       if (global.db.data.chats[m.chat].membersAwaitKick.silent.includes(userskick)) { 
+       if (global.db.data.chats[m.chat].membersAwaitKick.silent.includes(userskick[0])) { 
          m.reply('Kick simulasi!') 
          global.db.data.chats[m.chat].membersAwaitKick.silent.splice( global.db.data.chats[m.chat].membersAwaitKick.silent.indexOf(m.sender), 1 );
        }
