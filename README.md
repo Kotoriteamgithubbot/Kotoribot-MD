@@ -1,5 +1,5 @@
 # Kotoribot-MD
-BotWhatsapp MD Private Source. Collaboration with Brilian Cloud
+BotWhatsapp MD Private Source.
 
 Clone Repository (Tester)
 
