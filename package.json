@@ -21,7 +21,7 @@
   "author": "Aine Team",
   "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "github:amiruldev20/Baileys",
+    "@adiwajshing/baileys": "github:stafbotz/Baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@bochilteam/scraper": "3.0.0",
     "@develoka/angka-terbilang-js": "^1.4.2",
