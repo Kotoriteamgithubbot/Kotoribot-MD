@@ -104,12 +104,10 @@ async function start() {
     
     //Call
     client.ev.on('call', async (metadata) => {
-    	client.sendMessage(owner[0].id + '@s.whatsapp.net', { text: JSON.stringify(metadata) })
         for (let data of metadata) {
             if (data.status == "offer") {
-              client.sendMessage(data.from, { text: JSON.stringify(data) })
-              await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}`})
               client.rejectCall(data.id)
+              await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}`})
             }
         }
     })
