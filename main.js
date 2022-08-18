@@ -13,8 +13,7 @@ const {
     generateForwardMessageContent,
     prepareWAMessageMedia,
     generateWAMessageFromContent,
-    generateMessageID, 
-    rejectCall,
+    generateMessageID,
     downloadContentFromMessage,
     makeInMemoryStore,
     jidDecode, 
@@ -107,7 +106,7 @@ async function start() {
     client.ev.on('call', async (metadata) => {
         for (let data of metadata) {
             if (data.status == "offer") {
-              rejectCall(data.id)
+              client.rejectCall(data.id)
               await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}`})
             }
         }
