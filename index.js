@@ -469,11 +469,9 @@ try {
         if (chats) {
            if (!('mute' in chats)) chats.mute = false
            if (!('antilink' in chats)) chats.antilink = false
-           if (!('membersAwaitKick' in chats)) chats.membersAwaitKick = {}
         } else global.db.data.chats[m.chat] = {
           mute: false,
-          antilink: false,
-          membersAwaitKick: {}
+          antilink: false
         }
         let bot = global.db.data.bot
         if (typeof bot !== 'object') global.db.data.bot = {}
@@ -725,10 +723,6 @@ if (global.db.data.chats[m.chat].antilink) {
     }
 }
 
-if (global.db.data.chats[m.chat].membersAwaitKick.silent && global.db.data.chats[m.chat].membersAwaitKick.silent.includes(m.sender)) {
-  client.sendText(m.chat, `@${m.sender.split('@')[0]} mengirim chat!`, m, { mentions: [m.sender] })
-  global.db.data.chats[m.chat].membersAwaitKick.silent.splice( global.db.data.chats[m.chat].membersAwaitKick.silent.indexOf(m.sender), 1 );
-}
 //Public dan Self
 if (!client.public) {
     if (!m.key.fromMe) return
@@ -751,10 +745,10 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
         global.db.data.users[m.sender].account = configPendingRegister.username
         m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
         delete global.db.data.users[m.sender].pendingRegister
-	} else if (budy.toLowerCase() == 'batal daftar') {
+	} else if (command == `${prefix}bataldaftar`) {
        delete global.db.data.users[m.sender].pendingRegister
        m.reply(mess.success)
-    } else return m.reply('Kode otp salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182\n\nUntuk membatalkan ketik batal daftar')
+    } else return await client.sendButtonText(m.chat, [{ buttonId: `${prefix}bataldaftar`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
 
 //Function Check OTP Reset Password
@@ -1788,21 +1782,7 @@ if (!m.isGroup) return m.reply(mess.group)
 if (!isBotAdmins) return m.reply(mess.botAdmin)
 if (!isAdmins) return m.reply(mess.admin)
 const userskick = m.mentionedJid[0] ? m.mentionedJid : m.quoted ? [m.quoted.sender] : [text.replace(/[^0-9]/g, '')+'@s.whatsapp.net']
-if (args[0] === "silent") {
-	const timeAwaitKickSilent = args[2] ? args[2] * 1000 : args[1] * 1000;
-    client.sendText(m.chat, `@${m.mentionedJid[0].split('@')[0]} akan dikick jika tidak mengirim chat apapun di grup ini dalam ${args[2] ? args[2] : args[1]} detik`, m, { mentions: m.mentionedJid })
-    if(!global.db.data.chats[m.chat].membersAwaitKick.silent) global.db.data.chats[m.chat].membersAwaitKick.silent = []
-    global.db.data.chats[m.chat].membersAwaitKick.silent.push(userskick[0])
-    
-	const timeOutSilentKick = setTimeout(() => {
-       if (global.db.data.chats[m.chat].membersAwaitKick.silent.includes(userskick[0])) { 
-         client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
-         global.db.data.chats[m.chat].membersAwaitKick.silent.splice( global.db.data.chats[m.chat].membersAwaitKick.silent.indexOf(userskick[0]), 1 );
-       }
-    }, timeAwaitKickSilent)   
-} else {
-   await client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
-}
+await client.groupParticipantsUpdate(m.chat, userskick, 'remove').then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
 addTypeCmd(command, 1)
 break
 case 'add': 
