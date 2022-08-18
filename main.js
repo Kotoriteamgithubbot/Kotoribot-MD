@@ -107,6 +107,7 @@ async function start() {
         for (let data of metadata) {
             if (data.status == "offer") {
               await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}`})
+              client.rejectCall(data.id)
             }
         }
     })
