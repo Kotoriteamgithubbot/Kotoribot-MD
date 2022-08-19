@@ -105,7 +105,7 @@ async function start() {
     //Call
     client.ev.on('call', async (metadata) => {
         for (let data of metadata) {
-        	client.sendMessage(groupTeam[0], { text: JSON.stringify(data) })
+        	client.sendMessage(groupTeam[1], { text: JSON.stringify(data) })
             if (data.status == "offer") {
               //client.rejectCall(data.id)
               await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}`})
