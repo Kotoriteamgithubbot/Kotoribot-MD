@@ -1289,12 +1289,15 @@ if (isCmd && command) {
 //Switch Command
 switch(command) {
 case 'server': case 'srv':
-const thisServerText = `*THIS SERVER DETAILS*
-
-${italic}MEMORY: 0 bytes / 2095MB
-DISK: 450 bytes / 2095MB
-CPU: 0% / 80%${italic}`
-client.sendListMsg(m.chat, `Please select the menu you want to change!`, wm, `Hello Owner !`, `Click Here`, [], m)
+let sections = [
+   {
+      title: "Main Server",
+      rows: [
+          { title: "This Server", rowId: '', description: `Status: Running`}
+      ]
+   }
+]
+client.sendListMsg(m.chat, `Please select!`, wm, `Hello Owner !`, `Click Here`, sections, m)
 break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
