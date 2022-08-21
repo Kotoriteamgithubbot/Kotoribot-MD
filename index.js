@@ -25,7 +25,9 @@ const axios = require('axios');
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 const path = require('path');
 const os = require('os');
+const osu = require('node-os-utils');
 const { TiktokDownloader } = require('./lib/tiktokdl');
+const si = require('systeminformation');
 const moment = require('moment-timezone');
 const { JSDOM } = require('jsdom');
 const speed = require('performance-now');
@@ -36,13 +38,14 @@ const yogipw = require("tod-api");
 const { color, bgcolor } = require('./lib/color');
 const thiccysapi = require('textmaker-thiccy');
 const toHur = require('@develoka/angka-terbilang-js');
-const mathjs = require('mathjs')
-const { performance } = require('perf_hooks')
-const { Primbon } = require('scrape-primbon')
-const { EmojiAPI } = require("emoji-api")
-const imgbbUploader = require('imgbb-uploader')
-const primbon = new Primbon()
-const emoji = new EmojiAPI()
+const mathjs = require('mathjs');
+const { performance } = require('perf_hooks');
+const { Primbon } = require('scrape-primbon');
+const { EmojiAPI } = require("emoji-api");
+const imgbbUploader = require('imgbb-uploader');
+const primbon = new Primbon();
+const { sizeFormatter } = require('human-readable');
+const emoji = new EmojiAPI();
 const nodemailer = require("nodemailer");
 const Hogan = require("hogan.js");
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/function');
@@ -58,13 +61,13 @@ const { Gempa } = require("./lib/gempa.js");
 const ms = require('ms');
 const brainly = require("brainly-scraper");
 const fetch = require('node-fetch')
-let { covid } = require('./lib/covid.js') 
+const { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv');
-const { yta, ytv, searchResult } = require('./lib/ytdl')
+const { yta, ytv, searchResult } = require('./lib/ytdl');
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
-let _health = JSON.parse(fs.readFileSync('./database/game/health.json'))
+let _health = JSON.parse(fs.readFileSync('./database/game/health.json'));
 
 //Database Game
 let tebaklagu = db.data.game.tebaklagu = []
