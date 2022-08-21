@@ -1285,6 +1285,9 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'server': case 'srv':
+m.reply('Server tidak tersedia untuk saat ini.')
+break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
 if (!args[0]) return m.reply('Mau ngambil case apa?')
