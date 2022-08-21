@@ -1294,7 +1294,7 @@ if (!args[0]) {
      {
         title: "- Kotoriteam Server -",
         rows: [
-           { title: "JS Main", rowId: `${prefix}server main, description: `Status: Running`}
+           { title: "JS Main", rowId: `${prefix}server main`, description: `Status: Running`}
         ]
      }, {
         title: "- Kotoriteam Server -",
