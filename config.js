@@ -4,13 +4,9 @@ const chalk = require("chalk")
 // Other
 global.logo = fs.readFileSync('./src/media/image/aineImage/tree.jpg')
 
-global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, 
-                { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' },
-                { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' },
-                { id: '6289653909054', email: 'noname@mail.com', web: 'example.com' },
-               ]
+global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'noname@mail.com', web: 'example.com' }]
 
-global.rkyt = []
+global.italic = '```'
 
 global.groupTeam = ['6282237617224-1624210669@g.us', '120363026663109817@g.us']
 
