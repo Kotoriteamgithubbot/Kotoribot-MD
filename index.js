@@ -1291,18 +1291,18 @@ switch(command) {
 case 'server': case 'srv':
 let sections = [
    {
-      title: "Main Servers",
+      title: "- Kotoriteam Server -",
       rows: [
-          { title: "This Server", rowId: '', description: `Status: Running`}
+          { title: "JS Main", rowId: '', description: `Status: Running`}
       ]
    }, {
-      title: "Passenger Server",
+      title: "- Kotoriteam Server -",
       rows: [
           { title: "JS Natia", rowId: '', description: `Status: offline`}
       ]
    }
 ]
-client.sendListMsg(m.chat, `Please select!`, wm, `Hello Owner !`, `Click Here`, sections, m)
+client.sendListMsg(m.chat, `Note: server lain berjalan diserver utama`, wm, `PSN Server`, `2 Servers`, sections, m)
 break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
