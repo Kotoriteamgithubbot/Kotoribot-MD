@@ -1294,7 +1294,8 @@ let sections = [
       title: "Main Servers",
       rows: [
           { title: "This Server", rowId: '', description: `Status: Running`}
-      ],
+      ]
+   }, {
       title: "Passenger Server",
       rows: [
           { title: "JS Natia", rowId: '', description: `Status: offline`}
