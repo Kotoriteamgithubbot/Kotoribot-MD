@@ -238,16 +238,16 @@ async function start() {
     client.ev.on('connection.update', async (update) => {
         const { connection, lastDisconnect } = update	    
         if (connection === 'close') {
-        let reason = lastDisconnect.error ? lastDisconnect?.error?.output.statusCode : 0;
-            if (reason === DisconnectReason.badSession) { console.log(`Bad Session File, Please Delete Session and Scan Again`); process.exit(); }
+        let reason = new Boom(lastDisconnect?.error)?.output.statusCode
+            if (reason === DisconnectReason.badSession) { console.log(`Bad Session File, Please Delete Session and Scan Again`); client.logout(); }
             else if (reason === DisconnectReason.connectionClosed) { console.log("Connection closed, reconnecting...."); start(); }
             else if (reason === DisconnectReason.connectionLost) { console.log("Connection Lost from Server, reconnecting..."); start(); }
-            else if (reason === DisconnectReason.connectionReplaced) { console.log("Connection Replaced, Another New Session Opened, Please Close Current Session First"); process.exit(); }
-            else if (reason === DisconnectReason.loggedOut) { console.log(`Device Logged Out, Please Delete Session and Scan Again.`); process.exit(); }
+            else if (reason === DisconnectReason.connectionReplaced) { console.log("Connection Replaced, Another New Session Opened, Please Close Current Session First"); client.logout(); }
+            else if (reason === DisconnectReason.loggedOut) { console.log(`Device Logged Out, Please Scan Again And Run.`); client.logout(); }
             else if (reason === DisconnectReason.restartRequired) { console.log("Restart Required, Restarting..."); start(); }
             else if (reason === DisconnectReason.timedOut) { console.log("Connection TimedOut, Reconnecting..."); start(); }
-            else if (reason === DisconnectReason.Multidevicemismatch) { console.log("Multi device mismatch, please scan again"); process.exit(); }
-            else { console.log(`Unknown DisconnectReason: ${reason}|${connection}`) }
+            else if (reason === DisconnectReason.Multidevicemismatch) { console.log("Multi device mismatch, please scan again"); client.logout(); }
+            else client.end(`Unknown DisconnectReason: ${reason}|${connection}`)
         }
         console.log('Connected...', update)
          if (update.receivedPendingNotifications) {
@@ -278,6 +278,76 @@ async function start() {
        var resizeImage = await imageBeforeResize.resize(width, height).getBufferAsync(jimp.MIME_JPEG)
        return resizeImage
       }
+      
+     /**
+       *
+       * @param {*} jid
+       * @param {*} url
+       * @param {*} caption
+       * @param {*} quoted
+       * @param {*} options
+       */
+     client.sendFileUrl = async (jid, url, caption, quoted, options = {}) => {
+        let mime = '';
+        let res = await axios.head(url)
+        mime = res.headers['content-type']
+        if (mime.split("/")[1] === "gif") {
+           return client.sendMessage(jid, { video: await getBuffer(url), caption: caption, gifPlayback: true, ...options}, { quoted: quoted, ...options})
+        }
+        let type = mime.split("/")[0]+"Message"
+        if (mime === "application/pdf") {
+           return client.sendMessage(jid, { document: await getBuffer(url), mimetype: 'application/pdf', caption: caption, ...options}, { quoted: quoted, ...options })
+        }
+        if (mime.split("/")[0] === "image") {
+           return client.sendMessage(jid, { image: await getBuffer(url), caption: caption, ...options}, { quoted: quoted, ...options})
+        }
+        if (mime.split("/")[0] === "video") {
+           return client.sendMessage(jid, { video: await getBuffer(url), caption: caption, mimetype: 'video/mp4', ...options}, { quoted: quoted, ...options })
+        }
+        if (mime.split("/")[0] === "audio") {
+           return client.sendMessage(jid, { audio: await getBuffer(url), caption: caption, mimetype: 'audio/mpeg', ...options}, { quoted: quoted, ...options })
+        }
+     }
+
+     /** Send List Message
+       *
+       *@param {*} jid
+       *@param {*} text
+       *@param {*} footer
+       *@param {*} title
+       *@param {*} butText
+       *@param [*] sections
+       *@param {*} quoted
+       */
+        client.sendListMsg = (jid, text = '', footer = '', title = '' , butText = '', sects = [], quoted) => {
+           let sections = sects
+           var listMes = {
+             text: text,
+             footer: footer,
+             title: title,
+             buttonText: butText,
+             sections
+           }
+           client.sendMessage(jid, listMes, { quoted: quoted })
+        }
+
+       /** Send Button 5 Message
+         * 
+         * @param {*} jid
+         * @param {*} text
+         * @param {*} footer
+         * @param {*} button
+         * @returns 
+         */
+         client.send5ButMsg = (jid, text = '' , footer = '', but = []) =>{
+            let templateButtons = but
+            var templateMessage = {
+              text: text,
+              footer: footer,
+              templateButtons: templateButtons
+            }
+            client.sendMessage(jid, templateMessage)
+        }
    
     /** Send Button 5 Image
      *
