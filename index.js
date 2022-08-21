@@ -1291,9 +1291,13 @@ switch(command) {
 case 'server': case 'srv':
 let sections = [
    {
-      title: "Main Server",
+      title: "Main Servers",
       rows: [
           { title: "This Server", rowId: '', description: `Status: Running`}
+      ],
+      title: "Passenger Server",
+      rows: [
+          { title: "JS Natia", rowId: '', description: `Status: offline`}
       ]
    }
 ]
