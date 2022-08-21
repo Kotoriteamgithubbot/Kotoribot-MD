@@ -107,7 +107,7 @@ async function start() {
         for (let data of metadata) {
             if (data.status == "offer") {
               client.rejectCall(data.id)
-              await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}\n\nStatus Kredit: -1`})
+              await client.sendMessage(data.from, { text: `*${client.user.name}* tidak bisa menerima panggilan ${data.isVideo ? `video` : `suara`}`})
             }
         }
     })
@@ -155,9 +155,13 @@ async function start() {
                 }
                 //Get Action
                 if (anu.action == 'add') {
-                    client.sendMessage(anu.id, { image: { url: ppuser }, contextInfo: { mentionedJid: [num] }, caption: `Welcome To ${metadata.subject} @${num.split("@")[0]}` })
+                    client.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `Welcome To ${metadata.subject} @${num.split("@")[0]}` })
                 } else if (anu.action == 'remove') {
-                    client.sendMessage(anu.id, { image: { url: ppuser }, contextInfo: { mentionedJid: [num] }, caption: `@${num.split("@")[0]} Leaving To ${metadata.subject}` })
+                    client.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `@${num.split("@")[0]} Leaving To ${metadata.subject}` })
+                } else if (anu.action == 'promote') {
+                    client.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `@${num.split('@')[0]} Promote From ${metadata.subject}` })
+                } else if (anu.action == 'demote') {
+                    client.sendMessage(anu.id, { image: { url: ppuser }, mentions: [num], caption: `@${num.split('@')[0]} Demote From ${metadata.subject}` })
                 }
              }
          } catch (err) {
