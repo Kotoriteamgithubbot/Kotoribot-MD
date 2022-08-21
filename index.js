@@ -1289,7 +1289,12 @@ if (isCmd && command) {
 //Switch Command
 switch(command) {
 case 'server': case 'srv':
-m.reply('Server tidak tersedia untuk saat ini.')
+const thisServerText = `*THIS SERVER DETAILS*
+
+${italic}MEMORY: 0 bytes / 2095MB
+DISK: 450 bytes / 2095MB
+CPU: 0% / 80%${italic}`
+client.sendListMsg(m.chat, `Please select the menu you want to change!`, wm, `Hello Owner !`, `Click Here`, [], m)
 break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
