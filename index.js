@@ -1289,20 +1289,24 @@ if (isCmd && command) {
 //Switch Command
 switch(command) {
 case 'server': case 'srv':
-let sections = [
-   {
-      title: "- Kotoriteam Server -",
-      rows: [
-          { title: "JS Main", rowId: '', description: `Status: Running`}
-      ]
-   }, {
-      title: "- Kotoriteam Server -",
-      rows: [
-          { title: "JS Natia", rowId: '', description: `Status: offline`}
-      ]
-   }
-]
-client.sendListMsg(m.chat, `Note: server lain berjalan diserver utama`, wm, `PSN Server`, `2 Servers`, sections, m)
+if (!args[0]) {
+  let sections = [
+     {
+        title: "- Kotoriteam Server -",
+        rows: [
+           { title: "JS Main", rowId: `${prefix}server main, description: `Status: Running`}
+        ]
+     }, {
+        title: "- Kotoriteam Server -",
+        rows: [
+           { title: "JS Natia", rowId: `${prefix}server jsnatia`, description: `Status: offline`}
+        ]
+     }
+  ]
+  client.sendListMsg(m.chat, `Note: server lain berjalan diserver utama`, wm, `PSN Server`, `2 Servers`, sections, m)
+} else if (args[0] && args[0] == 'main') {
+	m.reply('For now, it cant be done.')
+}
 break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
