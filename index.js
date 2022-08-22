@@ -48,22 +48,22 @@ const { sizeFormatter } = require('human-readable');
 const emoji = new EmojiAPI();
 const nodemailer = require("nodemailer");
 const Hogan = require("hogan.js");
-const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom } = require('./lib/function');
+const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom, FileSize } = require('./lib/function.js');
 const { addBalance, kurangBalance, getBalance } = require('./lib/balance');
 const didyoumean = require('didyoumean');
 const similarity = require('similarity');
 const { aiovideodl } = require('./lib/scraper.js')
 const cheerio = require ("cheerio");
-const textpro = require('./lib/textpro');
-const { detikNews } = require('./lib/detik')
+const textpro = require('./lib/textpro.js');
+const { detikNews } = require('./lib/detik.js')
 const { wikiSearch } = require('./lib/wiki.js');
 const { Gempa } = require("./lib/gempa.js");
 const ms = require('ms');
 const brainly = require("brainly-scraper");
 const fetch = require('node-fetch')
 const { covid } = require('./lib/covid.js') 
-const { jadwaltv }= require('./lib/jadwaltv');
-const { yta, ytv, searchResult } = require('./lib/ytdl');
+const { jadwaltv }= require('./lib/jadwaltv.js');
+const { yta, ytv, searchResult } = require('./lib/ytdl.js');
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
