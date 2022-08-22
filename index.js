@@ -1290,19 +1290,22 @@ if (isCmd && command) {
 switch(command) {
 case 'server': case 'srv':
 if (!args[0]) {
-  let sections = [
-     {
-        title: "- Kotoriteam Server -",
-        rows: [
-           { title: "JS Main", rowId: `${prefix}server main`, description: `Status: Running`}
-        ]
-     }, {
-        title: "- Kotoriteam Server -",
-        rows: [
-           { title: "JS Natia", rowId: `${prefix}server jsnatia`, description: `Status: offline`}
-        ]
-     }
-  ]
+  fs.readdirSync('./server').forEach(function(folder) {
+  	let sections = [
+         {
+           title: "- Kotoriteam Server -",
+           rows: [
+              { title: "JS Main", rowId: `${prefix}server main`, description: `Status: Running`}
+            ]
+         }, {
+           title: "- Kotoriteam Server -",
+           rows: [
+              { title: `JS ${folder}`, rowId: `${prefix}server js${folder.toLowerCase()}`, description: `Status: offline`}
+           ]
+        }
+     ]
+  })
+  
   client.sendListMsg(m.chat, `Note: server lain berjalan diserver utama`, wm, `PSN Server`, `2 Servers`, sections, m)
 } else if (args[0] && args[0] == 'main') {
 	m.reply('For now, it cant be done.')
