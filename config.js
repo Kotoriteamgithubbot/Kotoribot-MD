@@ -4,7 +4,7 @@ const chalk = require("chalk")
 // Other
 global.logo = fs.readFileSync('./src/media/image/aineImage/tree.jpg')
 
-global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@mail.com', web: 'https://github.com/anubiskun' }]
+global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@gmail.com', web: 'https://github.com/anubiskun' }]
 
 global.italic = '```' //Simple italic
 
@@ -18,13 +18,9 @@ global.author = "☘️ Staf LightGreen"
 
 global.sessionName = "session.json"
 
-global.namebot = "☘️ Staf LightGreen"
+global.namebot = "☘️ Staf LightGreen" //Optional
 
-global.wm = "© CloudbyPsn"
-
-global.linkgrupbot = "https://chat.whatsapp.com/K0XVQIMhD3oFQgb5UnaNPB"
-
-global.antitags = true
+global.wm = "© CloudbyPsn" //Footer
 
 global.mess = {
     logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
