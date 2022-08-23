@@ -19,7 +19,7 @@ const {
     jidDecode, 
     proto 
 } = require('@adiwajshing/baileys')
-const { state, saveState } = useSingleFileAuthState(`./${sessionName}.json`);
+const { state, saveState } = useSingleFileAuthState(`./${sessionName}`);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
