@@ -64,6 +64,7 @@ const fetch = require('node-fetch')
 const { covid } = require('./lib/covid.js') 
 const { jadwaltv }= require('./lib/jadwaltv.js');
 const { yta, ytv, searchResult } = require('./lib/ytdl.js');
+const {ssweb} = require('./lib/anubis')
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
@@ -1526,15 +1527,21 @@ case 'google':
 if (!isLogin) return m.reply(mess.logout)
 if (!text) return m.reply(`Example : ${prefix + command} Jokowi Dodo`)
 let google = require('google-it')
+let teksgoogle = `Google Search From : ${text}\n\n`
 google({'query': text}).then(res => {
-     let teksgoogle = `Google Search From : ${text}\n\n`
      for (let g of res) {
           teksgoogle += `• *Title* : ${g.title}\n`
           teksgoogle += `• *Description* : ${g.snippet}\n`
           teksgoogle += `• *Link* : ${g.link}\n\n────────────────────────\n\n`
       } 
-      m.reply(teksgoogle)
 })
+try {
+    let url = 'https://google.com/search?q=' + encodeURIComponent(text)
+    let ss = await ssweb(url)
+    client.sendImage(m.chat, ss, teksgoogle, m)
+} catch(e){
+    m.reply(teksgoogle)
+}
 addTypeCmd(command, 1)   
 break
 case 'brainly':
@@ -1602,6 +1609,14 @@ let mediavideo = await ytv(text, qualityvideo)
 if (mediavideo.filesize >= 100000) return m.reply('File Melebihi Batas '+util.format(mediavideo))
 client.sendMessage(m.chat, { video: { url: mediavideo.dl_link }, mimetype: 'video/mp4', fileName: `${mediavideo.title}.mp4`, caption: `⭔ Title : ${mediavideo.title}\n⭔ File Size : ${mediavideo.filesizeF}\n⭔ Url : ${isUrl(text)}\n⭔ Ext : MP3\n⭔ Resolusi : ${args[1] || '360p'}` }, { quoted: m })
 addTypeCmd(command, 1)
+break
+case 'ssweb' : 
+{
+    if (!text) throw 'Masukan Query url'
+    if (!isUrl(text)) throw 'harus url ngab!!'
+    const anu = await ssweb(text)
+    client.sendMessage(m.chat, { image: { url: anu }, caption: anu }, { quoted: m })
+}
 break
 case 'suitpvp': case 'suit': 
 if (!isLogin) return m.reply(mess.logout)
