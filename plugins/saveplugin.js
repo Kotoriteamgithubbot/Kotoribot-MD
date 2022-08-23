@@ -1,5 +1,5 @@
 /**
-© Create by Aine Team
+© Create by Adesty
 Under license CloudbyPsn 
 */
 
@@ -13,6 +13,6 @@ let handler = async(client, m, text) => {
 }
 
 handler.owner = true
-handler.command = /(sp|saveplugin)/i
+handler.command = /^(sp|saveplugin)$/i
 
 module.exports = handler
