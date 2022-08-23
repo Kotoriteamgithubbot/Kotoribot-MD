@@ -19,21 +19,21 @@ const {
     jidDecode, 
     proto 
 } = require('@adiwajshing/baileys')
-const { state, saveState } = useSingleFileAuthState('./' + sessionName + '.json')
-const pino = require('pino')
-const { Boom } = require('@hapi/boom')
-const fs = require('fs')
-const chalk = require('chalk')
-const _ = require('lodash')
-const FileType = require('file-type')
-const path = require('path')
+const { state, saveState } = useSingleFileAuthState(`./${sessionName}.json`);
+const pino = require('pino');
+const { Boom } = require('@hapi/boom');
+const fs = require('fs-extra');
+const chalk = require('chalk');
+const _ = require('lodash');
+const FileType = require('file-type');
+const path = require('path');
 const CFonts = require('cfonts');
-const { exec, spawn, execSync } = require("child_process")
-const moment = require('moment-timezone')
-const PhoneNumber = require('awesome-phonenumber')
-const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
-const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/function')
-const { color } = require('./lib/color')
+const { exec, spawn, execSync } = require("child_process");
+const moment = require('moment-timezone');
+const PhoneNumber = require('awesome-phonenumber');
+const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
+const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/function');
+const { color } = require('./lib/color');
 var low
 try {
   low = require('lowdb')
