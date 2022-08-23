@@ -6,9 +6,9 @@ global.logo = fs.readFileSync('./src/media/image/aineImage/tree.jpg')
 
 global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@mail.com', web: 'https://github.com/anubiskun' }]
 
-global.italic = '```'
+global.italic = '```' //Simple italic
 
-global.groupTeam = ['6282237617224-1624210669@g.us', '120363026663109817@g.us']
+global.groupTeam = [] //Add your team group id
 
 global.banPrefixNumber = ['212', '265', '65', '852', '886', '253', '81', '86', '855', '66', '1', '265', '61', '63', '7', '39', '44', '49', '54', '55', '84', '60']
 
