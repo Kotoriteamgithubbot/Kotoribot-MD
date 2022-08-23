@@ -1,5 +1,5 @@
 /**
-- Create By Aine Team
+- Create By KotoriTeam
 - Powered by CloudbyPsn
 - Owned by Kotorirpg-MD
  */
@@ -1863,6 +1863,7 @@ default:
      }
    } catch (err) {
      console.log(err)
+     m.reply(util.format(err)).catch(e)
    }
 }
 
