@@ -1186,6 +1186,7 @@ ${wit} WIT
 ▢ ${prefix}play
 ▢ ${prefix}google
 ▢ ${prefix}brainly
+▢ ${prefix}ssweb
 
 *Plugin*
 ▢ ${prefix}getplugin
