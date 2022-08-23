@@ -21,6 +21,7 @@ const {
 } = require('@adiwajshing/baileys')
 const { state, saveState } = useSingleFileAuthState('./' + sessionName + '.json')
 const pino = require('pino')
+const { Boom } = require('@hapi/boom')
 const fs = require('fs')
 const chalk = require('chalk')
 const _ = require('lodash')
