@@ -1,15 +1,14 @@
 /**
-© Created by Aine Team
+© Created by Natia Shalsabilla
 Under license CloudbyPsn 
 */
 
 //Module
-const { spawn }  = require('child_process');
+const { exec }  = require('child_process');
 
 let handler = async(client, m) => {
-    if (!process.send) m.reply('Dont: node main.js\nDo: node start.js')
     m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
-    await process.send('reset')
+    await exec('npm restart')
     m.reply('Selesai Mereset Bot...')
 }
 
