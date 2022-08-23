@@ -12,7 +12,7 @@ let handler = async(client, m) => {
     m.reply('Selesai Mereset Bot...')
 }
 
-handler.command =  /debounce/i
+handler.command =  /^debounce$/i
 handler.owner = true
 
 module.exports = handler
