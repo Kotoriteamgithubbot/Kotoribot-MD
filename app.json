@@ -3,6 +3,5 @@
 	"description": "WhatsApp Bot Using Lib Baileys",
 	"repository": "https://github.com/stafbotz/BotWhatsapp",
 	"logo": "https://node-js-sample.herokuapp.com/node.png",
-	"keywords": ["multi-device"],
         "stack": "heroku-22"
 }
