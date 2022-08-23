@@ -52,7 +52,7 @@ const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, 
 const { addBalance, kurangBalance, getBalance } = require('./lib/balance');
 const didyoumean = require('didyoumean');
 const similarity = require('similarity');
-const { aiovideodl } = require('./lib/scraper.js')
+const { aiovideodl } = require('./lib/scraper.js');
 const cheerio = require ("cheerio");
 const textpro = require('./lib/textpro.js');
 const { detikNews } = require('./lib/detik.js')
@@ -60,11 +60,11 @@ const { wikiSearch } = require('./lib/wiki.js');
 const { Gempa } = require("./lib/gempa.js");
 const ms = require('ms');
 const brainly = require("brainly-scraper");
-const fetch = require('node-fetch')
-const { covid } = require('./lib/covid.js') 
+const fetch = require('node-fetch');
+const { covid } = require('./lib/covid.js'); 
 const { jadwaltv }= require('./lib/jadwaltv.js');
 const { yta, ytv, searchResult } = require('./lib/ytdl.js');
-const {ssweb} = require('./lib/anubis')
+const { ssweb } = require('./lib/anubis');
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
@@ -117,13 +117,7 @@ const body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype ==
 const budy = (typeof m.text == 'string' ? m.text : '')
 const prefix = /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi.test(body) ? body.match(/^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi)[0] : ""
 const isCmd = body.startsWith(prefix)
-/*
-- Tanpa Prefix (Yang sering digunakan saat ini)
-const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
-- Diwajibkan menggunakan prefix (Beberapa kondisi ini tidak berfungsi)
 const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
-*/
-const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
 const args = body.trim().split(/ +/).slice(1)
 const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id);
@@ -1289,29 +1283,6 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
-case 'server': case 'srv':
-if (!args[0]) {
-  fs.readdirSync('./server').forEach(function(folder) {
-  	let sections = [
-         {
-           title: "- Kotoriteam Server -",
-           rows: [
-              { title: "JS Main", rowId: `${prefix}server main`, description: `Status: Running`}
-            ]
-         }, {
-           title: "- Kotoriteam Server -",
-           rows: [
-              { title: `JS ${folder}`, rowId: `${prefix}server js${folder.toLowerCase()}`, description: `Status: offline`}
-           ]
-        }
-     ]
-  })
-  
-  client.sendListMsg(m.chat, `Note: server lain berjalan diserver utama`, wm, `PSN Server`, `2 Servers`, sections, m)
-} else if (args[0] && args[0] == 'main') {
-	m.reply('For now, it cant be done.')
-}
-break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
 if (!args[0]) return m.reply('Mau ngambil case apa?')
@@ -1706,24 +1677,6 @@ delete this.game[sessionRoomTictactoe.id]
 m.reply('Berhasil delete session room tictactoe !')  
 addTypeCmd(command, 1)
 break
-case 'speedtest': 
-if (!isLogin) return m.reply(mess.logout)
-m.reply('Testing Speed...')
-let cp = require('child_process')
-let { promisify } = require('util')
-let exec = promisify(cp.exec).bind(cp)
-let o
-try {
-   o = await exec('python speed.py')
-} catch (e) {
-   o = e
-} finally {
-   let { stdout, stderr } = o
-   if (stdout.trim()) return m.reply(stdout)
-   if (stderr.trim()) return m.reply(stderr)
-}  
-addTypeCmd(command, 1)
-break
 case 'speed':case 'ping': case 'botstatus': case 'statusbot': 
 if (!isLogin) return m.reply(mess.logout)
 const used = process.memoryUsage()
@@ -1898,40 +1851,6 @@ addTypeCmd(command, 1)
 break
 // Default
 default:
-       if (budy.startsWith('=>')) {
-         if (!isCreator) return m.reply(mess.owner)
-         function Return(sul) {
-             sat = JSON.stringify(sul, null, 2)
-bang = util.format(sat)
-  if (sat == undefined) {
-bang = util.format(sul)
-}
-return m.reply(bang)
-}
-try {
-m.reply(util.format(eval(`(async () => { ${budy.slice(3)} })()`)))
-} catch (e) {
-m.reply(String(e))
-}
-}
-if (budy.startsWith('>')) {
-if (!isCreator) return m.reply(mess.owner)
-try {
-let evaled = await eval(budy.slice(2))
-if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
-await m.reply(evaled)
-} catch (err) {
-m.reply(String(err))
-}
-}
-if (budy.startsWith('<')) {
-if (!isCreator) return
-try {
-return m.reply(JSON.stringify(eval(`${args.join(' ')}`),null,'\t'))
-} catch (e) {
-m.reply(e)
-}
-}
        /*
        if (isCmd && prefix != '' && !handlerPlugin) {
            //Match List Command JSON
