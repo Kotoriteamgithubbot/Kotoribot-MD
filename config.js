@@ -16,7 +16,7 @@ global.packname = "Sticker"
 
 global.author = "☘️ Staf LightGreen"
 
-global.sessionName = "session"
+global.sessionName = "session.json"
 
 global.namebot = "☘️ Staf LightGreen"
 
