@@ -1894,6 +1894,7 @@ default:
          })
        }
        if (isCmd && prefix && !handlerPlugin) {
+           if (isCreator) return
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
            sim = similarity(command, did)    
