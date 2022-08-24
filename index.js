@@ -1893,7 +1893,7 @@ default:
            if (stdout) return m.reply(stdout)
          })
        }
-       if (isCmd && !handlerPlugin) {
+       if (isCmd && prefix && !handlerPlugin) {
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
            sim = similarity(command, did)    
