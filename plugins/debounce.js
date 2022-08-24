@@ -7,9 +7,9 @@ Under license CloudbyPsn
 const { exec }  = require('child_process');
 
 let handler = async(client, m) => {
-    m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
-    await exec('npm restart')
-    m.reply('Selesai Mereset Bot...')
+    await m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
+    exec('npm restart')
+    await m.reply('Selesai Mereset Bot...')
 }
 
 handler.command =  /^debounce$/i
