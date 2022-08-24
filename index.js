@@ -1267,7 +1267,7 @@ if (isCmd && command) {
                  if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
                  if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
                  if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-                 const responseplugin = handler(client, m, text, args, prefix, budy)
+                 const responseplugin = handler(client, m, text, args, prefix, budy, command)
                  if (responseplugin) {
                    handlerPlugin = true
                    return addTypeCmd(command, 1)
