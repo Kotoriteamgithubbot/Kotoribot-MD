@@ -1852,14 +1852,54 @@ addTypeCmd(command, 1)
 break
 // Default
 default:
-       /*
-       if (isCmd && prefix != '' && !handlerPlugin) {
+       if (budy.startsWith('=>')) {
+         if (!isCreator) return m.reply(mess.owner)
+         function Return(sul) {
+           sat = JSON.stringify(sul, null, 2)
+           bang = util.format(sat)
+           if (sat == undefined) {
+             bang = util.format(sul)
+           }
+           return m.reply(bang)
+         }
+         try {
+           m.reply(util.format(eval(`(async () => { ${budy.slice(3)} })()`)))
+         } catch (e) {
+           m.reply(String(e))
+         }
+       }
+       if (budy.startsWith('>')) {
+         if (!isCreator) return m.reply(mess.owner)
+         try {
+           let evaled = await eval(budy.slice(2))
+           if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
+           await m.reply(evaled)
+         } catch (err) {
+           m.reply(String(err))
+         }
+       }
+       if (budy.startsWith('<')) {
+         if (!isCreator) return
+         try {
+           return m.reply(JSON.stringify(eval(`${args.join(' ')}`),null,'\t'))
+         } catch (e) {
+           m.reply(e)
+         }
+       }
+       if (budy.startsWith('$')) {
+         if (!isCreator) return m.reply(mess.owner)
+         exec(budy.slice(2), (err, stdout) => {
+           if(err) return m.reply(String(err))
+           if (stdout) return m.reply(stdout)
+         })
+       }
+       if (isCmd && !handlerPlugin) {
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
            sim = similarity(command, did)    
            if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
            m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
-       } */
+       }
      }
    } catch (err) {
      console.log(err)
