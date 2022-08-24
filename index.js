@@ -1509,8 +1509,8 @@ google({'query': text}).then(res => {
 })
 try {
     let url = 'https://google.com/search?q=' + encodeURIComponent(text)
-    let ss = await ssweb(url)
-    client.sendImage(m.chat, ss, teksgoogle, m)
+    /*let ss = await ssweb(url)
+    client.sendImage(m.chat, ss, teksgoogle, m)*/
 } catch(e){
     m.reply(teksgoogle)
 }
