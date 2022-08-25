@@ -1274,8 +1274,8 @@ if (isCmd && command) {
                  }
              }
           } catch (err) {
-          	owner.forEach((parseOwner) => {
-                   client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\nError: ${err}` })
+              owner.forEach((parseOwner) => {
+                 client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\nError: ${err}` })
               }) 
               //Autosend Error to Owner
           }
