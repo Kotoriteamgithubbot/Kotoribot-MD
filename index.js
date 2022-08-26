@@ -26,6 +26,7 @@ const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter')
 const path = require('path');
 const os = require('os');
 const osu = require('node-os-utils');
+const cron = require('node-cron')
 const { TiktokDownloader } = require('./lib/tiktokdl');
 const si = require('systeminformation');
 const moment = require('moment-timezone');
@@ -779,13 +780,21 @@ if (global.db.data.users[m.sender].temporaryPassword) {
     } else return
 }
 
+//Delete Message Every 10 seconds
+cron.schedule('10 * * * *', () => {
+    client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
+    client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus.' })
+}, {
+    scheduled: true,
+    timezone: "Asia/Jakarta"
+})// Wm Natia yahh
+
 //Write Database Every 1 Minute
 setInterval(() => {
    fs.writeFileSync('./database/database.json', JSON.stringify(global.db.data, null, 2))
 }, 60 * 1000)
 
 //Reset Limit Every 12 Hours
-let cron = require('node-cron')
 cron.schedule('00 12 * * *', () => {
     let user = Object.keys(global.db.data.account)
     let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
