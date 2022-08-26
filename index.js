@@ -780,15 +780,6 @@ if (global.db.data.users[m.sender].temporaryPassword) {
     } else return
 }
 
-//Delete Message Every 10 seconds
-cron.schedule('10 * * * *', () => {
-    client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
-    client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus.' })
-}, {
-    scheduled: true,
-    timezone: "Asia/Jakarta"
-})// Wm Natia yahh
-
 //Write Database Every 1 Minute
 setInterval(() => {
    fs.writeFileSync('./database/database.json', JSON.stringify(global.db.data, null, 2))
