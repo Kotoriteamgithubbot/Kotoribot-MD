@@ -264,15 +264,6 @@ async function start() {
              groupTeam.forEach((parseGroup) => {
                client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
              })
-             
-             //Delete Message Every 30 seconds
-             let cron = require('node-cron')
-             cron.schedule('30 * * * *', () => {
-                client.sendMessage('120363026663109817@g.us', 'Trying to run a job.')
-             }, {
-                 scheduled: true,
-                 timezone: "Asia/Jakarta"
-             })
 
          } //Made by Muhammad Ridwan Reynaldy & Natia Shalsabilla
     })
@@ -731,8 +722,8 @@ start()
 //Menghapus Cache File ketika Diubah
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
-	fs.unwatchFile(file)
-	console.log(chalk.redBright(`Update ${__filename}`))
-	delete require.cache[file]
-	require(file)
+   fs.unwatchFile(file)
+   console.log(chalk.redBright(`Update ${__filename}`))
+   delete require.cache[file]
+   require(file)
 })
