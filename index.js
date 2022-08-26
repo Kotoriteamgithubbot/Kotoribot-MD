@@ -733,17 +733,17 @@ if (db.data.chats[m.chat].mute && command != "unmute") {
 
 //Function Register
 if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
-	if (budy == global.db.data.users[m.sender].pendingRegister.otp) {
-		//Auto Login
+   if (budy == global.db.data.users[m.sender].pendingRegister.otp) {
+       //Auto Login
        const configPendingRegister = global.db.data.users[m.sender].pendingRegister
-		global.db.data.account[configPendingRegister.username] = {
-			password: configPendingRegister.password,
-			email: configPendingRegister.email
-        }
-        global.db.data.users[m.sender].account = configPendingRegister.username
-        m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
-        delete global.db.data.users[m.sender].pendingRegister
-	} else if (command == `${prefix}bataldaftar`) {
+       global.db.data.account[configPendingRegister.username] = {
+	  password: configPendingRegister.password,
+	  email: configPendingRegister.email
+       }
+       global.db.data.users[m.sender].account = configPendingRegister.username
+       m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
+       delete global.db.data.users[m.sender].pendingRegister
+    } else if (command == `${prefix}bataldaftar`) {
        delete global.db.data.users[m.sender].pendingRegister
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: `${prefix}bataldaftar`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
@@ -751,15 +751,15 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
 
 //Function Check OTP Reset Password
 if (global.db.data.users[m.sender].confirmPasswordReset) {
-	if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
-        const confirmKey = await client.sendMessage(m.chat, { text: 'Balas pesan ini untuk mengganti password!' })
-        global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
-        global.db.data.users[m.sender].pendingResetPassword = true
-        delete global.db.data.users[m.sender].confirmPasswordReset
-	} else if (command == `${prefix}batalganti`) {
-       delete global.db.data.users[m.sender].confirmPasswordReset
-       m.reply(mess.success)
-    } else return await client.sendButtonText(m.chat, [{ buttonId: `${prefix}batalganti`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
+   if (budy == global.db.data.users[m.sender].confirmPasswordReset) {
+      const confirmKey = await client.sendMessage(m.chat, { text: 'Balas pesan ini untuk mengganti password!' })
+      global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
+      global.db.data.users[m.sender].pendingResetPassword = true
+      delete global.db.data.users[m.sender].confirmPasswordReset
+   } else if (command == `${prefix}batalganti`) {
+      delete global.db.data.users[m.sender].confirmPasswordReset
+      m.reply(mess.success)
+   } else return await client.sendButtonText(m.chat, [{ buttonId: `${prefix}batalganti`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
 
 //Function Input New Password
