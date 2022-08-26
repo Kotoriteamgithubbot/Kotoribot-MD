@@ -477,14 +477,7 @@ try {
         if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
         if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
         if (!('use' in bot)) bot.use = "public"
-        if (bot.use == "public") {
-           client.public = true
-        } else if (bot.use == "self") {
-           if (isCreator) { client.public = true }
-           else if (!isCreator) { client.public = false }
-        } else { client.public = true }
    
-        
         let account = isLogin ? global.db.data.account[accountUsers] : false
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         if (account  && typeof account === 'object') {
@@ -530,7 +523,7 @@ function makeOtp(n) {
 
 //Apakah limit User habis
 const isLimit = (sender) => { 
-	if (isCreator && isPremium) { return false }
+    if (isCreator && isPremium) { return false }
     if (isLogin && global.db.data.account[accountUsers]) { 
 	    let limits = global.db.data.account[accountUsers].limit
 	    (limits <= 0 ) ? true : false
@@ -584,7 +577,7 @@ const sendOrder = async(jid, text, orid, img, itcount, title, sellers, tokens, a
               "sellerJid": sellers,
               "token": tokens,
               "totalAmount1000": ammount, 
-               "totalCurrencyCode": "IDR",
+              "totalCurrencyCode": "IDR",
             }
       }), { userJid: jid })
      client.relayMessage(jid, order.message, { messageId: order.key.id })
