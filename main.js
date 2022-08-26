@@ -218,7 +218,7 @@ async function start() {
     }
     
     client.setStatus = (status) => {
-        client.query({
+       client.query({
             tag: 'iq',
             attrs: {
                 to: '@s.whatsapp.net',
@@ -234,7 +234,7 @@ async function start() {
         return status
     }
 	
-	client.public = true
+    client.public = true
 
     client.serializeM = (m) => smsg(client, m, store)
     
@@ -254,15 +254,27 @@ async function start() {
         }
         console.log('Connected...', update)
          if (update.receivedPendingNotifications) {
-             //Owners
+
+             //Send Message Connected To Owners
              owner.forEach((parseOwner) => {
                  client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
              }) 
-             //Group Team
+
+             //Send Message Connected To Group Team
              groupTeam.forEach((parseGroup) => {
                client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
              })
-         } //Made by Muhammad Ridwan Reynaldy 
+             
+             //Delete Message Every 30 seconds
+             let cron = require('node-cron')
+             cron.schedule('30 * * * *', () => {
+                client.sendMessage('120363026663109817@g.us', 'Trying to run a job.')
+             }, {
+                 scheduled: true,
+                 timezone: "Asia/Jakarta"
+             })
+
+         } //Made by Muhammad Ridwan Reynaldy & Natia Shalsabilla
     })
 
     client.ev.on('creds.update', saveState)
