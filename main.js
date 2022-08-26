@@ -99,7 +99,19 @@ async function start() {
            if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
            if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
            m = smsg(client, mek, store)
-           require('./index')(client, m, chatUpdate, store)
+
+           // Wait as a priority
+           await require('./index')(client, m, chatUpdate, store)
+
+           //Delete Message Every 30 seconds
+           let cron = require('node-cron')
+           cron.schedule('30 * * * *', () => {
+              client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
+              client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus.' })
+           }, {
+               scheduled: true,
+               timezone: "Asia/Jakarta"
+           })// Wm Natia yahh
         } catch (err) {
           console.log(err)
         }
