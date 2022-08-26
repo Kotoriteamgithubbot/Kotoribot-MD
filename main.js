@@ -104,14 +104,11 @@ async function start() {
            // Wait For Priority.
            await require('./index')(client, m, chatUpdate, store)
 
-           //Delete Message Every 1 Minutes
-           cron.schedule('00 1 * * * *', () => {
-               client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
-               client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus. Akan dihapus lagi dalam 1 Menit!' })
-           }, {
-               scheduled: true,
-               timezone: "Asia/Jakarta"
-           })// Wm Natia yahh
+           //The message will expire in 1 minute
+           setInterval(function () {
+              const testClearChat = client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
+              if (testClearChat) client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus. Akan dihapus lagi dalam 1 Menit!' })
+           }, 60 * 1000)
 
         } catch (err) {
           console.log(err)
