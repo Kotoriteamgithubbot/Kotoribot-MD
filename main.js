@@ -96,10 +96,22 @@ async function start() {
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
            if (mek.key && mek.key.remoteJid === 'status@broadcast') return
-           if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
+           //if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
            if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
            m = smsg(client, mek, store)
-           require('./index')(client, m, chatUpdate, store)
+
+           // Wait For Priority.
+           await require('./index')(client, m, chatUpdate, store)
+
+           //Delete Message Every 10 seconds
+           cron.schedule('10 * * * * *', () => {
+               client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
+               client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus.' })
+           }, {
+               scheduled: true,
+               timezone: "Asia/Jakarta"
+           })// Wm Natia yahh
+
         } catch (err) {
           console.log(err)
         }
