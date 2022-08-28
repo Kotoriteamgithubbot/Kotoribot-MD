@@ -50,7 +50,7 @@ const emoji = new EmojiAPI();
 const nodemailer = require("nodemailer");
 const Hogan = require("hogan.js");
 const { smsg, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, format, parseMention, getRandom, FileSize } = require('./lib/function.js');
-const { addBalance, kurangBalance, getBalance } = require('./lib/balance');
+const { addBalance, kurangBalance, getBalance } = require('./lib/balance.js');
 const didyoumean = require('didyoumean');
 const similarity = require('similarity');
 const { aiovideodl } = require('./lib/scraper.js');
@@ -66,6 +66,8 @@ const { covid } = require('./lib/covid.js');
 const { jadwaltv }= require('./lib/jadwaltv.js');
 const { yta, ytv, searchResult } = require('./lib/ytdl.js');
 const { ssweb } = require('./lib/anubis');
+const { UploadFileUgu, webp2mp4File, TelegraPh, floNime } = require('./lib/uploader.js');
+const { toAudio, toPTT, toVideo, ffmpeg } = require('./lib/converter.js');
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
@@ -1152,11 +1154,21 @@ ${wit} WIT
 ▢ ${prefix}resetpassword 
 ▢ ${prefix}logout
 
-*Sticker*
+*Convert*
 ▢ ${prefix}stiker
 ▢ ${prefix}attp
 ▢ ${prefix}ttp
 ▢ ${prefix}smeme
+▢ ${prefix}take
+▢ ${prefix}toimage
+▢ ${prefix}tovideo
+▢ ${prefix}togif
+▢ ${prefix}tourl
+▢ ${prefix}tovn
+▢ ${prefix}tomp3
+▢ ${prefix}toaudio
+▢ ${prefix}ebinary
+▢ ${prefix}dbinary
 
 *Main*
 ▢ ${prefix}afk
@@ -1192,6 +1204,7 @@ ${wit} WIT
 ▢ ${prefix}mute
 ▢ ${prefix}kick
 ▢ ${prefix}hidetag
+▢ ${prefix}ephemeral
 ▢ ${prefix}add
 ▢ ${prefix}link
 ▢ ${prefix}group
@@ -1349,55 +1362,52 @@ exec(`ffmpeg -i ${mediaToImage} ${ranMediaToImage}`, (err) => {
 addTypeCmd(command, 1)
 break
 case 'tomp4': case 'tovideo': 
-if (isBan) return m.reply(mess.ban)
-if (!m.quoted) return m.reply('Reply Image')
-if (!/webp/.test(mime)) return m.reply(`balas stiker dengan caption *${prefix + command}*`)
+if (!isLogin) return m.reply(mess.logout)
+if (!/webp/.test(mime)) return m.reply(`Balas stiker dengan caption *${prefix + command}*`)
 m.reply(mess.wait)
-let media = await client.downloadAndSaveMediaMessage(quoted)
-let webpToMp4 = await webp2mp4File(media)
-await client.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
-await fs.unlinkSync(media)
+const mediaToVideo = await client.downloadAndSaveMediaMessage(qmsg)
+const webpVideoToMp4 = await webp2mp4File(mediaToVideo)
+await client.sendMessage(m.chat, { video: { url: webpVideoToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
+await fs.unlinkSync(mediaToVideo)
+addTypeCmd(command, 1)
 break
 case 'toaud': case 'toaudio':
-if (isBan) return m.reply(mess.ban)
+if (!isLogin) return m.reply(mess.logout)
 if (!/video/.test(mime) && !/audio/.test(mime)) return m.reply(`Kirim/Reply Video/Audio Yang Ingin Dijadikan Audio Dengan Caption ${prefix + command}`)
-if (!m.quoted) return m.reply(`Kirim/Reply Video/Audio Yang Ingin Dijadikan Audio Dengan Caption ${prefix + command}`)
 m.reply(mess.wait)
-let media = await quoted.download()
-let { toAudio } = require('./lib/converter')
-let audio = await toAudio(media, 'mp4')
-client.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
+const mediaToAudio = await client.downloadMediaMessage(qmsg)
+const toAudio = await toAudio(mediaToAudio, 'mp4')
+client.sendMessage(m.chat, { audio: toAudio, mimetype: 'audio/mpeg'}, { quoted : m })
+addTypeCmd(command, 1)
 break
 case 'tomp3':
-if (isBan) return m.reply(mess.ban)
-if (/document/.test(mime)) return m.reply(`Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`)
+if (!isLogin) return m.reply(mess.logout)
 if (!/video/.test(mime) && !/audio/.test(mime)) return m.reply(`Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`)
-if (!m.quoted) return m.reply(`Kirim/Reply Video/Audio Yang Ingin Dijadikan MP3 Dengan Caption ${prefix + command}`)
 m.reply(mess.wait)
-let media = await quoted.download()
-let { toAudio } = require('./lib/converter')
-let audio = await toAudio(media, 'mp4')
-client.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Convert By ${client.user.name} (${m.id}).mp3`}, { quoted : m })
+const mediaToMp3 = await client.downloadMediaMessage(qmsg)
+const toMp3 = await toAudio(mediaToMp3, 'mp4')
+client.sendMessage(m.chat, { document: toMp3, mimetype: 'audio/mpeg', fileName: `Convert By ${client.user.name} (${m.id}).mp3`}, { quoted : m })
+addTypeCmd(command, 1)
 break
 case 'tovn': case 'toptt':
-if (isBan) return m.reply(mess.ban)
+if (!isLogin) return m.reply(mess.logout)
 if (!/video/.test(mime) && !/audio/.test(mime)) return m.reply(`Reply Video/Audio Yang Ingin Dijadikan VN Dengan Caption ${prefix + command}`)
 if (!m.quoted) return m.reply(`Reply Video/Audio Yang Ingin Dijadikan VN Dengan Caption ${prefix + command}`)
 m.reply(mess.wait)
-let media = await quoted.download()
-let { toPTT } = require('./lib/converter')
-let audio = await toPTT(media, 'mp4')
-client.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
+const mediaToPtt = await client.downloadMediaMessage(qmsg)
+const toPtt = await toPTT(mediaToPtt, 'mp4')
+client.sendMessage(m.chat, { audio: toPtt, mimetype:'audio/mpeg', ptt:true }, { quoted: m })
+addTypeCmd(command, 1)
 break
 case 'togif': 
 if (!isLogin) return m.reply(mess.logout)
-if (!m.quoted) return m.reply('Reply Image')
-if (!/webp/.test(mime)) return m.reply(`balas stiker dengan caption *${prefix + command}*`)
+if (!/webp/.test(mime)) return m.reply(`Balas stiker dengan caption *${prefix + command}*`)
 m.reply(mess.wait)
-let media = await client.downloadAndSaveMediaMessage(quoted)
-let webpToMp4 = await webp2mp4File(media)
-await client.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
-await fs.unlinkSync(media)
+const mediaToGif = await client.downloadAndSaveMediaMessage(qmsg)
+const webpGifToMp4 = await webp2mp4File(mediaToGif)
+await client.sendMessage(m.chat, { video: { url: webpGifToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
+await fs.unlinkSync(mediaToGif)
+addTypeCmd(command, 1)
 break
 case 'tourl':
 if (!isLogin) return m.reply(mess.logout)
