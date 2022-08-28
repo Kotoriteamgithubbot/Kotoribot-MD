@@ -74,6 +74,9 @@ global.loadDatabase = async function loadDatabase() {
 }
 loadDatabase()
 
+//If null then fill with public
+if (!global.db.data.bot.use) global.db.data.bot.use = "public"
+
 // Save Database Every 30 seconds
 if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
@@ -235,8 +238,8 @@ async function start() {
         })
         return status
     }
-	
-    client.public = (global.db.data.bot.use ? (global.db.data.bot.use === "public" ? true : false) : (true && global.db.data.bot.use = "public"))
+    
+    client.public = (global.db.data.bot.use === "public" ? true : false)
 
     client.serializeM = (m) => smsg(client, m, store)
     
