@@ -715,11 +715,6 @@ if (global.db.data.chats[m.chat].antilink) {
     }
 }
 
-//Public dan Self
-if (!client.public) {
-    if (!m.key.fromMe) return
-}
-
 // Mute
 if (db.data.chats[m.chat].mute && command != "unmute") {
    return
