@@ -91,7 +91,7 @@ async function start() {
     
 
     //If null then fill with public
-    if (!global.db.data.bot.use) global.db.data.bot.use = "public"
+    if (typeof global.db.data.bot.use !== 'string') global.db.data.bot.use = "public"
 
     store.bind(client.ev)
     
