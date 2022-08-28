@@ -1470,7 +1470,7 @@ case 'listonline': case 'liston':
 if (!isLogin) return m.reply(mess.logout)
 const idListOnline = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
 const arrListonline = [...Object.keys(store.presences[idListOnline]), botNumber]
-client.sendText(m.chat, 'List Online:\n\n' + arrListonline.map(v => '⭔ @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: arrListonline })
+client.sendText(m.chat, 'List Online:\n\n' + arrListonline.map(v => '• @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: arrListonline })
 addTypeCmd(command, 1)
 break
 case 'attp': case 'ttp': 
