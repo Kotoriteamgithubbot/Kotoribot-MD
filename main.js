@@ -236,7 +236,7 @@ async function start() {
         return status
     }
 	
-    client.public = true
+    client.public = (global.db.data.bot.use ? (global.db.data.bot.use === "public" ? true : false) : (true && global.db.data.bot.use = "public"))
 
     client.serializeM = (m) => smsg(client, m, store)
     
