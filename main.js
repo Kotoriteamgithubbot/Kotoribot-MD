@@ -97,19 +97,11 @@ async function start() {
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
            if (mek.key && mek.key.remoteJid === 'status@broadcast') return
-           //if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
+           if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
            if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
            m = smsg(client, mek, store)
-
-           // Wait For Priority.
-           await require('./index')(client, m, chatUpdate, store)
-
-           //The message will expire in 1 minute
-           setInterval(function () {
-              const testClearChat = client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp}] }, m.chat)
-              if (testClearChat) client.sendMessage(m.chat, { text: 'Pesan dichat ini telah dihapus. Akan dihapus lagi dalam 1 Menit!' })
-           }, 60 * 1000)
-
+           latestMessageKey.push({ messageKey: m.key, messageTimestamp: m.messageTimestamp })
+           require('./index')(client, m, chatUpdate, store)
         } catch (err) {
           console.log(err)
         }
