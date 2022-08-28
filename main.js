@@ -342,7 +342,7 @@ async function start() {
               "currencyCode": "USD"
             }
           }
-       }, { quoted: quoted })
+       }, { userJid: jid })
 
        client.relayMessage(jid, payment.message, { messageId: payment.key.id })
      }
