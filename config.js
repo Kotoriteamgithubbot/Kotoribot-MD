@@ -22,7 +22,7 @@ global.namebot = "☘️ Staf LightGreen" //Optional
 
 global.wm = "© CloudbyPsn" //Footer
 
-global.LatestMessageKey = [] //Record recent messages
+global.latestMessageKey = [] //Record recent messages
 
 global.mess = {
     logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
