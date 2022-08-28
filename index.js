@@ -1867,7 +1867,7 @@ default:
          }
        }
        if (budy.startsWith('<')) {
-         if (!isCreator) return
+         if (!isCreator) return m.reply(mess.owner)
          try {
            return m.reply(JSON.stringify(eval(`${args.join(' ')}`),null,'\t'))
          } catch (e) {
