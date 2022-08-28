@@ -74,7 +74,7 @@ global.loadDatabase = async function loadDatabase() {
 }
 loadDatabase()
 
-// Save Database Every 30seconds
+// Save Database Every 30 seconds
 if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
@@ -317,15 +317,45 @@ async function start() {
         }
      }
 
+     /** Send Payment Message 
+      *
+      * @param {*} jid
+      * @param {*} sender
+      * @param {*} text
+      * @param {Numeric} value
+      * @param {*} quoted
+      */
+     client.sendPaymentMsg = (jid, sender, text = '', value = '', quoted = '') => {
+        const payment = generateWAMessageFromContent(jid, {
+          "requestPaymentMessage": {
+            "currencyCodeIso4217": "USD",
+            "amount1000": value,
+            "requestFrom": sender,
+            "noteMessage": {
+              "extendedTextMessage": {
+                "text": text
+              }
+            },
+            "expiryTimestamp": "1660787819",
+            "amount": {
+              "value": value,
+              "currencyCode": "USD"
+            }
+          }
+       }, { quoted: quoted })
+
+       client.relayMessage(jid, payment.message, { messageId: payment.key.id })
+     }
+
      /** Send List Message
        *
-       *@param {*} jid
-       *@param {*} text
-       *@param {*} footer
-       *@param {*} title
-       *@param {*} butText
-       *@param [*] sections
-       *@param {*} quoted
+       * @param {*} jid
+       * @param {*} text
+       * @param {*} footer
+       * @param {*} title
+       * @param {*} butText
+       * @param [*] sections
+       * @param {*} quoted
        */
         client.sendListMsg = (jid, text = '', footer = '', title = '' , butText = '', sects = [], quoted) => {
            let sections = sects
