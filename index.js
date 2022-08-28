@@ -66,6 +66,7 @@ const { covid } = require('./lib/covid.js');
 const { jadwaltv }= require('./lib/jadwaltv.js');
 const { yta, ytv, searchResult } = require('./lib/ytdl.js');
 const { ssweb } = require('./lib/anubis');
+const yts = require("yt-search")
 const { UploadFileUgu, webp2mp4File, TelegraPh, floNime } = require('./lib/uploader.js');
 const { toAudio, toPTT, toVideo, ffmpeg } = require('./lib/converter.js');
  
@@ -1660,25 +1661,24 @@ break
 case 'play': case 'ytplay':
 if (!isLogin) return m.reply(mess.logout)
 if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
-let yts = require("yt-search")
-let search = await yts(text)
-let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
+const youtubeSearch = await yts(text)
+const resultSearchYoutube = youtubeSearch.videos[Math.floor(Math.random() * youtubeSearch.videos.length)]
 let buttons = [
-    {buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: 'Audio' }, type: 1},
-    {buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: 'Video' }, type: 1}
+    {buttonId: `ytmp3 ${resultSearchYoutube.url}`, buttonText: {displayText: 'Audio' }, type: 1},
+    {buttonId: `ytmp4 ${resultSearchYoutube.url}`, buttonText: {displayText: 'Video' }, type: 1}
 ]
 let buttonMessage = {
-     image: { url: anu.thumbnail },
-     caption: `• Title : ${anu.title}
+     image: { url: resultSearchYoutube.thumbnail },
+     caption: `• Title : ${resultSearchYoutube.title}
 • Ext : Search
-• ID : ${anu.videoId}
-• Duration : ${anu.timestamp}
-• Viewers : ${anu.views}
-• Upload At : ${anu.ago}
-• Author : ${anu.author.name}
-• Channel : ${anu.author.url}
-• Description : ${anu.description}
-• Url : ${anu.url}`,
+• ID : ${resultSearchYoutube.videoId}
+• Duration : ${resultSearchYoutube.timestamp}
+• Viewers : ${resultSearchYoutube.views}
+• Upload At : ${resultSearchYoutube.ago}
+• Author : ${resultSearchYoutube.author.name}
+• Channel : ${resultSearchYoutube.author.url}
+• Description : ${resultSearchYoutube.description}
+• Url : ${resultSearchYoutube.url}`,
        footer: client.user.name,
        buttons: buttons,
        headerType: 4
@@ -1711,8 +1711,8 @@ break
 case 'ssweb' : 
 if (!text) throw 'Masukan Query url'
 if (!isUrl(text)) throw 'harus url ngab!!'
-const anu = await ssweb(text)
-client.sendMessage(m.chat, { image: { url: anu }, caption: anu }, { quoted: m })
+const resultPictureWeb = await ssweb(text)
+client.sendMessage(m.chat, { image: { url: resultPictureWeb }, caption: resultPictureWeb }, { quoted: m })
 break
 case 'suitpvp': case 'suit': 
 if (!isLogin) return m.reply(mess.logout)
