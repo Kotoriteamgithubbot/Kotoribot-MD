@@ -1569,12 +1569,10 @@ client.sendMessage(m.chat, { video: { url: mediavideo.dl_link }, mimetype: 'vide
 addTypeCmd(command, 1)
 break
 case 'ssweb' : 
-{
-    if (!text) throw 'Masukan Query url'
-    if (!isUrl(text)) throw 'harus url ngab!!'
-    const anu = await ssweb(text)
-    client.sendMessage(m.chat, { image: { url: anu }, caption: anu }, { quoted: m })
-}
+if (!text) throw 'Masukan Query url'
+if (!isUrl(text)) throw 'harus url ngab!!'
+const anu = await ssweb(text)
+client.sendMessage(m.chat, { image: { url: anu }, caption: anu }, { quoted: m })
 break
 case 'suitpvp': case 'suit': 
 if (!isLogin) return m.reply(mess.logout)
@@ -1750,7 +1748,7 @@ addTypeCmd(command, 1)
 break
 case 'join': 
 if (!isLogin) return m.reply(mess.logout)
-if (!text) client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
+if (!text) return client.sendMessage(m.chat, { text: mess.linkm }, { quoted: m })
 if (!isUrl(args[0]) && !args[0].includes('whatsapp.com')) client.sendMessage(m.chat, { text: 'Link Invalid!' }, { quoted: m })
 m.reply(mess.wait)
 const resultlinkjoin = args[0].split('https://chat.whatsapp.com/')[1]
