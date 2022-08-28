@@ -1101,7 +1101,6 @@ if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in globa
      client.ev.emit('messages.upsert', msg)
 }
 
-monospace = '```'
 const levelMenu = getLevelingLevel(m.sender)
 const xpMenu = getLevelingXp(m.sender)
 const reqXp  = 200 * (Math.pow(2, getLevelingLevel(m.sender)) - 1)
