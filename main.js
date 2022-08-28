@@ -92,7 +92,7 @@ async function start() {
     store.bind(client.ev)
     
     client.ev.on('messages.upsert', async chatUpdate => {
-        try {
+       try {
            mek = chatUpdate.messages[0]
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
