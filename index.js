@@ -1463,7 +1463,7 @@ case 'dbinary':
 if (!isLogin) return m.reply(mess.logout)
 if (!text) throw `Example : ${prefix + command} text`
 const { dBinary } = require('./lib/binary')
-const dBinaryResuly = await dBinary(text)
+const dBinaryResult = await dBinary(text)
 m.reply(dBinaryResult)
 addTypeCmd(command, 1)
 break
