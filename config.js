@@ -6,7 +6,7 @@ global.logo = fs.readFileSync('./src/media/image/aineImage/tree.jpg')
 
 global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@gmail.com', web: 'https://github.com/anubiskun' }]
 
-global.italic = '```' //Simple italic
+global.monospace = '```' //Monospace
 
 global.groupTeam = [] //Add your team group id
 
@@ -22,7 +22,7 @@ global.namebot = "☘️ Staf LightGreen" //Optional
 
 global.wm = "© CloudbyPsn" //Footer
 
-global.lastMessageNote = [] //Record recent messages
+global.LatestMessageKey = [] //Record recent messages
 
 global.mess = {
     logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
