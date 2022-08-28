@@ -89,10 +89,6 @@ async function start() {
         version
     })    
     
-
-    //If null then fill with public
-    if (typeof global.db.data.bot.use !== 'string') global.db.data.bot.use = "public"
-
     store.bind(client.ev)
     
     client.ev.on('messages.upsert', async chatUpdate => {
@@ -240,7 +236,7 @@ async function start() {
         return status
     }
     
-    client.public = (global.db.data.bot.use === "public" ? true : false)
+    client.public = true
 
     client.serializeM = (m) => smsg(client, m, store)
     
