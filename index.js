@@ -69,6 +69,7 @@ const { ssweb } = require('./lib/anubis');
 const yts = require("yt-search")
 const { UploadFileUgu, webp2mp4File, TelegraPh, floNime } = require('./lib/uploader.js');
 const { toAudio, toPTT, toVideo, ffmpeg } = require('./lib/converter.js');
+const { eBinary, dBinary } = require('./lib/binary')
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
@@ -1454,7 +1455,6 @@ break
 case 'ebinary': 
 if (!isLogin) return m.reply(mess.logout)
 if (!text) throw `Example : ${prefix + command} text`
-const { eBinary } = require('./lib/binary')
 const eBinaryResult = await eBinary(text)
 m.reply(eBinaryResult)
 addTypeCmd(command, 1)
@@ -1462,7 +1462,6 @@ break
 case 'dbinary': 
 if (!isLogin) return m.reply(mess.logout)
 if (!text) throw `Example : ${prefix + command} text`
-const { dBinary } = require('./lib/binary')
 const dBinaryResult = await dBinary(text)
 m.reply(dBinaryResult)
 addTypeCmd(command, 1)
