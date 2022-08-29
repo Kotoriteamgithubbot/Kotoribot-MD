@@ -69,7 +69,8 @@ const { ssweb } = require('./lib/anubis');
 const yts = require("yt-search")
 const { UploadFileUgu, webp2mp4File, TelegraPh, floNime } = require('./lib/uploader.js');
 const { toAudio, toPTT, toVideo, ffmpeg } = require('./lib/converter.js');
-const { eBinary, dBinary } = require('./lib/binary')
+const { eBinary, dBinary } = require('./lib/binary.js');
+const { genMath, modes } = require('./lib/math.js');
  
 // Database Rpg
 let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
@@ -507,7 +508,7 @@ function sendMail(mailTo, mailSubject, mailHtml, mailText) {
       from : global.db.data.bot.mail,
       to : mailTo,
       subject : mailSubject,
-      html: Hogan.compile(fs.readFileSync('./src/media/html/' + mailHtml + '.html', 'utf8')).render({ quoted: mailText })
+      html: Hogan.compile(fs.readFileSync('./src/html/' + mailHtml + '.html', 'utf8')).render({ quoted: mailText })
    });
 }
 
@@ -1609,7 +1610,6 @@ case 'kuismath':
 case 'math': 
 if (!isLogin) return m.reply(mess.logout)
 if (kuismath.hasOwnProperty(m.sender.split('@')[0])) return m.reply("Masih Ada Sesi Yang Belum Diselesaikan!")
-let { genMath, modes } = require('./src/math')
 if (!text) return m.reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
 const resultmath = await genMath(text.toLowerCase())
 client.sendText(m.chat, `*Berapa hasil dari: ${resultmath.soal.toLowerCase()}*?\n\nWaktu: ${(resultmath.waktu / 1000).toFixed(2)} detik`, m).then(() => {
