@@ -1,3 +1,8 @@
+/**
+© Create by Kotori Team
+Under license CloudbyPsn 
+*/
+
 let cp = require('child_process')
 let { promisify } = require('util')
 let exec = promisify(cp.exec).bind(cp)
