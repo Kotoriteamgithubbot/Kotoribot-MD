@@ -1,5 +1,5 @@
 let handler = async(client, m, text, args) => {
-    const jid  = m.mentionedJid[0] ? m.mentionedJid[0] : args[0] ? `${args[0]}@s.whatsapp.net` : m.sender
+    const jid  = m.mentionedJid[0] ? m.mentionedJid[0] : args[0] ? args[0] + '@s.whatsapp.net' : m.sender
     try {
        resultUrl = await client.profilePictureUrl(jid, 'image')
     } catch {
