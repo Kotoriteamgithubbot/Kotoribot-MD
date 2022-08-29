@@ -1214,6 +1214,8 @@ ${wit} WIT
 ▢ ${prefix}promote
 ▢ ${prefix}demote
 ▢ ${prefix}announce
+▢ ${prefix}getprofile
+▢ ${prefix}tagall
 
 *Owner*
 ▢ ${prefix}public
