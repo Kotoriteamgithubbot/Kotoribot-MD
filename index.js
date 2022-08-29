@@ -787,7 +787,7 @@ setInterval(() => {
 //Reset Limit Every 12 Hours
 cron.schedule('00 12 * * *', () => {
     let user = Object.keys(global.db.data.account)
-    let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
+    let limitUser = global.db.data.account[accountUsers].premium  ? global.limitawal.premium : global.limitawal.free
     for (let username of user) global.db.data.account[username].limit = limitUser
     console.log('Reseted Limit')
 }, {
@@ -802,7 +802,7 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     kuis = true
     jawaban = tebaklagu[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'tebak lagu', buttonText: { displayText: 'Tebak Lagu' }, type: 1 }], `🎮 Tebak Lagu 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+        await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak lagu`, buttonText: { displayText: 'Tebak Lagu' }, type: 1 }], `🎮 Tebak Lagu 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
          delete tebaklagu[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
@@ -814,7 +814,7 @@ if (tebakgambar.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     kuis = true
     jawaban = tebakgambar[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'tebak gambar', buttonText: { displayText: 'Tebak Gambar' }, type: 1 }], `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+        await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak gambar`, buttonText: { displayText: 'Tebak Gambar' }, type: 1 }], `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
         delete tebakgambar[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
@@ -826,7 +826,7 @@ if (tebakkata.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     kuis = true
     jawaban = tebakkata[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'tebak kata', buttonText: { displayText: 'Tebak Kata' }, type: 1 }], `🎮 Tebak Kata 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+        await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak kata`, buttonText: { displayText: 'Tebak Kata' }, type: 1 }], `🎮 Tebak Kata 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
         delete tebakkata[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
@@ -839,7 +839,7 @@ if (caklontong.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     jawaban = caklontong[m.sender.split('@')[0]]
    deskripsi = caklontong_desk[m.sender.split('@')[0]]
    if (budy.toLowerCase() == jawaban) {
-       await client.sendButtonText(m.chat, [{ buttonId: 'tebak lontong', buttonText: { displayText: 'Tebak Lontong' }, type: 1 }], `🎮 Cak Lontong 🎮\n\nJawaban Benar 🎉\n*${deskripsi}*\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+       await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak lontong`, buttonText: { displayText: 'Tebak Lontong' }, type: 1 }], `🎮 Cak Lontong 🎮\n\nJawaban Benar 🎉\n*${deskripsi}*\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
        delete caklontong[m.sender.split('@')[0]]
        delete caklontong_desk[m.sender.split('@')[0]]
    } else m.reply('*Jawaban Salah!*')
@@ -852,7 +852,7 @@ if (tebakkalimat.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     kuis = true
     jawaban = tebakkalimat[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'tebak kalimat', buttonText: { displayText: 'Tebak Kalimat' }, type: 1 }], `🎮 Tebak Kalimat 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+        await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak kalimat`, buttonText: { displayText: 'Tebak Kalimat' }, type: 1 }], `🎮 Tebak Kalimat 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
         delete tebakkalimat[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
@@ -864,7 +864,7 @@ if (tebaklirik.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     kuis = true
     jawaban = tebaklirik[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'tebak lirik', buttonText: { displayText: 'Tebak Lirik' }, type: 1 }], `🎮 Tebak Lirik 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+        await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak lirik`, buttonText: { displayText: 'Tebak Lirik' }, type: 1 }], `🎮 Tebak Lirik 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
         delete tebaklirik[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
@@ -876,7 +876,7 @@ if (tebaktebakan.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     kuis = true
     jawaban = tebaktebakan[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
-        await client.sendButtonText(m.chat, [{ buttonId: 'tebak tebakan', buttonText: { displayText: 'Tebak Tebakan' }, type: 1 }], `🎮 Tebak Tebakan 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, "© FardanBot - X - FardanBot", m)
+        await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak tebakan`, buttonText: { displayText: 'Tebak Tebakan' }, type: 1 }], `🎮 Tebak Tebakan 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
         delete tebaktebakan[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
@@ -1497,8 +1497,8 @@ if (global.db.data.chats[m.chat].antilink) return m.reply("Antilink sudah aktif 
     m.reply("Antilink tidak aktif!")
 } else {
     const buttonsAntilink = [
-        { buttonId: 'antilink on', buttonText: { displayText: 'On' }, type: 1 },
-        { buttonId: 'antilink off', buttonText: { displayText: 'Off' }, type: 1 }
+        { buttonId: `${prefix}antilink on`, buttonText: { displayText: 'On' }, type: 1 },
+        { buttonId: `${prefix}antilink off`, buttonText: { displayText: 'Off' }, type: 1 }
     ]
     await client.sendButtonText(m.chat, buttonsAntilink, "Mode Antilink", wm, m)
 }
@@ -1548,7 +1548,7 @@ break
 case 'menu':
 case 'help':
 if (!isLogin) return m.reply(mess.logout)
-const templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: 'profile' }}]
+const templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: `${prefix}profile` }}]
 const templateMessageMenu = {
         text: textTemplateMenu,
         footer: '© CloudbyPsn',
@@ -1665,8 +1665,8 @@ if (!q) client.sendMessage(m.chat, { text: mess.query }, { quoted: m })
 const youtubeSearch = await yts(text)
 const resultSearchYoutube = youtubeSearch.videos[Math.floor(Math.random() * youtubeSearch.videos.length)]
 let buttons = [
-    {buttonId: `ytmp3 ${resultSearchYoutube.url}`, buttonText: {displayText: 'Audio' }, type: 1},
-    {buttonId: `ytmp4 ${resultSearchYoutube.url}`, buttonText: {displayText: 'Video' }, type: 1}
+    {buttonId: `${prefix}ytmp3 ${resultSearchYoutube.url}`, buttonText: {displayText: 'Audio' }, type: 1},
+    {buttonId: `${prefix}ytmp4 ${resultSearchYoutube.url}`, buttonText: {displayText: 'Video' }, type: 1}
 ]
 let buttonMessage = {
      image: { url: resultSearchYoutube.thumbnail },
@@ -1943,8 +1943,8 @@ if (args[0] === 'close') {
     await client.groupSettingUpdate(m.chat, 'not_announcement').then((res) => m.reply(`Sukses Membuka Group`)).catch((err) => m.reply(jsonformat(err)))
 } else {
     const buttonsgroup = [
-       { buttonId: 'group open', buttonText: { displayText: 'Open' }, type: 1 },
-       { buttonId: 'group close', buttonText: { displayText: 'Close' }, type: 1 }
+       { buttonId: `${prefix}group open`, buttonText: { displayText: 'Open' }, type: 1 },
+       { buttonId: `${prefix}group close`, buttonText: { displayText: 'Close' }, type: 1 }
     ]
     await client.sendButtonText(m.chat, buttonsgroup, `Mode Group`, wm, m)
  }
