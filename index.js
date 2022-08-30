@@ -679,8 +679,8 @@ if (db.data.users[m.sender].afkTime > -1) {
 
 //Detect Group Invite 
 if (m.mtype === 'groupInviteMessage') {
-    teks = `Ketik .owner untuk bergabung ke group whatsapp anda`
-    //sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./media/image/client.jpg'), 2022, "Aineteam", "6283170659182@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
+    teks = "Ketik .join <linkgroup> untuk bergabung ke group whatsapp anda"
+    client.sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./src/image/kotori.jpg'), 2022, wm, "6283170659182@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
 }
 
 //Antilink Auto Kick
