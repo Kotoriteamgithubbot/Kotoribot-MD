@@ -96,7 +96,7 @@ const autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
 const _cmd = JSON.parse(fs.readFileSync('./database/cmd.json'));
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
-let _sewa = require("./lib/sewa");
+let _sewa = require('./lib/sewa.js');
 const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
 
 //Waktu dan Tanggal 
