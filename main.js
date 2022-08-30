@@ -322,9 +322,8 @@ async function start() {
       * @param {*} sender
       * @param {*} text
       * @param {Numeric} value
-      * @param {*} quoted
       */
-     client.sendPaymentMsg = (jid, sender, text = '', value = '', quoted = '') => {
+     client.sendPaymentMsg = (jid, sender, text = '', value) => {
         const payment = generateWAMessageFromContent(jid, {
           "requestPaymentMessage": {
             "currencyCodeIso4217": "USD",
@@ -345,6 +344,37 @@ async function start() {
 
        client.relayMessage(jid, payment.message, { messageId: payment.key.id })
      }
+     
+    /** Send Catalog Message 
+      *
+      * @param {*} jid
+      * @param {*} text
+      * @param {Numeric} orid
+      * @param {Buffer} img
+      * @param {Numeric} itcount
+      * @param {*} title
+      * @param {*} sellers
+      * @param {*} tokens
+      * @param {Numeric} amount
+      */
+      client.sendOrder = (jid, text, orid, img, itcount, title, sellers, tokens, ammount) => {
+           const order = generateWAMessageFromContent(jid, proto.Message.fromObject({
+             "orderMessage": {
+                "orderId": orid, 
+                "thumbnail": img,
+                "itemCount": itcount,
+                "status": "INQUIRY", 
+                "surface": "CATALOG", 
+                "orderTitle": title, 
+                "message": text, 
+                "sellerJid": sellers,
+                "token": tokens,
+                "totalAmount1000": ammount, 
+                "totalCurrencyCode": "IDR",
+              }
+           }), { userJid: jid })
+         client.relayMessage(jid, order.message, { messageId: order.key.id })
+      }
 
      /** Send List Message
        *
