@@ -1,7 +1,6 @@
 {
-	"name": "CloudbyPsn",
-	"description": "WhatsApp Bot Using Lib Baileys",
-	"repository": "https://github.com/stafbotz/BotWhatsapp",
-	"logo": "https://node-js-sample.herokuapp.com/node.png",
-        "stack": "heroku-22"
+  "name": "CloudbyPsn",
+  "description": "WhatsApp Bot Using Lib Baileys",
+  "repository": "https://github.com/stafbotz/Kotoribot-MD",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
 }
