@@ -1551,7 +1551,7 @@ if (!isLogin) return m.reply(mess.logout)
 const templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: `${prefix}profile` }}]
 const templateMessageMenu = {
         text: textTemplateMenu,
-        footer: '© CloudbyPsn',
+        footer: wm,
         templateButtons: templateButtonsMenu
 }
 client.sendMessage(m.chat, templateMessageMenu)
@@ -1559,7 +1559,7 @@ addTypeCmd(command, 1)
 break
 case 'donasi': case 'donate': 
 if (!isLogin) return m.reply(mess.logout)
-if (!q) return client.sendButtonText(m.chat, [{ buttonId: 'donasi neybot', buttonText: { displayText: 'NeyBot' }, type: 1 }], textTemplateDonate, '© CloudbyPsn', m)
+if (!q) return client.sendButtonText(m.chat, [{ buttonId: `${prefix}donasi neybot`, buttonText: { displayText: 'NeyBot' }, type: 1 }], textTemplateDonate, wm, m)
 	
 if (args[0] === 'neybot') {
 	client.sendMessage(from, { text: 'Maaf fitur ini masih dalam pengembangan!' }, { quoted: m })
