@@ -408,17 +408,17 @@ if (m.isGroup && isLeveling && isUser && client.public) {
     const currentLevel = getLevelingLevel(m.sender)
     const checkId = getLevelingId(m.sender)
     try {
-             addCooldown(m.sender)
-             if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender)
-             const amountXp = Math.floor(Math.random() * 10) + 200
-             const requiredXp = 200 * (Math.pow(2, currentLevel) - 1)
-             const getLevel = getLevelingLevel(m.sender)
-             addLevelingXp(m.sender, amountXp)
-             if (requiredXp <= getLevelingXp(m.sender)) {
-                 addLevelingLevel(m.sender, 1)
-                 teks = `*──「 LEVEL UP 」──*\n\n❑ *Name*:  @${m.sender.split("@")[0]}\n❑ *XP*: ${getLevelingXp(m.sender)}\n❑ *Level*: ${getLevel} -> ${getLevelingLevel(m.sender)}\n❑ *Role*: ${role} \n\nCongrats!! 🎉`
-                 client.sendMessage(m.chat, {text: teks, mentions:[m.sender]}, {quoted:m})
-             }
+         addCooldown(m.sender)
+         if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender)
+         const amountXp = Math.floor(Math.random() * 10) + 200
+         const requiredXp = 200 * (Math.pow(2, currentLevel) - 1)
+         const getLevel = getLevelingLevel(m.sender)
+         addLevelingXp(m.sender, amountXp)
+         if (requiredXp <= getLevelingXp(m.sender)) {
+             addLevelingLevel(m.sender, 1)
+             teks = `*──「 LEVEL UP 」──*\n\n❑ *Name*:  @${m.sender.split("@")[0]}\n❑ *XP*: ${getLevelingXp(m.sender)}\n❑ *Level*: ${getLevel} -> ${getLevelingLevel(m.sender)}\n❑ *Role*: ${role} \n\nCongrats!! 🎉`
+             client.sendMessage(m.chat, {text: teks, mentions:[m.sender]}, {quoted:m})
+         }
       } catch (err) {
           console.error(err)
       }
@@ -429,14 +429,14 @@ if (isCmd) {
     const currentLevel = getLevelingLevel(m.sender)
     const checkId = getLevelingId(m.sender)
     try {                                        
-            if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender)
-            const amountXp = Math.floor(Math.random() * 10) + 30
-            const requiredXp = 30 * (Math.pow(2, currentLevel) - 1)
-            const getLevel = getLevelingLevel(m.sender)
-            addLevelingXp(m.sender, amountXp)
-            if (requiredXp <= getLevelingXp(m.sender)) {
-                addLevelingLevel(m.sender, 1)
-            }             
+         if (currentLevel === undefined && checkId === undefined) addLevelingId(m.sender)
+         const amountXp = Math.floor(Math.random() * 10) + 30
+         const requiredXp = 30 * (Math.pow(2, currentLevel) - 1)
+         const getLevel = getLevelingLevel(m.sender)
+         addLevelingXp(m.sender, amountXp)
+         if (requiredXp <= getLevelingXp(m.sender)) {
+             addLevelingLevel(m.sender, 1)
+         }             
      } catch (err) {
         console.error(err)
      }
