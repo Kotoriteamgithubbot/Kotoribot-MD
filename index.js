@@ -568,26 +568,6 @@ const addTypeCmd = (command, counter) => {
     }
 }
 
-//Catalog Message
-const sendOrder = async(jid, text, orid, img, itcount, title, sellers, tokens, ammount) => {
-     const order = generateWAMessageFromContent(jid, proto.Message.fromObject({
-          "orderMessage": {
-              "orderId": orid, 
-              "thumbnail": img,
-              "itemCount": itcount,
-              "status": "INQUIRY", 
-              "surface": "CATALOG", 
-              "orderTitle": title, 
-              "message": text, 
-              "sellerJid": sellers,
-              "token": tokens,
-              "totalAmount1000": ammount, 
-              "totalCurrencyCode": "IDR",
-            }
-      }), { userJid: jid })
-     client.relayMessage(jid, order.message, { messageId: order.key.id })
-}
-
 //Function Rpg
 const { 
      addInventoriDarah, 
