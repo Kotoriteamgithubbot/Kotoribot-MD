@@ -91,17 +91,16 @@ async function start() {
     
     store.bind(client.ev)
     
-    client.ev.on('messages.upsert', async chatUpdate => {
+    client.ev.on('messages.upsert', async (chats) => {
        try {
-           mek = chatUpdate.messages[0]
+           mek = chats.messages[0]
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-           if (mek.key && mek.key.remoteJid === 'status@broadcast') return
+           //if (mek.key && mek.key.remoteJid === 'status@broadcast') return
            if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
            if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
            m = smsg(client, mek, store)
-           latestMessageKey.push({ messageKey: m.key, messageTimestamp: m.messageTimestamp })
-           require('./index')(client, m, chatUpdate, store)
+           require('./index')(client, m, chats, store)
         } catch (err) {
           console.log(err)
         }
