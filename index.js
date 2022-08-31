@@ -1281,7 +1281,7 @@ if (!m.isGroup) return m.reply(mess.group)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
 let textTagall = `*👥 Tag All*
  
-*Pesan : ${args.join(" ") ? args.join(" ") : 'kosong'}*\n\n`
+${args.join(" ") ? args.join(" ") : 'kosong'}\n\n`
  
 for (let mem of participants) {
       textTagall += `• @${mem.id.split('@')[0]}\n`
@@ -1295,7 +1295,7 @@ if (!isAdmins && !isCreator) return m.reply(mess.admin)
 for (let mem of participants) {
 	  const textAnnounce = `${monospace}Hai ${client.getName(mem.id)} pemberitahuan dari admin ${client.getName(m.sender)} di grup ${groupName}:${monospace}
  
-*Pesan : ${args.join(" ") ? args.join(" ") : 'kosong'}*\n\n${wm}`
+${args.join(" ") ? args.join(" ") : 'kosong'}\n\n${wm}`
       client.sendMessage(mem.id, { text: textAnnounce }, { quoted: m })
 }
 break
