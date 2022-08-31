@@ -1293,10 +1293,11 @@ if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
 for (let mem of participants) {
-	  const textAnnounce = `${monospace}Hai ${client.getName(mem.id)} pemberitahuan dari admin ${client.getName(m.sender)} di grup ${groupName}:${monospace}
+     const textAnnounce = `${monospace}Hai ${client.getName(mem.id)} pemberitahuan dari admin ${client.getName(m.sender)} di grup ${groupName}:${monospace}
  
 ${args.join(" ") ? args.join(" ") : 'kosong'}\n\n${wm}`
-      client.sendMessage(mem.id, { text: textAnnounce }, { quoted: m })
+     client.sendMessage(mem.id, { text: textAnnounce }, { quoted: m })
+     sleep(2000)
 }
 break
 case 'getcase': 
@@ -1561,9 +1562,9 @@ case 'help':
 if (!isLogin) return m.reply(mess.logout)
 const templateButtonsMenu = [{ urlButton: { displayText: 'Website', url: 'http://localhost:8080/' }}, { quickReplyButton: { displayText: 'Profile', id: `${prefix}profile` }}]
 const templateMessageMenu = {
-        text: textTemplateMenu,
-        footer: wm,
-        templateButtons: templateButtonsMenu
+  text: textTemplateMenu,
+  footer: wm,
+  templateButtons: templateButtonsMenu
 }
 client.sendMessage(m.chat, templateMessageMenu)
 addTypeCmd(command, 1)
