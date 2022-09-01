@@ -630,7 +630,7 @@ async function start() {
      * @param {*} attachExtension 
      * @returns 
      */
-    client.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => {
+    client.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true, number = '', story = false) => {
         let quoted = message.msg ? message.msg : message
         let mime = (message.msg || message).mimetype || ''
         let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
@@ -642,8 +642,13 @@ async function start() {
 	let type = await FileType.fromBuffer(buffer)
         trueFileName = attachExtension ? (filename + '.' + type.ext) : filename
         // save to file
-        await fs.writeFileSync(trueFileName, buffer)
-        return trueFileName
+        if (story) {
+          await fs.writeFileSync(`./src/story/${number}/${trueFileName}`, buffer);
+          return `./src/story/${number}/${trueFileName}`;
+        } else {
+          await fs.writeFileSync(trueFileName, buffer);
+          return trueFileName;
+        }
     }
 
     client.downloadMediaMessage = async (message) => {
