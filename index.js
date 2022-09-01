@@ -179,10 +179,11 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
-//Get Story
+//Get Media Story
 if (m.key && m.key.remoteJid === 'status@broadcast') {
-   client.sendMessage('120363043384341709@g.us', { text: JSON.stringify(m) })
-   await client.downloadAndSaveMediaMessage(qmsg, 'story')
+   if (isMedias) {
+      await client.downloadAndSaveMediaMessage(qmsg, `./story/${m.sender.split('@')[0]}/${wib}`)
+   }
    return client.readMessages([m.key])
 }
 
@@ -213,7 +214,7 @@ if (m.message) {
 }
 
 //Auto Register
-if (isCmd && !isUser){
+if (isCmd && !isUser) {
    registered.push(m.sender)
    fs.writeFileSync('./database/user.json', JSON.stringify(registered))
 } 
