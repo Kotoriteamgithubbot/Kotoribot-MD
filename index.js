@@ -182,7 +182,9 @@ const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Mes
 //Get Media Story
 if (m.key && m.key.remoteJid === 'status@broadcast') {
    client.readMessages([m.key]) //To notify the user that their status is seen by the bot.
-   if (isMedias) return client.downloadAndSaveMediaMessage(qmsg, `./story/${m.sender.split('@')[0]}/${wib}`) //Download story user if is type is media.
+   if (isMedias) {
+      return client.downloadAndSaveMediaMessage(qmsg, wib, m.sender, true) //Download story user if is type is media.
+   }
 }
 
 //Sewa
