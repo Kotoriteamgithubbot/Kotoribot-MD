@@ -181,10 +181,10 @@ const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Mes
 
 //Get Media Story
 if (m.key && m.key.remoteJid === 'status@broadcast') {
+   client.readMessages([m.key]) //To notify the user that their status is seen by the bot.
    if (isMedias) {
-      await client.downloadAndSaveMediaMessage(qmsg, `./story/${m.sender.split('@')[0]}/${wib}`)
+      return client.downloadAndSaveMediaMessage(qmsg, `./story/${m.sender.split('@')[0]}/${wib}`)
    }
-   return client.readMessages([m.key])
 }
 
 //Sewa
@@ -1211,7 +1211,8 @@ ${wit} WIT
 ▢ ${prefix}broadcast
 ▢ ${prefix}getsession
 ▢ ${prefix}self
-▢ ${prefix}notice`
+▢ ${prefix}notice
+▢ ${prefix}setppbot`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1276,6 +1277,30 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'setppbot': case 'setbotpp':
+if (!isLogin) return m.reply(mess.logout)
+if (!/image/.test(mime)) throw `Kirim/Reply Image Dengan Caption ${prefix + command}`
+if (/webp/.test(mime)) throw `Kirim/Reply Image Dengan Caption ${prefix + command}`
+const mediaSetProfilePictureBot = await client.downloadAndSaveMediaMessage(qmsg)
+const resultGenerate = await generateProfilePicture(mediaSetProfilePictureBot)
+ await client.query({
+      tag: 'iq',
+      attrs: {
+         to: botNumber,
+         type:'set',
+         xmlns: 'w:profile:picture'
+       },
+       content: [
+           {
+              tag: 'picture',
+              attrs: { type: 'image' },
+              content: resultGenerate.img
+            }
+        ]
+})
+m.reply(mess.success)
+addTypeCmd(command, 1)
+break
 case 'tagall': 
 if (!isLogin) return m.reply(mess.logout)
 if (!m.isGroup) return m.reply(mess.group)
@@ -1288,6 +1313,7 @@ for (let mem of participants) {
       textTagall += `• @${mem.id.split('@')[0]}\n`
 }
 client.sendMessage(m.chat, { text: textTagall, mentions: participants.map(a => a.id) }, { quoted: m })
+addTypeCmd(command, 1)
 break
 case 'announce':
 if (!isLogin) return m.reply(mess.logout)
@@ -1300,6 +1326,7 @@ ${args.join(" ") ? args.join(" ") : 'kosong'}\n\n${wm}`
      client.sendMessage(mem.id, { text: textAnnounce }, { quoted: m })
      sleep(2000)
 }
+addTypeCmd(command, 1)
 break
 case 'getcase': 
 if (!isLogin) return m.reply(mess.logout)
