@@ -49,7 +49,7 @@ global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
 
 //Load Database
-global.db = new Low(new mongoDB('enak aja pakai link aku..'))
+global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
 
 global.DATABASE = global.db // Backwards Compatibility
 global.loadDatabase = async function loadDatabase() {
@@ -266,7 +266,7 @@ async function start() {
                client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
              })
 
-         } //Made by Natia Shalsabilla
+         } //Made by Muhammad Ridwan Reynaldy & Natia Shalsabilla
     })
 
     client.ev.on('creds.update', saveState)
