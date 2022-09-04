@@ -125,16 +125,16 @@ const prefix = /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/gi.test(bo
 const isCmd = body.startsWith(prefix)
 const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
 const args = body.trim().split(/ +/).slice(1)
+const text = args.join(" ")
 const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id);
+const itsMe = m.sender == botNumber ? true : false
 const isCreator = () => {
-    if (botNumber + '@s.whatsapp.net' == m.sender) return true
+	if (itsMe) return true;
     for (let i = 0; i < owner.length; i++) {
         owner[i].id == m.sender ? true : false
     }
 }
-const itsMe = m.sender == botNumber ? true : false
-const text = args.join(" ")
 const accountUsers = typeof global.db.data.users[m.sender] === 'object' ? global.db.data.users[m.sender].account !== "guest" ? global.db.data.users[m.sender].account : "notlogin" : "notlogin"
 const isLogin = accountUsers !== "notlogin" ? (typeof global.db.data.account[accountUsers] === 'object' ? true : false) : false
 const isPremium =  accountUsers !== "notlogin" ? (global.db.data.account[accountUsers].premium ? true : isCreator ? true : false) : false
@@ -2047,9 +2047,12 @@ default:
          if (!isCreator) return m.reply(mess.owner)
          try {
            return m.reply(JSON.stringify(eval(`${args.join(' ')}`),null,'\t'))
-         } catch (e) {
-           m.reply(e)
+         } catch {
+           m.reply(mess.failed)
          }
+         /*} catch (e) {
+           m.reply(e)
+         }*/
        }
        if (budy.startsWith('$')) {
          if (!isCreator) return m.reply(mess.owner)
