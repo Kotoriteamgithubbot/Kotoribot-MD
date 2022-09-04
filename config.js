@@ -27,6 +27,7 @@ global.mess = {
     login: 'Kamu sudah login sebelumnya! Untuk keluar ketik .logout',
     register: 'Username sudah pernah terdaftar, coba username lain!',
     success: 'Success',
+    failed: 'Error!',
     admin: 'Fitur Khusus Admin Group!',
     botAdmin: 'Bot Harus Menjadi Admin Terlebih Dahulu!',
     owner: 'Fitur Khusus Owner Bot',
