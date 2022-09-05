@@ -91,16 +91,15 @@ async function start() {
     
     store.bind(client.ev)
     
-    client.ev.on('messages.upsert', async (chats) => {
+    client.ev.on('messages.upsert', async (newChats) => {
        try {
            mek = chats.messages[0]
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-           //if (mek.key && mek.key.remoteJid === 'status@broadcast') return
            if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
            if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
            m = smsg(client, mek, store)
-           require('./index')(client, m, chats, store)
+           require('./index')(client, m, newChats, store)
         } catch (err) {
           console.log(err)
         }
@@ -266,7 +265,7 @@ async function start() {
                client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
              })
 
-         } //Made by Muhammad Ridwan Reynaldy & Natia Shalsabilla
+         } //Made by Natia Shalsabilla
     })
 
     client.ev.on('creds.update', saveState)
@@ -357,7 +356,7 @@ async function start() {
       * @param {*} tokens
       * @param {Numeric} amount
       */
-      client.sendOrder = (jid, text, orid, img, itcount, title, sellers, tokens, ammount) => {
+      client.sendOrder = (jid, text = '', orid = '', img, itcount = '', title = '', sellers, tokens = '', ammount) => {
            const order = generateWAMessageFromContent(jid, proto.Message.fromObject({
              "orderMessage": {
                 "orderId": orid, 
