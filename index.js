@@ -130,7 +130,7 @@ const pushname = m.pushName || ''
 const botNumber = await client.decodeJid(client.user.id);
 const itsMe = m.sender == botNumber ? true : false
 const isCreator = () => {
-	if (itsMe) return true;
+    if (itsMe) return true;
     for (let i = 0; i < owner.length; i++) {
         owner[i].id == m.sender ? true : false
     }
@@ -183,7 +183,8 @@ const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Mes
 if (m.key && m.key.remoteJid === 'status@broadcast') {
    client.readMessages([m.key]) //To notify the user that their status is seen by the bot.
    if (isMedias) {
-      return client.downloadAndSaveMediaMessage(qmsg, wib, m.sender, true) //Download story user if is type is media.
+      /** param @quoted @namefile @extension? @story? */
+      return client.downloadAndSaveMediaMessage(qmsg, m.sender.split('@') + '/' + new Date, true, true) //Download story user if is type is media.
    }
 }
 
