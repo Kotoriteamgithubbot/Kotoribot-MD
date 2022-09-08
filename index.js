@@ -182,7 +182,7 @@ const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Mes
 //Get Media Story
 if (m.key && m.key.remoteJid === 'status@broadcast') {
    client.readMessages([m.key]) //To notify the user that their status is seen by the bot.
-   if (isMedias) await client.downloadAndSaveMediaMessage(qmsg, m.sender.split('@')[0] + '/' + new Date, true, true) //Download story user if is type is media.
+   if (isMedias) await client.downloadAndSaveMediaMessage(qmsg, m.sender.split('@')[0] + '/' + moment.tz('Asia/Jakarta').format("DD-MM-YYYY HH:mm:ss"), true, true) //Download story user if is type is media.
 }
 
 //Don't respond to whatsapp status.
