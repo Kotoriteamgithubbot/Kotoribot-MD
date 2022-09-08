@@ -1,5 +1,5 @@
 /**
-- Create By Kotori team
+- Create By KotoriTeam
 - Powered By CloudbyPsn 
 - Owned by Kotorirpg-MD
 */
@@ -93,7 +93,7 @@ async function start() {
     
     client.ev.on('messages.upsert', async (newChats) => {
        try {
-           mek = chats.messages[0]
+           mek = newChats.messages[0]
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
            if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
