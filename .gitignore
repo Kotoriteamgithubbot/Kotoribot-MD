@@ -9,3 +9,6 @@ package-lock.json
 
 # sessions file
 session.json
+
+# psn directories
+cloudbypsn/
