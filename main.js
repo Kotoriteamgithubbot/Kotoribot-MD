@@ -644,7 +644,7 @@ async function start() {
         if (story) {
           const dir = trueFileName.split('/')[0]
           const file = trueFileName.split('/')[1]
-          await fs.mkdirSync('./src/story/' + dir)
+          if (!fs.existsSync('./src/story/' + dir)) await fs.mkdirSync('./src/story/' + dir)
           return fs.writeFileSync('./src/story/' + trueFileName, buffer);
         } else {
           await fs.writeFileSync(trueFileName, buffer);
