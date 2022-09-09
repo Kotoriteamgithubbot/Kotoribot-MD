@@ -253,19 +253,21 @@ async function start() {
             else client.end(`Unknown DisconnectReason: ${reason}|${connection}`)
         }
         console.log('Connected...', update)
-         if (update.receivedPendingNotifications) {
 
-             //Send Message Connected To Owners
-             owner.forEach((parseOwner) => {
-                 client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
-             }) 
+        if (update.isOnline) console.log('BOT RUNNING!')
+        if (update.receivedPendingNotifications) {
 
-             //Send Message Connected To Group Team
-             groupTeam.forEach((parseGroup) => {
-               client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
-             })
+            //Send Message Connected To Owners
+            owner.forEach((parseOwner) => {
+                client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
+            }) 
 
-         } //Made by Natia Shalsabilla
+            //Send Message Connected To Group Team
+            groupTeam.forEach((parseGroup) => {
+              client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
+            })
+
+        } //Made by Natia Shalsabilla
     })
 
     client.ev.on('creds.update', saveState)
