@@ -2051,9 +2051,6 @@ default:
          } catch {
            m.reply(mess.failed)
          }
-         /*} catch (e) {
-           m.reply(e)
-         }*/
        }
        if (budy.startsWith('$')) {
          if (!isCreator) return m.reply(mess.owner)
@@ -2073,7 +2070,7 @@ default:
      }
    } catch (err) {
      console.log(err)
-     m.reply(util.format(err)).catch(e)
+     m.reply(util.format(err)).catch()
    }
 }
 
