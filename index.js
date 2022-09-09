@@ -17,7 +17,7 @@ const {
      getContentType, 
      WAFlag 
 } = require('@adiwajshing/baileys');
-const fs = require('fs');
+const fs = require('fs-extra');
 const util = require('util');
 const chalk = require('chalk');
 const { exec, spawn, execSync } = require('child_process');
