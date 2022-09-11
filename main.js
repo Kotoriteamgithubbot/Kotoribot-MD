@@ -8,6 +8,7 @@ require('./config.js')
 const { 
     default: aineConnect, 
     useSingleFileAuthState, 
+    useMultiFileAuthState,
     DisconnectReason, 
     fetchLatestBaileysVersion, 
     generateForwardMessageContent,
@@ -19,7 +20,7 @@ const {
     jidDecode, 
     proto 
 } = require('@adiwajshing/baileys')
-const { state, saveState } = useSingleFileAuthState(`./${sessionName}`);
+const { state, saveState } = singleFileSession ? useSingleFileAuthState(sessionName) : useMultiFileAuthState(sessionName)
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
@@ -46,7 +47,14 @@ const mongoDB = require('./lib/mongoDB')
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 
-const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
+const store = makeInMemoryStore({}) //makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
+
+store.readFromFile('./store/data.json')
+
+// Saves the state to a file every 10s
+setInterval(() => {
+    store.writeToFile('./store/data.json')
+}, 10 * 1000)
 
 //Load Database
 global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
