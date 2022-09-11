@@ -360,7 +360,7 @@ async function start() {
        client.relayMessage(jid, payment.message, { messageId: payment.key.id })
      }
      
-      /** Send Catalog Message 
+    /** Send Catalog Message 
       *
       * @param {*} jid
       * @param {Buffer} img
