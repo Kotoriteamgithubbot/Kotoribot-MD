@@ -360,7 +360,44 @@ async function start() {
        client.relayMessage(jid, payment.message, { messageId: payment.key.id })
      }
      
-    /** Send Catalog Message 
+      /** Send Catalog Message 
+      *
+      * @param {*} jid
+      * @param {Buffer} img
+      * @param {Numeric} productId
+      * @param {*} title
+      * @param {*} description
+      * @param {*} footerText
+      * @param {Numeric} amount
+      * @param {*} retailerId
+      * @param {*} url
+      * @param {*} businessOwnerJid
+      */
+      client.sendCatalog = (jid, img, productId, title = '', description = '', footerText = '', ammount, retailerId = '', url = '', businessOwnerJid ='') => {
+         const catalogImage= await prepareWAMessageMedia({ image: img }, { upload: client.waUploadToServer })
+         const catalog = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+             "productMessage": {
+                "product": {
+                   "productImage": catalogImage.imageMessage,
+                   "productId": productId,
+                   "title": title,
+                   "description": description,
+                   "currencyCode": "IDR",
+                   "footerText": footerText,
+                   "priceAmount1000": ammount,
+                   "productImageCount": 1,
+                   "firstImageId": 1,
+                   "salePriceAmount1000": ammount,
+                   "retailerId": retailerId,
+                   "url": url
+                },
+                "businessOwnerJid": businessOwnerJid
+             }
+         }), { userJid: jid })
+         client.relayMessage(jid, catalog.message, { messageId: catalog.key.id })
+    }
+     
+    /** Send Order Message 
       *
       * @param {*} jid
       * @param {*} text
