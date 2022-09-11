@@ -2019,6 +2019,8 @@ addTypeCmd(command, 1)
 break
 // Default
 default:
+       if (handlerPlugin) return //Do not run while the plugin is responding.
+       
        if (budy.startsWith('=>')) {
          if (!isCreator) return m.reply(mess.owner)
          function Return(sul) {
@@ -2060,7 +2062,7 @@ default:
            if (stdout) return m.reply(stdout)
          })
        }
-       if (isCmd && prefix && !handlerPlugin) {
+       if (isCmd && prefix) {
            if (isCreator) return
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
