@@ -373,7 +373,7 @@ async function start() {
       * @param {*} url
       * @param {*} businessOwnerJid
       */
-      client.sendCatalog = (jid, img, productId, title = '', description = '', footerText = '', ammount, retailerId = '', url = '', businessOwnerJid ='') => {
+      client.sendCatalog = async (jid, img, productId, title = '', description = '', footerText = '', ammount, retailerId = '', url = '', businessOwnerJid ='') => {
          const catalogImage= await prepareWAMessageMedia({ image: img }, { upload: client.waUploadToServer })
          const catalog = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
              "productMessage": {
