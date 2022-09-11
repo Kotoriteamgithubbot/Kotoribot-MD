@@ -17,7 +17,7 @@
 <a href="https://github.com/Aiinne/Aine-md/pulls"><img title="Pull Request" src="https://img.shields.io/github/issues-pr/Aiinne/Aine-md?label=PullRequest&color=success&style=flat-square"></a>
 <a href="https://github.com/Aiinne/Aine-md/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Aiinne/Aine-md?label=PullRequest&color=red&style=flat-square"></a>
 
-**Warning**: Script uji coba, apapun yang ada disini merupakan hasil ujicoba. Collaborator baru? emmm Aine
+> **Warning**: Script uji coba, apapun yang ada disini merupakan hasil ujicoba. Collaborator baru? emmm Aine
 
 ```Info:
 This script is made by Kotoriteam and Aine, but under the property rights of Psn.
