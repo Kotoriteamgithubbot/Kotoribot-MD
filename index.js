@@ -1576,14 +1576,14 @@ break
 case 'public': 
 if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
-global.db.data.bot.use = "public"
+client.public = true
 m.reply('Sukses Change To Public Usage')
 addTypeCmd(command, 1)
 break
 case 'self': 
 if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
-global.db.data.bot.use = "self"
+client.public = false
 m.reply('Sukses Change To Self Usage') 
 addTypeCmd(command, 1)          
 break
