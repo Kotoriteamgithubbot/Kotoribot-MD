@@ -20,7 +20,8 @@ const {
     jidDecode, 
     proto 
 } = require('@adiwajshing/baileys')
-const { state, saveState } = singleFileSession ? useSingleFileAuthState(sessionName) : useMultiFileAuthState(sessionName)
+const stateSingleFile = useSingleFileAuthState(sessionName);
+const stateMultiFile = await useMultiFileAuthState(sessionName);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
@@ -47,7 +48,7 @@ const mongoDB = require('./lib/mongoDB')
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 
-const store = makeInMemoryStore({}) //makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
+const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
 
 store.readFromFile('./store/data.json')
 
@@ -93,7 +94,7 @@ async function start() {
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
         browser: ['CloudbyPsn', 'Safari', '1.0.0'],
-        auth: state,
+        auth: singleFileSession ? stateSingleFile.state : stateMultiFile.state,
         version
     })    
     
@@ -280,7 +281,7 @@ async function start() {
         } //Made by Natia Shalsabilla
     })
 
-    client.ev.on('creds.update', saveState)
+    client.ev.on('creds.update', singleFileSession ? stateSingleFile.saveState : stateMultiFile.saveCreds)
 
     // Add Other
 
