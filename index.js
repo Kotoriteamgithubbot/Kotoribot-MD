@@ -1269,7 +1269,7 @@ if (isCmd && command) {
              } //Risnaldy Mufki
           } catch (err) {
               owner.forEach((parseOwner) => {
-                 client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\nError: ${err}` })
+                 client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\n${err}` })
               }) 
               //Autosend Error to Owner
           }
@@ -2021,12 +2021,12 @@ default:
        if (budy.startsWith('=>')) {
          if (!isCreator) return m.reply(mess.owner)
          function Return(sul) {
-           sat = JSON.stringify(sul, null, 2)
-           bang = util.format(sat)
-           if (sat == undefined) {
-             bang = util.format(sul)
+           stringTurn = JSON.stringify(sul, null, 2)
+           utilTurn = util.format(stringTurn)
+           if (stringTurn == undefined) {
+             utilTurn = util.format(sul)
            }
-           return m.reply(bang)
+           return m.reply(utilTurn)
          }
          try {
            m.reply(util.format(eval(`(async () => { ${budy.slice(3)} })()`)))
