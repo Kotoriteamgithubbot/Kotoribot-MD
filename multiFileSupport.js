@@ -7,7 +7,6 @@
 require('./config.js')
 const { 
     default: aineConnect, 
-    useSingleFileAuthState, 
     useMultiFileAuthState,
     DisconnectReason, 
     fetchLatestBaileysVersion, 
@@ -20,8 +19,7 @@ const {
     jidDecode, 
     proto 
 } = require('@adiwajshing/baileys')
-const stateSingleFile = useSingleFileAuthState(sessionName);
-const stateMultiFile = await useMultiFileAuthState(sessionName);
+const { state, saveCreds } = useMultiFileAuthState(sessionName);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
@@ -94,7 +92,7 @@ async function start() {
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
         browser: ['CloudbyPsn', 'Safari', '1.0.0'],
-        auth: singleFileSession ? stateSingleFile.state : stateMultiFile.state,
+        auth: state,
         version
     })    
     
@@ -281,7 +279,7 @@ async function start() {
         } //Made by Natia Shalsabilla
     })
 
-    client.ev.on('creds.update', singleFileSession ? stateSingleFile.saveState : stateMultiFile.saveCreds)
+    client.ev.on('creds.update', saveCreds)
 
     // Add Other
 
