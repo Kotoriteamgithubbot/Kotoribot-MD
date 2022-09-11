@@ -16,7 +16,9 @@ global.packname = "Sticker"
 
 global.author = "☘️ Staf LightGreen"
 
-global.sessionName = "session.json"
+global.singleFileSession = false //Use Single or Multi Session
+
+global.sessionName = "session" //File or directory  Session
 
 global.namebot = "☘️ Staf LightGreen" //Optional
 
