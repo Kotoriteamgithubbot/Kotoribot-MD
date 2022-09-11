@@ -1,6 +1,6 @@
 const axios = require('axios')
 let handler = async(m, { client, text }) => {
-    if (!text) throw `Harap masukan query\n\n\nContoh : .downdetector telkomsel`
+    if (!text) return m.reply(`Harap masukan query\n\n\nContoh : .downdetector telkomsel`)
     const query = encodeURI(text.trim())
     try {
        const fetchHtml = await axios.get(`https://downdetector.id/masalah/${query}`)
