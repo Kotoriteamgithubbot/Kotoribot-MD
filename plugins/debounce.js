@@ -6,7 +6,7 @@ Under license CloudbyPsn
 //Module
 const { exec }  = require('child_process');
 
-let handler = async(client, m) => {
+let handler = async(m, { client }) => {
     await m.reply('Sedang Mereset Bot...\nMohon tunggu sekitar 1 menit')
     exec('npm restart')
     await m.reply('Selesai Mereset Bot...')
