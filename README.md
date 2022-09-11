@@ -1,7 +1,11 @@
+(https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+
 # Kotoribot-MD
 <p align="center">
 <img width="" src="https://img.shields.io/github/repo-size/Aiinne/Aine-MD?color=green&label=Repo%20Size&style=for-the-badge&logo=appveyor">
 </p>
+
+---
 
 <a href="https://visitor-badge.glitch.me/badge?page_id=Aiinne/Aine-md"><img title="Visitor" src="https://visitor-badge.glitch.me/badge?page_id=Aiinne/Aine-md"></a>
 <a href="https://github.com/Aiinne/Aine-md/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Aiinne/Aine-md?label=Forks&color=blue&style=flat-square"></a>
