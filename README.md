@@ -19,7 +19,7 @@
 
 > **Warning**: Script uji coba, apapun yang ada disini merupakan hasil ujicoba. Collaborator baru? emmm Aine
 
-## Deploy
-
-### Heroku
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/stafbotz/Kotoribot-MD)
+```Info:
+This script is made by Kotoriteam and Aine, but under the property rights of Psn.
+Regards, Nadia
+```
