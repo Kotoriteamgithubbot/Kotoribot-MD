@@ -1,3 +1,63 @@
+//List Menu
+global.textTemplateMenu = (regards, pushname, wib, wita, wit, week, date, runtime, formatNumber, levelMenu) => {
+
+return `Hai, selamat ${regards} ${pushname}! 👋
+
+*Waktu:* 
+${wib} WIB
+${wita} WITA
+${wit} WIT
+*Hari:* ${week}
+*Tanggal:* ${date}
+*Uptime:* ${runtime(process.uptime())}
+*Total Hit:* ${formatNumber(global.db.data.bot.totalhit)}
+
+*Level:* ${levelMenu}
+*Xp:* ${formatNumber(xpMenu)}\ ${formatNumber(reqXp)}
+*Role:* ${role}
+*Game Money:* ${formatNumber(getBalance(m.sender, balance))} IDR
+
+*Health:* ${getDarah(m.sender)}
+*Besi:* ${getBesi(m.sender)}
+*Emas:* ${getEmas(m.sender)}
+*Emerald:* ${getEmerald(m.sender)}
+*Potion:* ${getPotion(m.sender)}
+
+*Akun*: ${global.db.data.users[m.sender].account}
+*Saldo Neybot:* ${formatNumber('0')} IDR
+*Limit:* ${isLogin ? (global.db.data.account[accountUsers].limit !== 'Infinity' ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin"}
+*Status:* ${isPremium ? 'Premium' : 'Gratis'}
+
+*Game*
+▢ ${prefix}suit
+▢ ${prefix}tictactoe
+▢ ${prefix}delttt
+
+*Fun*
+▢ ${prefix}react
+▢ ${prefix}math
+
+*Account*
+▢ ${prefix}login
+▢ ${prefix}register
+▢ ${prefix}resetpassword 
+▢ ${prefix}logout
+
+*Convert*
+▢ ${prefix}stiker
+▢ ${prefix}attp
+▢ ${prefix}ttp
+▢ ${prefix}smeme
+▢ ${prefix}take
+▢ ${prefix}toimage
+▢ ${prefix}tovideo
+▢ ${prefix}togif
+▢ ${prefix}tourl
+▢ ${prefix}tovn
+▢ ${prefix}tomp3
+▢ ${prefix}toaudio
+▢ ${prefix}ebinary
+▢ ${prefix}dbinary
 
 *Main*
 ▢ ${prefix}afk
@@ -51,3 +111,4 @@
 ▢ ${prefix}self
 ▢ ${prefix}notice
 ▢ ${prefix}setppbot`
+}
