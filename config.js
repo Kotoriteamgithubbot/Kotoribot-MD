@@ -2,7 +2,7 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 // Other
-global.logo = fs.readFileSync('./src/image/tree.jpg')
+global.logo = fs.readFileSync('./src/image/tree.jpg') //Logo
 
 global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@gmail.com', web: 'https://github.com/anubiskun' }]
 
@@ -10,15 +10,13 @@ global.monospace = '```' //Monospace
 
 global.groupTeam = [] //Add your team group id
 
-global.banPrefixNumber = ['212', '265', '65', '852', '886', '253', '81', '86', '855', '66', '1', '265', '61', '63', '7', '39', '44', '49', '54', '55', '84', '60']
+global.banPrefixNumber = ['212', '265', '65', '852', '886', '253', '81', '86', '855', '66', '1', '265', '61', '63', '7', '39', '44', '49', '54', '55', '84', '60'] //Disallow numbers starting with 
 
-global.packname = "Sticker"
+global.packname = "Sticker" //Packname Sticker
 
-global.author = "☘️ Staf LightGreen"
+global.author = "☘️ Staf LightGreen" //Author Sticker
 
-global.optionRun = "multiFileSupport" //Use Single or Multi Session
-
-global.sessionName = "session" //File or directory  Session
+global.sessionName = "session.json" //Name File Session
 
 global.namebot = "☘️ Staf LightGreen" //Optional
 
