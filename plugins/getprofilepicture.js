@@ -3,7 +3,7 @@
 Under license CloudbyPsn 
 */
 
-let handler = async(client, m, text, args) => {
+let handler = async(m, { client, text, args }) => {
     const jid  = m.mentionedJid[0] ? m.mentionedJid[0] : args[0] ? args[0] + '@s.whatsapp.net' : m.sender
     try {
        resultUrl = await client.profilePictureUrl(jid, 'image')
