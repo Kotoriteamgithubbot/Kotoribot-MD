@@ -6,7 +6,7 @@ Under license CloudbyPsn
 let cp = require('child_process')
 let { promisify } = require('util')
 let exec = promisify(cp.exec).bind(cp)
-let handler = async (client, m) => {
+let handler = async (m, { client }) => {
     m.reply('Testing Speed...');
     let o;
     try {
