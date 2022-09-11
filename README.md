@@ -1,6 +1,3 @@
-[![-----------------------------------------------------]
-(https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)]
-(#table-of-contents)
 # Kotoribot-MD
 
 <p align="center">
@@ -20,3 +17,8 @@
 <a href="https://github.com/Aiinne/Aine-md/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Aiinne/Aine-md?label=PullRequest&color=red&style=flat-square"></a>
 
 > **Warning**: Script uji coba, apapun yang ada disini merupakan hasil ujicoba. Collaborator baru? emmm Aine
+
+## Deploy
+
+### Heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/stafbotz/Kotoribot-MD)
