@@ -91,15 +91,15 @@ async function start() {
     
     store.bind(client.ev)
     
-    client.ev.on('messages.upsert', async (newChats) => {
+    client.ev.on('messages.upsert', async (chatUpdate) => {
        try {
-           mek = newChats.messages[0]
+           mek = chatUpdate.messages[0]
            if (!mek.message) return
            mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
            if (!client.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
            if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
            m = smsg(client, mek, store)
-           require('./index')(client, m, newChats, store)
+           require('./index')(client, m, chatUpdate, store)
         } catch (err) {
           console.log(err)
         }
@@ -116,24 +116,24 @@ async function start() {
     })
     
     //Grup Update
-    client.ev.on('groups.update', async pea => {
+    client.ev.on('groups.update', async (anu) => {
         //Get Profile Picture Group
         try {
-           ppgc = await client.profilePictureUrl(pea[0].id, 'image')
+           ppgroup = await client.profilePictureUrl(anu[0].id, 'image')
         } catch {
-           ppgc = 'https://tinyurl.com/yx93l6da'
+           ppgroup = 'https://tinyurl.com/yx93l6da'
         }
-        let picture = { url : ppgc }
-        if (pea[0].announce == true) {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup telah ditutup oleh admin, Sekarang hanya admin yang dapat mengirim pesan !`, `Group Settings Change Message`, picture, [])
-        } else if(pea[0].announce == false) {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup telah dibuka oleh admin, Sekarang peserta dapat mengirim pesan !`, `Group Settings Change Message`, picture, [])
-        } else if (pea[0].restrict == true) {
+        let picture = { url : ppgroup }
+        if (anu[0].announce == true) {
+           client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nGroup telah ditutup oleh admin, Sekarang hanya admin yang dapat mengirim pesan !`, `Group Settings Change Message`, picture, [])
+        } else if(anu[0].announce == false) {
+           client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nGroup telah dibuka oleh admin, Sekarang peserta dapat mengirim pesan !`, `Group Settings Change Message`, picture, [])
+        } else if (anu[0].restrict == true) {
            client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nInfo group telah dibatasi, Sekarang hanya admin yang dapat mengedit info group !`, `Group Settings Change Message`, picture, [])
-        } else if (pea[0].restrict == false) {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nInfo group telah dibuka, Sekarang peserta dapat mengedit info group !`, `Group Settings Change Message`, picture, [])
+        } else if (anu[0].restrict == false) {
+           client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nInfo group telah dibuka, Sekarang peserta dapat mengedit info group !`, `Group Settings Change Message`, picture, [])
         } else {
-           client.send5ButImg(pea[0].id, `「 Group Settings Change 」\n\nGroup Subject telah diganti menjadi *${pea[0].subject}*`, `Group Settings Change Message`, picture, [])
+           client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nGroup Subject telah diganti menjadi *${pea[0].subject}*`, `Group Settings Change Message`, picture, [])
         }
     })
     
@@ -206,9 +206,9 @@ async function start() {
             return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
      }
     
-    client.sendContact = async (jid, kon, quoted = '', opts = {}) => {
+    client.sendContact = async (jid, contact, quoted = '', opts = {}) => {
 	let list = []
-	for (let i of kon) {
+	for (let i of contact) {
 	    list.push({
 	    	displayName: await client.getName(i.id + '@s.whatsapp.net'),
 	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await client.getName(i.id + '@s.whatsapp.net')}\nFN:${await client.getName(i.id + '@s.whatsapp.net')}\nitem1.TEL;waid=${i.id}:${i.id}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:${i.email}\nitem2.X-ABLabel:Email\nitem3.URL:${i.web}\nitem3.X-ABLabel:Website\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
@@ -252,10 +252,12 @@ async function start() {
             else if (reason === DisconnectReason.Multidevicemismatch) { console.log("Multi device mismatch, please scan again"); client.logout(); }
             else client.end(`Unknown DisconnectReason: ${reason}|${connection}`)
         }
-        console.log('Connected...', update)
+        //console.log('Connected...', update)
 
         if (update.isOnline) console.log('BOT RUNNING!')
         if (update.receivedPendingNotifications) {
+
+            console.log('BOT READY!')
 
             //Send Message Connected To Owners
             owner.forEach((parseOwner) => {
