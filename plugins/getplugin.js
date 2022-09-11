@@ -3,7 +3,7 @@
 Under license CloudbyPsn 
 */
 
-let handler = async(client, m, text) => {
+let handler = async(m, { client, text }) => {
     if (!text) return client.sendMessage(m.chat, { text: 'Masukkan path plugin!' }, { quoted: m })
     let path = "./plugins/" + text + ".js"
     let readdir = require('fs').readdirSync('./plugins')
