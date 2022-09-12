@@ -2012,6 +2012,14 @@ if (!isAdmins) return m.reply(mess.admin)
 client.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
 addTypeCmd(command, 1)
 break
+case 'getdatabase':
+if (!isLogin) return m.reply(mess.logout)
+if (!isCreator) return m.reply(mess.owner)
+m.reply(mess.wait)
+const databaseget = await fs.readFileSync('./database/database.json')
+await client.sendMessage(m.chat, { document: databaseget, mimetype: 'application/json', fileName: 'database.json' }, { quoted: m })
+addTypeCmd(command, 1)
+break
 case 'getsession':
 if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
