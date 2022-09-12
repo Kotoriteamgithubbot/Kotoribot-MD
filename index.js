@@ -1196,6 +1196,7 @@ ${wit} WIT
 ▢ ${prefix}link
 ▢ ${prefix}group
 ▢ ${prefix}join
+▢ ${prefix}leave
 ▢ ${prefix}promote
 ▢ ${prefix}demote
 ▢ ${prefix}announce
@@ -1274,6 +1275,11 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'leave': 
+if (!isAdmins && !isCreator) return m.reply(mess.admin)
+await client.groupLeave(m.chat).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+addTypeCmd(command, 1)
+break
 case 'setppbot': case 'setbotpp':
 if (!isLogin) return m.reply(mess.logout)
 if (!/image/.test(mime)) throw `Kirim/Reply Image Dengan Caption ${prefix + command}`
