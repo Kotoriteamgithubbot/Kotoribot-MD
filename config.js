@@ -8,7 +8,7 @@ global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web:
 
 global.monospace = '```' //Monospace
 
-global.groupTeam = [] //Add your team group id
+global.groupTeam = ['120363042653241388@g.us'] //Add your team group id
 
 global.banPrefixNumber = ['212', '265', '65', '852', '886', '253', '81', '86', '855', '66', '1', '265', '61', '63', '7', '39', '44', '49', '54', '55', '84', '60'] //Disallow numbers starting with 
 
