@@ -2015,7 +2015,7 @@ break
 case 'getsession':
 if (!isLogin) return m.reply(mess.logout)
 if (!isCreator) return m.reply(mess.owner)
-m.reply('Tunggu Sebentar, Proses Getting File session.json')
+m.reply(mess.wait)
 const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
 addTypeCmd(command, 1)
