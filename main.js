@@ -34,6 +34,7 @@ const moment = require('moment-timezone');
 const PhoneNumber = require('awesome-phonenumber');
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/function');
+const act = require('./lib/gitpull.js');
 const { color } = require('./lib/color');
 var low
 try {
@@ -283,7 +284,8 @@ async function start() {
             
             //Update Script From Github Every 5 minutes
             cron.schedule('*/5 * * * *', () => {
-
+                 act(client) //Exec
+                 console.log('BOT IS LATEST!')
              }, {
                 scheduled: true,
                 timezone: "Asia/Jakarta"
