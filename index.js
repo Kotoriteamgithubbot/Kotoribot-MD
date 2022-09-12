@@ -1277,13 +1277,15 @@ if (isCmd && command) {
 switch(command) {
 case 'leave': 
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
-await client.groupLeave(m.chat).then((res) => m.reply(jsonformat(res))).catch((err) => m.reply(jsonformat(err)))
+m.reply(mess.later)
+await client.groupLeave(m.chat)
 addTypeCmd(command, 1)
 break
 case 'setppbot': case 'setbotpp':
 if (!isLogin) return m.reply(mess.logout)
 if (!/image/.test(mime)) throw `Kirim/Reply Image Dengan Caption ${prefix + command}`
 if (/webp/.test(mime)) throw `Kirim/Reply Image Dengan Caption ${prefix + command}`
+m.reply(mess.wait)
 const mediaSetProfilePictureBot = await client.downloadAndSaveMediaMessage(qmsg)
 const resultGenerate = await generateProfilePicture(mediaSetProfilePictureBot)
  await client.query({
