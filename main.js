@@ -282,8 +282,8 @@ async function start() {
               client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
             })
             
-            //Update Script From Github Every 5 minutes
-            cron.schedule('*/5 * * * *', () => {
+            //Update Script From Github Every 12 hours
+            cron.schedule('00 12 * * *', () => {
                  act(client) //Exec
                  console.log('BOT IS LATEST!')
              }, {
