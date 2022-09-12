@@ -282,12 +282,12 @@ async function start() {
             })
             
             //Update Script From Github Every 5 minutes
-           cron.schedule('*/5 * * * *', () => {
+            cron.schedule('*/5 * * * *', () => {
 
-            }, {
-               scheduled: true,
-               timezone: "Asia/Jakarta"
-            })
+             }, {
+                scheduled: true,
+                timezone: "Asia/Jakarta"
+             })
 
         } //Made by Natia Shalsabilla
     })
