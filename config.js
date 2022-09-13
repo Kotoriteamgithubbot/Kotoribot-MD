@@ -22,7 +22,7 @@ global.namebot = "☘️ Staf LightGreen" //Optional
 
 global.wm = "© CloudbyPsn" //Footer
 
-global.sign = "*[WABOTJS]* "
+global.sign = "*[WABOTJS]*"
 
 global.mess = {
     logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
