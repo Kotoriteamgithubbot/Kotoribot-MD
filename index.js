@@ -1208,6 +1208,7 @@ ${wit} WIT
 ▢ ${prefix}act
 ▢ ${prefix}broadcast
 ▢ ${prefix}getsession
+▢ ${prefix}getdatabase
 ▢ ${prefix}self
 ▢ ${prefix}notice
 ▢ ${prefix}setppbot`
