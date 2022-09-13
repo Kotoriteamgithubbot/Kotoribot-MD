@@ -1165,6 +1165,7 @@ ${wit} WIT
 ▢ ${prefix}donasi
 ▢ ${prefix}request
 ▢ ${prefix}owner
+▢ ${prefix}clearchat
 ▢ ${prefix}runtime
 
 *Search*
