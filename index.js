@@ -683,8 +683,7 @@ if (db.data.users[m.sender].afkTime > -1) {
 
 //Detect Group Invite 
 if (m.mtype === 'groupInviteMessage') {
-    teks = "Ketik .join <linkgroup> untuk bergabung ke group whatsapp anda"
-    client.sendOrder(m.chat, teks, "5123658817728409", fs.readFileSync('./src/image/kotori.jpg'), 2022, wm, "6283170659182@s.whatsapp.net", "AR7zJt8MasFx2Uir/fdxhkhPGDbswfWrAr2gmoyqNZ/0Wg==", "99999999999999999999")
+    client.sendMessage(m.chat, { text: "Ketik .join <linkgroup> untuk bergabung ke group whatsapp anda" }, { quoted: m })
 }
 
 //Antilink Auto Kick
@@ -765,7 +764,7 @@ if (global.db.data.users[m.sender].temporaryPassword) {
 
 //Write Database Every 1 Minute
 setInterval(() => {
-   fs.writeFileSync('./database/database.json', JSON.stringify(global.db.data, null, 2))
+   fs.writeFileSync('./database.json', JSON.stringify(global.db.data, null, 2))
 }, 60 * 1000)
 
 //Reset Limit Every 12 Hours
