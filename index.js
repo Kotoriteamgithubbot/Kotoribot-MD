@@ -1126,13 +1126,10 @@ ${wit} WIT
 *Limit:* ${isLogin ? (global.db.data.account[accountUsers].limit !== 'Infinity' ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin"}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
-*Game*
+*Fun*
 ▢ ${prefix}suit
 ▢ ${prefix}tictactoe
 ▢ ${prefix}delttt
-
-*Fun*
-▢ ${prefix}react
 ▢ ${prefix}math
 
 *Account*
@@ -1174,6 +1171,7 @@ ${wit} WIT
 ▢ ${prefix}owner
 ▢ ${prefix}clearchat
 ▢ ${prefix}runtime
+▢ ${prefix}react
 
 *Search*
 ▢ ${prefix}play
@@ -1285,6 +1283,24 @@ if (isCmd && command) {
     
 //Switch Command
 switch(command) {
+case 'family100': 
+if (!isLogin) return m.reply(mess.logout)
+if ('family100'+m.chat in _family100) {
+   m.reply('Masih Ada Sesi Yang Belum Diselesaikan!')
+   throw false
+}
+let anu = await fetchJson('https://raw.githubusercontent.com/BochilTeam/database/master/games/family100.json')
+let random = anu[Math.floor(Math.random() * anu.length)]
+let hasil = `*Jawablah Pertanyaan Berikut :*\n${random.soal}\n\nTerdapat *${random.jawaban.length}* Jawaban ${random.jawaban.find(v => v.includes(' ')) ? `(beberapa Jawaban Terdapat Spasi)` : ''}`.trim()
+_family100['family100'+m.chat] = {
+id: 'family100'+m.chat,
+pesan: await mans.sendText(m.chat, hasil, m),
+...random,
+terjawab: Array.from(random.jawaban, () => false),
+hadiah: 6,
+}
+addTypeCmd(command, 1)
+break
 case 'leave': 
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
 m.reply(mess.later)
