@@ -799,6 +799,8 @@ async function start() {
     client.parseMention = async(text) => {
         return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
     }
+    //Pause
+    client.delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
     return client
 }
 
