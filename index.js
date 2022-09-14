@@ -1208,6 +1208,7 @@ ${wit} WIT
 ▢ ${prefix}public
 ▢ ${prefix}act
 ▢ ${prefix}broadcast
+▢ ${prefix}clearchatall
 ▢ ${prefix}getsession
 ▢ ${prefix}getdatabase
 ▢ ${prefix}self
@@ -1260,7 +1261,7 @@ if (isCmd && command) {
                 if (handler.premium && !isPremium) return client.sendMessage(m.chat, { text: mess.prem }, { quoted: m })
                 if (handler.group && !m.isGroup) return client.sendMessage(m.chat, { text: mess.group }, { quoted: m })
                 if (handler.private && m.isGroup) return client.sendMessage(m.chat, { text: mess.private }, { quoted: m })
-                const responseplugin = handler(m, { client, text, args, prefix, budy, command })
+                const responseplugin = handler(m, { client, store, text, args, prefix, budy, command })
                 if (responseplugin) {
                    handlerPlugin = true
                    return addTypeCmd(command, 1)
