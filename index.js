@@ -1141,6 +1141,12 @@ ${wit} WIT
 ▢ ${prefix}resetpassword 
 ▢ ${prefix}logout
 
+*Anonymous*
+▢ ${prefix}anonymous
+▢ ${prefix}start
+▢ ${prefix}leave
+▢ ${prefix}next 
+
 *Convert*
 ▢ ${prefix}stiker
 ▢ ${prefix}attp
@@ -1156,6 +1162,7 @@ ${wit} WIT
 ▢ ${prefix}toaudio
 ▢ ${prefix}ebinary
 ▢ ${prefix}dbinary
+▢ ${prefix}translate
 
 *Main*
 ▢ ${prefix}afk
