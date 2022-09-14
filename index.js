@@ -477,6 +477,7 @@ try {
         if (chats) {
            if (!('mute' in chats)) chats.mute = false
            if (!('antilink' in chats)) chats.antilink = false
+           if (!('changelog' in chats)) chats.changelog = true
         } else global.db.data.chats[m.chat] = {
           mute: false,
           antilink: false
