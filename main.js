@@ -48,14 +48,12 @@ global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.
 
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
 
-/** Use File
 store.readFromFile('./store/data.json')
 
 // Saves the state to a file every 10s
 setInterval(() => {
     store.writeToFile('./store/data.json')
 }, 10 * 1000)
-*/
 
 //Load Database
 global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
