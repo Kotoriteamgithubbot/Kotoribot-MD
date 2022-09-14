@@ -77,13 +77,14 @@ global.loadDatabase = async function loadDatabase() {
     chats: {},
     account: {},
     users: {},
+    anonymous: {},
     ...(global.db.data || {})
   }
   global.db.chain = _.chain(global.db.data)
 }
 loadDatabase()
 
-// Save Database Every 30 seconds
+//Save Database Every 30 seconds
 if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
