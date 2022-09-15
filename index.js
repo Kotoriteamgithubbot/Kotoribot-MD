@@ -2058,48 +2058,24 @@ break
 // Default
 default:
        if (handlerPlugin) return //Do not run while the plugin is responding.
-       
-       if (budy.startsWith('=>')) {
-         if (!isCreator) return m.reply(mess.owner)
-         function Return(sul) {
-           stringTurn = JSON.stringify(sul, null, 2)
-           utilTurn = util.format(stringTurn)
-           if (stringTurn == undefined) {
-             utilTurn = util.format(sul)
+       if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
+          let room = Object.values(db.data.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
+          if (room) {
+             if (/^.*(next|leave|start)/.test(m.text)) return
+             if (['.next', '.leave', '.stop', '.start', 'Cari Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
+             let other = [room.a, room.b].find(user => user !== m.sender)
+             m.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
+                 contextInfo: {
+                     ...m.msg.contextInfo,
+                     forwardingScore: 0,
+                     isForwarded: true,
+                     participant: other
+                 }
+              } : {})
            }
-           return m.reply(utilTurn)
-         }
-         try {
-           m.reply(util.format(eval(`(async () => { ${budy.slice(3)} })()`)))
-         } catch (e) {
-           m.reply(String(e))
-         }
-       }
-       if (budy.startsWith('>')) {
-         if (!isCreator) return m.reply(mess.owner)
-         try {
-           let evaled = await eval(budy.slice(2))
-           if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
-           await m.reply(evaled)
-         } catch (err) {
-           m.reply(String(err))
-         }
-       }
-       if (budy.startsWith('<')) {
-         if (!isCreator) return m.reply(mess.owner)
-         try {
-           return m.reply(JSON.stringify(eval(`${args.join(' ')}`),null,'\t'))
-         } catch {
-           m.reply(mess.failed)
-         }
-       }
-       if (budy.startsWith('$')) {
-         if (!isCreator) return m.reply(mess.owner)
-         exec(budy.slice(2), (err, stdout) => {
-           if(err) return m.reply(String(err))
-           if (stdout) return m.reply(stdout)
-         })
-       }
+           return !0
+        }
+        
        /*if (isCmd && prefix) {
            if (isCreator) return
            //Match List Command JSON
