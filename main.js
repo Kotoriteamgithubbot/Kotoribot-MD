@@ -335,7 +335,7 @@ async function start() {
      client.sendPaymentMsg = (jid, sender, text = '', value) => {
         const payment = generateWAMessageFromContent(jid, {
           "requestPaymentMessage": {
-            "currencyCodeIso4217": "USD",
+            "currencyCodeIso4217": "IDR",
             "amount1000": value,
             "requestFrom": sender,
             "noteMessage": {
@@ -346,14 +346,50 @@ async function start() {
             "expiryTimestamp": "1660787819",
             "amount": {
               "value": value,
-              "currencyCode": "USD"
+              "currencyCode": "IDR"
             }
           }
        }, { userJid: jid })
 
        client.relayMessage(jid, payment.message, { messageId: payment.key.id })
      }
-     
+
+     /** Send Poll Message 
+      *
+      * @param {*} jid
+      * @param {*} name
+      * @param [*] options
+      */
+      client.sendPoll = (jid, name = '', options = []) => {
+        const poll = generateWAMessageFromContent(jid, proto.Message.fromObject({
+          "pollCreationMessage": {
+             "name": name,
+             "options": options,
+             "selectableOptionsCount": options.length
+	  }
+        }), { userJid: jid })
+        client.relayMessage(jid, poll.message, { messageId: poll.key.id })
+      }
+    
+     /** Send Simple Poll Message 
+      *
+      * @param {*} jid
+      * @param {*} name
+      */
+      client.sendSimplePoll = (jid, name = '') => {
+        const simplePoll = generateWAMessageFromContent(jid, proto.Message.fromObject({
+          "pollCreationMessage": {
+             "name": name,
+             "options": [
+               { "optionName": "Yes" }, 
+               { "optionName": "No" }
+             ],
+             "selectableOptionsCount": 2
+	  }
+        }), { userJid: jid })
+        client.relayMessage(jid, simplePoll.message, { messageId: simplePoll.key.id })
+      }
+   
     /** Send Order Message 
       *
       * @param {*} jid
