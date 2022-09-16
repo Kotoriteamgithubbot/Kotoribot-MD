@@ -788,7 +788,7 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
     jawaban = tebaklagu[m.sender.split('@')[0]]
     if (budy.toLowerCase() == jawaban) {
         await client.sendButtonText(m.chat, [{ buttonId: `${prefix}tebak lagu`, buttonText: { displayText: 'Tebak Lagu' }, type: 1 }], `🎮 Tebak Lagu 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, wm, m)
-         delete tebaklagu[m.sender.split('@')[0]]
+        delete tebaklagu[m.sender.split('@')[0]]
     } else m.reply('*Jawaban Salah!*')
 }
 
@@ -1711,7 +1711,7 @@ google({'query': text}).then(res => {
 })
 try {
     let url = 'https://google.com/search?q=' + encodeURIComponent(text)
-    /*let ss = await ssweb(url)
+    let ss = await ssweb(url)
     client.sendImage(m.chat, ss, teksgoogle, m)*/
 } catch(e){
     m.reply(teksgoogle)
@@ -1758,7 +1758,6 @@ let buttonMessage = {
        buttons: buttons,
        headerType: 4
 }
-
 client.sendMessage(m.chat, buttonMessage, { quoted: m })
 addTypeCmd(command, 1)
 break
