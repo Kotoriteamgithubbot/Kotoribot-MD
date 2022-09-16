@@ -384,8 +384,8 @@ async function start() {
                { "optionName": "Yes" }, 
                { "optionName": "No" }
              ],
-             "selectableOptionsCount": 2
-	  }
+             "selectableOptionsCount": 1
+	      }
         }), { userJid: jid })
         client.relayMessage(jid, simplePoll.message, { messageId: simplePoll.key.id })
       }
