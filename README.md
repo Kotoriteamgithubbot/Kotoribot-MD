@@ -19,7 +19,6 @@
 
 ```Info:
 This script is made by Kotoriteam and Aine, but under the property rights of Psn.
-Regards, Nadia
+Need help?
+Contact: Nadia
 ```
-
-<a href="https://github.com/Aiinne/Aine-md"><img src="http://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=1000&pause=500&color=10F717&width=435&lines=Script+Bot+WhatsApp+by+Kotori+Team;Please+don't+sell;Some+codes+might+be+made+by+Aine;This+script+is+under+license+Psn;Thank+you." alt="Typing SVG" /></a>
