@@ -18,7 +18,6 @@
 <a href="https://github.com/Aiinne/Aine-md/pulls?q=is%3Apr+is%3Aclosed"><img title="Pull Request" src="https://img.shields.io/github/issues-pr-closed/Aiinne/Aine-md?label=PullRequest&color=red&style=flat-square"></a>
 
 ```Info:
-This script is made by Kotoriteam and Aine, but under the property rights of Psn.
 This script is maintained by Kotori Team, please don't sell it!
 Regards, Nadia
 ```
