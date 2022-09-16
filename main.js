@@ -385,7 +385,7 @@ async function start() {
                { "optionName": "No" }
              ],
              "selectableOptionsCount": 1
-	      }
+	   }
         }), { userJid: jid })
         client.relayMessage(jid, simplePoll.message, { messageId: simplePoll.key.id })
       }
@@ -829,6 +829,10 @@ async function start() {
     }
     //Pause
     client.delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+    client.showAd = {
+      contextInfo: {}
+    }
+
     return client
 }
 
