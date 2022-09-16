@@ -487,6 +487,7 @@ try {
         if (!isNumber(bot.totalhit)) bot.totalhit = 0
         if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
         if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
+        if (!('user' in bot)) bot.user = []
 
         let account = isLogin ? global.db.data.account[accountUsers] : false
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
