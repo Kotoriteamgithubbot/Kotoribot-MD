@@ -492,7 +492,7 @@ try {
         let account = isLogin ? global.db.data.account[accountUsers] : false
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         if (account  && typeof account === 'object') {
-       	if (!('banned' in account)) account.banned = false
+           if (!('banned' in account)) account.banned = false
            if (!('premium' in account)) account.premium = isCreator ? true : isPremium
            if (!('limit' in account)) account.limit = limitUser
            if (!('cloud' in account)) account.cloud = "notcreated"
