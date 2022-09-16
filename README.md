@@ -19,6 +19,6 @@
 
 ```Info:
 This script is made by Kotoriteam and Aine, but under the property rights of Psn.
-Need help?
-Contact: Nadia
+This script is maintained by Kotori Team, please don't sell it!
+Regards, Nadia
 ```
