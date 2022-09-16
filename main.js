@@ -272,15 +272,8 @@ async function start() {
 
             console.log('BOT READY!')
 
-            //Send Message Connected To Owners
-            owner.forEach((parseOwner) => {
-                client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: 'Successfully connected by Kotorirpg-MD' })
-            }) 
-
-            //Send Message Connected To Group Team
-            groupTeam.forEach((parseGroup) => {
-              client.sendMessage(parseGroup, { text: 'Successfully connected by Kotorirpg-MD' })
-            })
+            //Send Message Connected
+            notify(client, 'Successfully connected by Kotorirpg-MD')
 
         } //Made by Natia Shalsabilla
     })
