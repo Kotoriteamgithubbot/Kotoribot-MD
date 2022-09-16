@@ -1220,7 +1220,8 @@ ${wit} WIT
 ▢ ${prefix}getdatabase
 ▢ ${prefix}self
 ▢ ${prefix}notice
-▢ ${prefix}setppbot`
+▢ ${prefix}setppbot
+▢ ${prefix}exec`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
