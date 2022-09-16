@@ -22,7 +22,9 @@ global.namebot = "☘️ Staf LightGreen" //Optional
 
 global.wm = "© CloudbyPsn" //Footer
 
-global.sign = "*[WABOTJS]*"
+global.sign = "*[WABOTJS]*" //Sign
+
+global.notify = require("./lib/notify.js") //Send Message
 
 global.mess = {
     logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
