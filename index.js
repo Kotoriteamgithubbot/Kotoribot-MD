@@ -1276,10 +1276,8 @@ if (isCmd && command) {
                 }
              } //Risnaldy Mufki
           } catch (err) {
-              owner.forEach((parseOwner) => {
-                 client.sendMessage(parseOwner.id + '@s.whatsapp.net', { text: `File: ./plugins/${file}\n\n${err}` })
-              }) 
-              //Autosend Error to Owner
+              notify(client, `File: ./plugins/${file}\n\n${err}`)
+              //Autosend Error
           }
      })
 }
