@@ -70,7 +70,7 @@ global.loadDatabase = async function loadDatabase() {
     database: {},
     game: {},
     others: {},
-    typecmd: {},
+    typecmd: [],
     bot: {},
     chats: {},
     account: {},
