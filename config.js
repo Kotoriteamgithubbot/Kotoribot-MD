@@ -32,6 +32,7 @@ global.mess = {
     login: 'Kamu sudah login sebelumnya! Untuk keluar ketik .logout',
     register: 'Username sudah pernah terdaftar, coba username lain!',
     success: 'Success',
+    privacy: 'Ini Privasimu! Harap gunakan fitur ini di Private Chat.',
     failed: 'Error!',
     admin: 'Fitur Khusus Admin Group!',
     botAdmin: 'Bot Harus Menjadi Admin Terlebih Dahulu!',
