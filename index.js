@@ -90,7 +90,6 @@ let tebaktebakan = db.data.game.tebakan = []
 let vote = db.data.others.vote = []
 
 //Database
-let registered = JSON.parse(fs.readFileSync('./database/user.json'))
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 const autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
 const _cmd = JSON.parse(fs.readFileSync('./database/cmd.json'));
@@ -149,7 +148,6 @@ const groupAdmins = m.isGroup ? await participants.filter(v => v.admin !== null)
 const groupOwner = m.isGroup ? groupMetadata.owner : ''
 const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false
 const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
-const isUser = registered.includes(m.sender)
  
 // Other
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
@@ -208,12 +206,6 @@ if (m.message) {
    addBalance(m.sender, randomNomor(574), balance)
    console.log('\x1b[1;34m~\x1b[1;37m>', '[\x1b[1;33mCMD\x1b[1;37m]', time, color(`${prefix + command} [${args.length}]`, 'cyan'), 'from', color(m.pushName), 'in', color(groupName, 'orange'))
 }
-
-//Auto Register
-if (isCmd && !isUser) {
-   registered.push(m.sender)
-   fs.writeFileSync('./database/user.json', JSON.stringify(registered))
-} 
 
 // Leveling 
 const getLevelingXp = (userId) => {
@@ -1093,7 +1085,6 @@ if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in globa
 const levelMenu = getLevelingLevel(m.sender)
 const xpMenu = getLevelingXp(m.sender)
 const reqXp  = 200 * (Math.pow(2, getLevelingLevel(m.sender)) - 1)
-const jumlahUser = registered.length
 if (!isDarah){ addInventoriDarah(m.sender, DarahAwal) }
 if (!isInventory){ addInventori(m.sender) }
 if (!isInventoriBuruan){ addInventoriBuruan(m.sender) }
