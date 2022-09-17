@@ -1,4 +1,4 @@
 {
-	"version": [9, 5, 3],
-        "type": "default"
+	"version": [9, 8, 5],
+        "from": "github"
 }
