@@ -1034,15 +1034,15 @@ if (room) {
            return {
                 X: '❌',
                 O: '⭕',
-                 1: '1️⃣',
-                 2: '2️⃣',
-                 3: '3️⃣',
-                 4: '4️⃣',
-                 5: '5️⃣',
-                 6: '6️⃣',
-                 7: '7️⃣',
-                 8: '8️⃣',
-                 9: '9️⃣',
+                1: '1️⃣',
+                2: '2️⃣',
+                3: '3️⃣',
+                4: '4️⃣',
+                5: '5️⃣',
+                6: '6️⃣',
+                7: '7️⃣',
+                8: '8️⃣',
+                9: '9️⃣',
           }[v]
      })
      if (isSurrender) {
@@ -1710,7 +1710,7 @@ google({'query': text}).then(res => {
 try {
     let url = 'https://google.com/search?q=' + encodeURIComponent(text)
     let ss = await ssweb(url)
-    client.sendImage(m.chat, ss, teksgoogle, m)*/
+    client.sendImage(m.chat, ss, teksgoogle, m)
 } catch(e){
     m.reply(teksgoogle)
 }
