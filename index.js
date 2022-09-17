@@ -1631,6 +1631,7 @@ addTypeCmd(command, 1)
 break
 case 'login':
 if (isLogin) return m.reply(mess.login)
+if (!m.isGroup) return m.reply(mess.privacy)
 if (!q) return m.reply(textTemplateLogin)
 if (!q.includes('|')) return m.reply("Gunakan '|' sebagai pemisah!")
 const userNameLogin = q.split('|')[0].trim()
@@ -1645,6 +1646,7 @@ if (typeof global.db.data.account[userNameLogin] === 'object' && global.db.data.
 addTypeCmd(command, 1)
 break
 case 'register':
+if (!m.isGroup) return m.reply(mess.privacy)
 if (isLogin) return m.reply(mess.login)
 if (!q) return m.reply(textTemplateRegister)
 if (!q.includes('|')) return m.reply("Gunakan '|' sebagai pemisah!")
