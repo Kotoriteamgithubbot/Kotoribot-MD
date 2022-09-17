@@ -10,8 +10,6 @@ global.monospace = '```' //Monospace
 
 global.groupTeam = ['120363042653241388@g.us'] //Add your team group id
 
-global.banPrefixNumber = ['212', '265', '65', '852', '886', '253', '81', '86', '855', '66', '1', '265', '61', '63', '7', '39', '44', '49', '54', '55', '84', '60'] //Disallow numbers starting with 
-
 global.packname = "Sticker" //Packname Sticker
 
 global.author = "☘️ Staf LightGreen" //Author Sticker
@@ -23,6 +21,8 @@ global.namebot = "☘️ Staf LightGreen" //Optional
 global.wm = "© CloudbyPsn" //Footer
 
 global.sign = "*[WABOTJS]*" //Sign
+
+global.cloudbypsn = require("./cloudbypsn/") //Lib From Psn
 
 global.notify = require("./lib/notify.js") //Send Message
 
