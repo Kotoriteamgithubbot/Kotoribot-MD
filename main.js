@@ -829,6 +829,7 @@ async function start() {
     }
     //Pause
     client.delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+    
     client.showAd = {
       contextInfo: {}
     }
