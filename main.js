@@ -358,14 +358,13 @@ async function start() {
       * @param {*} jid
       * @param {*} name
       * @param [*] options
-      * @param {Boolean} oneSelect
       */
-      client.sendPoll = (jid, name = '', options = [], oneSelect) => {
+      client.sendPoll = (jid, name = '', options = []) => {
         const poll = generateWAMessageFromContent(jid, proto.Message.fromObject({
           "pollCreationMessage": {
              "name": name,
              "options": options,
-             "selectableOptionsCount": oneSelect ? 1 : options.length
+             "selectableOptionsCount": options.length
 	  }
         }), { userJid: jid })
         client.relayMessage(jid, poll.message, { messageId: poll.key.id })
@@ -384,7 +383,7 @@ async function start() {
                { "optionName": "Yes" }, 
                { "optionName": "No" }
              ],
-             "selectableOptionsCount": 1
+             "selectableOptionsCount": 2
 	   }
         }), { userJid: jid })
         client.relayMessage(jid, simplePoll.message, { messageId: simplePoll.key.id })
