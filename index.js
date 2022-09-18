@@ -2185,7 +2185,6 @@ default:
            if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
            m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
        }
-  
      }
    } catch (err) {
      console.log(err)
