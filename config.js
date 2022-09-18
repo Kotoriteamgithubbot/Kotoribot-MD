@@ -4,7 +4,7 @@ const chalk = require("chalk")
 // Other
 global.logo = fs.readFileSync('./src/image/tree.jpg') //Logo
 
-global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@gmail.com', web: 'https://github.com/anubiskun' }, { id: '62895347198105', email: 'arifzyn@mail.com', web: 'example.com' }]
+global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web: 'https://github.com/stafbotz' }, { id: '6289616061778', email: 'natasya@mail.com', web: 'example.com' }, { id: '6281649357107', email: 'desty@mail.com', web: 'example.com' }, { id: '6289653909054', email: 'anubiskun.xyz@gmail.com', web: 'https://github.com/anubiskun' }, { id: '62895347198105', email: 'arifzyn@mail.com', web: 'example.com' }, { id: '6288201604248', email: 'nadia@gmail.com', web: 'example.com' }]
 
 global.monospace = '```' //Monospace
 
