@@ -2073,8 +2073,8 @@ case 'anonymous': {
                 let other = room.other(m.sender)
                 if (other) await client.sendText(other, `\`\`\`Partner Telah Meninggalkan Sesi Anonymous\`\`\``, m)
                 delete db.data.anonymous[room.id];
-                break
             }
+            break
             case 'mulai': case 'start': {
                 if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
                 if (Object.values(db.data.anonymous).find(room => room.check(m.sender))) {
