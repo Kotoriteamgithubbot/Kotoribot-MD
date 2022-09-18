@@ -2057,7 +2057,7 @@ case 'anonymous': {
                 client.sendButtonText(m.chat, buttons, `\`\`\`Hi ${await client.getName(m.sender)} Welcome To Anonymous Chat\n\nKlik Button Dibawah Ini Untuk Mencari Partner\`\`\``, wm, m)
             }
 			break
-            case 'keluar': case 'leave': {
+            case 'keluar': {
                 if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
                 let room = Object.values(db.data.anonymous).find(room => room.check(m.sender))
                 if (!room) {
@@ -2163,8 +2163,8 @@ default:
        if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
           let room = Object.values(db.data.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
           if (room) {
-             if (/^.*(next|leave|start)/.test(m.text)) return
-             if (['.next', '.leave', '.stop', '.start', 'Cari Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
+             if (/^.*(next|start)/.test(m.text)) return
+             if (['.next', '.stop', '.start', 'Cari Partner', 'Keluar', 'Lanjut', 'Stop'].includes(m.text)) return
              let other = [room.a, room.b].find(user => user !== m.sender)
              m.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
                  contextInfo: {
