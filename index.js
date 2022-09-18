@@ -1124,7 +1124,7 @@ ${wit} WIT
 *Anonymous*
 ▢ ${prefix}anonymous
 ▢ ${prefix}start
-▢ ${prefix}leave
+▢ ${prefix}keluar
 ▢ ${prefix}next 
 
 *Convert*
