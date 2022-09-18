@@ -2070,14 +2070,13 @@ default:
            return !0
         }
         
-       /*if (isCmd && prefix) {
-           if (isCreator) return
+       if (isCmd && prefix) {
            //Match List Command JSON
            did = didyoumean(command, _cmd, 'id') 
            sim = similarity(command, did)    
            if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
            m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
-       }*/
+       }
      }
    } catch (err) {
      console.log(err)
