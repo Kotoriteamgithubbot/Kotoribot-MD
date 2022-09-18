@@ -22,8 +22,6 @@ global.wm = "© CloudbyPsn" //Footer
 
 global.sign = "*[WABOTJS]*" //Sign
 
-global.cloudbypsn = require("./cloudbypsn/") //Lib From Psn
-
 global.notify = require("./lib/notify.js") //Send Message
 
 global.mess = {
