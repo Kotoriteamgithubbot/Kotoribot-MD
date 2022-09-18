@@ -1236,7 +1236,7 @@ Mohon gunakan email valid untuk pengiriman kode konfirmasi!`
 const thereQuoted = m.quoted? "true":"false"
 
 //Ditangani oleh Handler?
-var handlerPlugin;
+var handlerPlugin = false;
 
 if (isCmd && command) {
      fs.readdirSync('./plugins').forEach(function(file) {
@@ -2189,6 +2189,9 @@ default:
            if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
            m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
        }
+        
+       handlerPlugin = false;
+
      }
    } catch (err) {
      console.log(err)
