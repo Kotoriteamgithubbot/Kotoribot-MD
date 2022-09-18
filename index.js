@@ -2052,7 +2052,7 @@ break
 case 'anonymous': {
                 if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
 				let buttons = [
-                    { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
+                    { buttonId: '.start', buttonText: { displayText: 'Start' }, type: 1 }
                 ]
                 client.sendButtonText(m.chat, buttons, `\`\`\`Hi ${await client.getName(m.sender)} Welcome To Anonymous Chat\n\nKlik Button Dibawah Ini Untuk Mencari Partner\`\`\``, wm, m)
             }
@@ -2062,7 +2062,7 @@ case 'anonymous': {
                 let room = Object.values(db.data.anonymous).find(room => room.check(m.sender))
                 if (!room) {
                     let buttons = [
-                        { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
+                        { buttonId: '.start', buttonText: { displayText: 'Start' }, type: 1 }
                     ]
                     await client.sendButtonText(m.chat, buttons, `\`\`\`Kamu Sedang Tidak Berada Di Sesi Anonymous, Tekan Button Untuk Mencari Partner \`\`\``)
                     throw false
@@ -2077,7 +2077,7 @@ case 'anonymous': {
                 if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
                 if (Object.values(db.data.anonymous).find(room => room.check(m.sender))) {
                     let buttons = [
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
+                        { buttonId: '.keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
                     await client.sendButtonText(m.chat, buttons, `\`\`\`Kamu Masih Berada Di dalam Sesi Anonymous, Tekan Button Dibawah Ini Untuk Menghentikan Sesi Anonymous Anda\`\`\``, wm, m)
                     throw false
@@ -2085,8 +2085,8 @@ case 'anonymous': {
                 let room = Object.values(db.data.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
                 if (room) {
                     let buttons = [
-                        { buttonId: 'next', buttonText: { displayText: 'Skip' }, type: 1 },
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
+                        { buttonId: '.next', buttonText: { displayText: 'Skip' }, type: 1 },
+                        { buttonId: '.keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
                     await client.sendButtonText(room.a, buttons, `\`\`\`Berhasil Menemukan Partner, sekarang kamu dapat mengirim pesan\`\`\``, wm, m)
                     room.b = m.sender
@@ -2107,7 +2107,7 @@ case 'anonymous': {
                         },
                     }
                     let buttons = [
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
+                        { buttonId: '.keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
                     await client.sendButtonText(m.chat, buttons, `\`\`\`Mohon Tunggu Sedang Mencari Partner\`\`\``, wm, m)
                 }
@@ -2118,7 +2118,7 @@ case 'anonymous': {
                 let romeo = Object.values(db.data.anonymous).find(room => room.check(m.sender))
                 if (!romeo) {
                     let buttons = [
-                        { buttonId: 'start', buttonText: { displayText: 'Start' }, type: 1 }
+                        { buttonId: '.start', buttonText: { displayText: 'Start' }, type: 1 }
                     ]
                     await client.sendButtonText(m.chat, buttons, `\`\`\`Kamu Sedang Tidak Berada Di Sesi Anonymous, Tekan Button Untuk Mencari Partner\`\`\``)
                     throw false
@@ -2129,8 +2129,8 @@ case 'anonymous': {
                 let room = Object.values(db.data.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
                 if (room) {
                     let buttons = [
-                        { buttonId: 'next', buttonText: { displayText: 'Skip' }, type: 1 },
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
+                        { buttonId: '.next', buttonText: { displayText: 'Skip' }, type: 1 },
+                        { buttonId: '.keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
                     await client.sendButtonText(room.a, buttons, `\`\`\`Berhasil Menemukan Partner, sekarang kamu dapat mengirim pesan\`\`\``, wm, m)
                     room.b = m.sender
@@ -2151,7 +2151,7 @@ case 'anonymous': {
                         },
                     }
                     let buttons = [
-                        { buttonId: 'keluar', buttonText: { displayText: 'Stop' }, type: 1 }
+                        { buttonId: '.keluar', buttonText: { displayText: 'Stop' }, type: 1 }
                     ]
                     await client.sendButtonText(m.chat, buttons, `\`\`\`Mohon Tunggu Sedang Mencari Partner\`\`\``, wm, m)
                 }
