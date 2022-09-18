@@ -701,7 +701,7 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
        global.db.data.users[m.sender].account = configPendingRegister.username
        m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
        delete global.db.data.users[m.sender].pendingRegister
-    } else if (command == `.bataldaftar`) {
+    } else if (command == `bataldaftar`) {
        delete global.db.data.users[m.sender].pendingRegister
        m.reply(mess.success)
     } else return await client.sendButtonText(m.chat, [{ buttonId: `.bataldaftar`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
@@ -714,7 +714,7 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
       global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
       global.db.data.users[m.sender].pendingResetPassword = true
       delete global.db.data.users[m.sender].confirmPasswordReset
-   } else if (command == `.batalganti`) {
+   } else if (command == `batalganti`) {
       delete global.db.data.users[m.sender].confirmPasswordReset
       m.reply(mess.success)
    } else return await client.sendButtonText(m.chat, [{ buttonId: `.batalganti`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
@@ -734,10 +734,10 @@ if (global.db.data.users[m.sender].pendingResetPassword) {
 
 //Function Confirmation Reset Password
 if (global.db.data.users[m.sender].temporaryPassword) {
-    if (command == `${prefix}batalganti`) {
+    if (command == `batalganti`) {
 	delete global.db.data.users[m.sender].temporaryPassword
         m.reply(mess.success)
-    } else if (command == `${prefix}konfirmasipassword`) {
+    } else if (command == `konfirmasipassword`) {
     	global.db.data.account[accountUsers].password = global.db.data.users[m.sender].temporaryPassword
         m.reply(`Sukses mengganti password! Ketik .profile untuk melihat password baru kamu`)
         delete global.db.data.users[m.sender].temporaryPassword
@@ -2071,7 +2071,7 @@ case 'anonymous': {
                 let other = room.other(m.sender)
                 if (other) await client.sendText(other, `\`\`\`Partner Telah Meninggalkan Sesi Anonymous\`\`\``, m)
                 delete db.data.anonymous[room.id]
-                if (command === 'leave') break
+                break
             }
             case 'mulai': case 'start': {
                 if (m.isGroup) return m.reply('Fitur Tidak Dapat Digunakan Untuk Group!')
