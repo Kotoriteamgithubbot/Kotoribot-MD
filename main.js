@@ -334,7 +334,7 @@ async function start() {
      client.sendPaymentMsg = (jid, sender, text = '', value) => {
         const payment = generateWAMessageFromContent(jid, {
           "requestPaymentMessage": {
-            "currencyCodeIso4217": "IDR",
+            "currencyCodeIso4217": "USD",
             "amount1000": value,
             "requestFrom": sender,
             "noteMessage": {
@@ -345,7 +345,7 @@ async function start() {
             "expiryTimestamp": "1660787819",
             "amount": {
               "value": value,
-              "currencyCode": "IDR"
+              "currencyCode": "USD"
             }
           }
        }, { userJid: jid })
