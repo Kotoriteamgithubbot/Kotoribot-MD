@@ -714,10 +714,10 @@ if (global.db.data.users[m.sender].confirmPasswordReset) {
       global.db.data.users[m.sender].chatConfirmKey = confirmKey.key.id
       global.db.data.users[m.sender].pendingResetPassword = true
       delete global.db.data.users[m.sender].confirmPasswordReset
-   } else if (command == `${prefix}batalganti`) {
+   } else if (command == `.batalganti`) {
       delete global.db.data.users[m.sender].confirmPasswordReset
       m.reply(mess.success)
-   } else return await client.sendButtonText(m.chat, [{ buttonId: `${prefix}batalganti`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
+   } else return await client.sendButtonText(m.chat, [{ buttonId: `.batalganti`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
 
 //Function Input New Password
