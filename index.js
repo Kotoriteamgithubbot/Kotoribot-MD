@@ -701,10 +701,10 @@ if (typeof global.db.data.users[m.sender].pendingRegister === 'object') {
        global.db.data.users[m.sender].account = configPendingRegister.username
        m.reply('Pendaftaran berhasil! Sekarang kamu dapat menggunakan bot.');
        delete global.db.data.users[m.sender].pendingRegister
-    } else if (command == `${prefix}bataldaftar`) {
+    } else if (command == `.bataldaftar`) {
        delete global.db.data.users[m.sender].pendingRegister
        m.reply(mess.success)
-    } else return await client.sendButtonText(m.chat, [{ buttonId: `${prefix}bataldaftar`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
+    } else return await client.sendButtonText(m.chat, [{ buttonId: `.bataldaftar`, buttonText: { displayText: 'Batal' }, type: 1 }], 'Kode konfirmasi salah!\n\nJika kode sama dengan yang dikirim email namun tetap gagal, silahkan chat owner wa.me/6283170659182', wm, m)
 }
 
 //Function Check OTP Reset Password
@@ -2035,6 +2035,18 @@ if (!isCreator) return m.reply(mess.owner)
 m.reply(mess.wait)
 const sessionget = await fs.readFileSync('./session.json')
 await client.sendMessage(m.chat, { document: sessionget, mimetype: 'application/json', fileName: 'session.json' }, { quoted: m })
+addTypeCmd(command, 1)
+break
+case 'eval':
+if (!isCreator) return m.reply(mess.owner)
+if (!text) return
+try {
+  let evaled = await eval(text)
+  if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
+  await m.reply(evaled)
+} catch (err) {
+  await m.reply(String(err))
+}
 addTypeCmd(command, 1)
 break
 // Default
