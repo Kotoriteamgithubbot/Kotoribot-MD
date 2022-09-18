@@ -2163,7 +2163,6 @@ case 'anonymous': {
             }
 // Default
 default:
-       if (handlerPlugin) return //Do not run while the plugin is responding.
        if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
           let room = Object.values(db.data.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
           if (room) {
@@ -2181,17 +2180,6 @@ default:
            }
            return !0
         }
-        
-       if (isCmd && prefix) {
-           //Match List Command JSON
-           did = didyoumean(command, _cmd, 'id') 
-           sim = similarity(command, did)    
-           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
-           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
-       }
-        
-       handlerPlugin = false;
-
      }
    } catch (err) {
      console.log(err)
