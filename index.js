@@ -1202,7 +1202,8 @@ ${wit} WIT
 ▢ ${prefix}self
 ▢ ${prefix}notice
 ▢ ${prefix}setppbot
-▢ ${prefix}exec`
+▢ ${prefix}exec
+▢ ${prefix}eval`
 
 //Template Donasi
 const textTemplateDonate = `Ingin mensupport Bot ini?
@@ -1284,6 +1285,7 @@ hadiah: 6,
 addTypeCmd(command, 1)
 break
 case 'leave': 
+if (!m.isGroup) return m.reply(mess.group)
 if (!isAdmins && !isCreator) return m.reply(mess.admin)
 m.reply(mess.later)
 await client.groupLeave(m.chat)
