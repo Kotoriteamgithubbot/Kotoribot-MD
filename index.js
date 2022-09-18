@@ -2072,7 +2072,7 @@ case 'anonymous': {
                 m.reply('Ok')
                 let other = room.other(m.sender)
                 if (other) await client.sendText(other, `\`\`\`Partner Telah Meninggalkan Sesi Anonymous\`\`\``, m)
-                delete db.data.anonymous[room.id]
+                delete db.data.anonymous[room.id];
                 break
             }
             case 'mulai': case 'start': {
