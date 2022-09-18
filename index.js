@@ -88,7 +88,8 @@ let tebakkalimat = db.data.game.kalimat = []
 let tebaklirik = db.data.game.lirik = []
 let tebaktebakan = db.data.game.tebakan = []
 let vote = db.data.others.vote = []
-let _cmd = db.data.others.typecmd = []
+if (db.data.others.typecmd == undefined)  db.data.others.typecmd = []
+let _cmd = db.data.others.typecmd
 
 //Database
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
