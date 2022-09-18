@@ -88,11 +88,11 @@ let tebakkalimat = db.data.game.kalimat = []
 let tebaklirik = db.data.game.lirik = []
 let tebaktebakan = db.data.game.tebakan = []
 let vote = db.data.others.vote = []
+let _cmd = db.data.others.typecmd = []
 
 //Database
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 const autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
-const _cmd = JSON.parse(fs.readFileSync('./database/cmd.json'));
 let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 let _level = JSON.parse(fs.readFileSync('./database/level.json'))
 let _sewa = require('./lib/sewa.js');
@@ -171,15 +171,6 @@ const isQuotedTeks = m.mtype === 'extendedTextMessage' && content.includes('quot
 const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('mentionedJid')
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
-
-//Get Media Story
-if (m.key && m.key.remoteJid === 'status@broadcast') {
-   client.readMessages([m.key]) //To notify the user that their status is seen by the bot.
-   if (isMedias) await client.downloadAndSaveMediaMessage(qmsg, m.sender.split('@')[0] + '/' + moment.tz('Asia/Jakarta').format("DD-MM-YYYY HH:mm:ss"), true, true) //Download story user if is type is media.
-}
-
-//Don't respond to whatsapp status.
-if (m.key && m.key.remoteJid === 'status@broadcast') return
 
 //Sewa
 _sewa.expiredCheck(client, sewa)
@@ -554,14 +545,12 @@ const addTypeCmd = (command, counter) => {
     })
     if (location !== false) {
         _cmd[location].total += counter
-        fs.writeFileSync('./database/cmd.json', JSON.stringify(_cmd))
     } else {
         const datacmd = {
              id: command,
              total: counter
         }
         _cmd.push(datacmd)
-        fs.writeFileSync('./database/cmd.json', JSON.stringify(_cmd))
     }
 }
 
@@ -763,8 +752,10 @@ setInterval(() => {
 //Reset Limit Every 12 Hours
 cron.schedule('00 12 * * *', () => {
     let user = Object.keys(global.db.data.account)
-    let limitUser = global.db.data.account[accountUsers].premium  ? global.limitawal.premium : global.limitawal.free
-    for (let username of user) global.db.data.account[username].limit = limitUser
+    for (let username of user) {
+     let limitUser = global.db.data.account[username].premium  ? global.limitawal.premium : global.limitawal.free
+     global.db.data.account[username].limit = limitUser
+    }
     console.log('Reseted Limit')
 }, {
     scheduled: true,
