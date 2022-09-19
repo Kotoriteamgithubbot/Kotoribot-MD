@@ -1394,13 +1394,13 @@ if (!isLogin) return m.reply(mess.logout)
 if (/image/.test(mime)) {
    m.reply(mess.wait)
    const mediaImageSticker = await client.downloadMediaMessage(qmsg)
-   const encStickerImg = await client.sendImageAsSticker(m.chat, mediaImageSticker, m, { packname: global.packname, author: global.author })
+   const encStickerImg = await client.sendImageAsSticker(m.chat, mediaImageSticker, m, { packname: global.packname, author: pushname })
    await fs.unlinkSync(encStickerImg)
 } else if (/video/.test(mime)) {
    m.reply(mess.wait)
    if (qmsg.seconds > 11) return m.reply('Maksimal 10 detik!')
    const mediaVideoSticker = await client.downloadMediaMessage(qmsg)
-   const encStickerVid = await client.sendVideoAsSticker(m.chat, mediaVideoSticker, m, { packname: global.packname, author: global.author })
+   const encStickerVid = await client.sendVideoAsSticker(m.chat, mediaVideoSticker, m, { packname: global.packname, author: pushname })
    await fs.unlinkSync(encStickerVid)
 } else {
     m.reply(`Kirim Reply Gambar/Video Dengan Caption ${prefix + command}\nDurasi Video 1-9 Detik`)
