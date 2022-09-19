@@ -272,7 +272,7 @@ async function start() {
             console.log('BOT READY!')
 
             //Send Message Connected
-            notify(client, 'Successfully connected by Kotorirpg-MD')
+            //notify(client, 'Successfully connected by Kotorirpg-MD')
 
         } //Made by Natia Shalsabilla
     })
