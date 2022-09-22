@@ -8,8 +8,7 @@ let handler = async(m, { client, store }) => {
     try {
       let chats = store.chats.all().map(v => v.id).filter(v => v != 'status@broadcast')
       for (let id of chats) {
-         client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp }]}, id)
-         await client.delay(1500)
+         await client.chatModify({ delete: true, lastMessages: [{ key: m.key, messageTimestamp: m.messageTimestamp }]}, id)
          client.sendMessage(id, { text: `${sign} Berhasil membersihkan semua chat` })
       }
     } catch {
