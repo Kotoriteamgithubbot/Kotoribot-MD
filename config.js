@@ -26,6 +26,7 @@ global.notify = require("./lib/notify.js") //Send Message
 
 global.mess = {
     logout: 'Kamu harus login terlebih dahulu! Ketik .login',	
+    missing: 'Fitur ini sudah tidak tersedia!',
     later: '_Mohon tunggu sebentar!_',
     login: 'Kamu sudah login sebelumnya! Untuk keluar ketik .logout',
     register: 'Username sudah pernah terdaftar, coba username lain!',
