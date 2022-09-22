@@ -1,30 +1,16 @@
 {
-  "name": "KotoriRpg-MD",
+  "name": "Kotoriteam-MD",
   "description": "Whatsapp Using Lib Baileys Multi Device",
-  "version": "3.4.1",
+  "version": "3.4.3",
   "main": "main.js",
   "type": "commonjs",
   "scripts": {
     "start": "node main.js"
   },
-  "keywords": [
-    "termux",
-    "whatsapp",
-    "2022",
-    "wabase-md",
-    "base",
-    "baileys-md",
-    "bot",
-    "MD",
-    "bot-md",
-    "multi-device"
-  ],
-  "author": {
-    "name": "Natia Shalsabilla"
-  },
+  "author": "Natia Shalsabilla",
   "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "github:amiruldev20/Baileys",
+    "@adiwajshing/baileys": "github:stafbotz/baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@bochilteam/scraper": "3.0.0",
     "@develoka/angka-terbilang-js": "^1.4.2",
