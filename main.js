@@ -48,11 +48,11 @@ global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.
 
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
 
-store.readFromFile('./chats.json')
+store.readFromMultiFiles('store')
 
 // Saves the state to a file every 10s
 setInterval(() => {
-    store.writeToFile('./chats.json')
+    store.writeToMultiFiles('store')
 }, 10 * 1000)
 
 //Load Database
