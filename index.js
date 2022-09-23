@@ -88,8 +88,7 @@ let tebakkalimat = db.data.game.kalimat = []
 let tebaklirik = db.data.game.lirik = []
 let tebaktebakan = db.data.game.tebakan = []
 let vote = db.data.others.vote = []
-if (db.data.others.typecmd == undefined)  db.data.others.typecmd = []
-let _cmd = db.data.others.typecmd
+let _cmd = db.data.others.typecmd = []
 
 //Database
 let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
@@ -476,6 +475,7 @@ try {
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
         if (account  && typeof account === 'object') {
            if (!('banned' in account)) account.banned = false
+           if (!('neybot' in account)) account.neybot = 0
            if (!('premium' in account)) account.premium = isCreator ? true : isPremium
            if (!('limit' in account)) account.limit = limitUser
            if (!('cloud' in account)) account.cloud = "notcreated"
@@ -1105,7 +1105,7 @@ ${wit} WIT
 *Potion:* ${getPotion(m.sender)}
 
 *Akun*: ${global.db.data.users[m.sender].account}
-*Saldo Neybot:* ${formatNumber('0')} IDR
+*Saldo Neybot:* ${formatNumber(global.db.data.account[accountUsers].account.neybot)} IDR
 *Limit:* ${isLogin ? (global.db.data.account[accountUsers].limit !== 'Infinity' ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin"}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
