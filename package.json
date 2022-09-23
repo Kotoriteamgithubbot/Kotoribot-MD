@@ -116,10 +116,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stafbotz/Kotoriteam-MD.git"
+    "url": "git+https://github.com/stafbotz/Kotoribot-MD.git"
   },
   "bugs": {
-    "url": "https://github.com/stafbotz/Kotoriteam-MD/issues"
+    "url": "https://github.com/stafbotz/Kotoribot-MD/issues"
   },
-  "homepage": "https://github.com/stafbotz/Kotoriteam-MD#readme"
+  "homepage": "https://github.com/stafbotz/Kotoribot-MD#readme"
 }
