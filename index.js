@@ -1,5 +1,5 @@
 /**
-- Create By KotoriTeam
+- Create By Kotoriteam
 - Powered by CloudbyPsn
 - Owned by Kotorirpg-MD
  */
@@ -16,7 +16,7 @@ const {
      areJidsSameUser, 
      getContentType, 
      WAFlag 
-} = require('@adiwajshing/baileys');
+} = require('baileys');
 const fs = require('fs-extra');
 const util = require('util');
 const chalk = require('chalk');
