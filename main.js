@@ -1,12 +1,12 @@
 /**
-- Create By KotoriTeam
+- Create By Kotoriteam
 - Powered By CloudbyPsn 
 - Owned by Kotorirpg-MD
 */
 
 require('./config.js')
 const { 
-    default: aineConnect, 
+    default: makeWASocket, 
     useSingleFileAuthState,
     DisconnectReason, 
     fetchLatestBaileysVersion, 
@@ -18,7 +18,7 @@ const {
     makeInMemoryStore,
     jidDecode, 
     proto 
-} = require('@adiwajshing/baileys')
+} = require('baileys')
 const  { state, saveState }  = useSingleFileAuthState(sessionName);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
@@ -93,7 +93,7 @@ async function start() {
     console.log(`Using WA v${version.join('.')}, isLatest: ${isLatest}`)
     
     //Create Socket
-    const client = aineConnect({
+    const client = makeWASocket({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
         browser: ['CloudbyPsn', 'Safari', '1.0.0'],
