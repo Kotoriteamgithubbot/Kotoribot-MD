@@ -73,29 +73,29 @@ const { eBinary, dBinary } = require('./lib/binary.js');
 const { genMath, modes } = require('./lib/math.js');
  
 // Database Rpg
-let _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
-let _health = JSON.parse(fs.readFileSync('./database/game/health.json'));
+const _buruan = JSON.parse(fs.readFileSync('./database/game/bounty.json'));
+const _health = JSON.parse(fs.readFileSync('./database/game/health.json'));
 
 //Database Game
-let tebaklagu = db.data.game.tebaklagu = []
-let _family100 = db.data.game.family100 = []
-let kuismath = db.data.game.math = []
-let tebakgambar = db.data.game.tebakgambar = []
-let tebakkata = db.data.game.tebakkata = []
-let caklontong = db.data.game.lontong = []
-let caklontong_desk = db.data.game.lontong_desk = []
-let tebakkalimat = db.data.game.kalimat = []
-let tebaklirik = db.data.game.lirik = []
-let tebaktebakan = db.data.game.tebakan = []
-let vote = db.data.others.vote = []
-let _cmd = db.data.others.typecmd = []
+const tebaklagu = db.data.game.tebaklagu = []
+const _family100 = db.data.game.family100 = []
+const kuismath = db.data.game.math = []
+const tebakgambar = db.data.game.tebakgambar = []
+const tebakkata = db.data.game.tebakkata = []
+const caklontong = db.data.game.lontong = []
+const caklontong_desk = db.data.game.lontong_desk = []
+const tebakkalimat = db.data.game.kalimat = []
+const tebaklirik = db.data.game.lirik = []
+const tebaktebakan = db.data.game.tebakan = []
+const vote = db.data.others.vote = []
+const _cmd = db.data.others.typecmd = []
 
 //Database
-let balance = JSON.parse(fs.readFileSync('./database/balance.json'));
+const balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 const autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
-let _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
-let _level = JSON.parse(fs.readFileSync('./database/level.json'))
-let _sewa = require('./lib/sewa.js');
+const _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
+const _level = JSON.parse(fs.readFileSync('./database/level.json'))
+const _sewa = require('./lib/sewa.js');
 const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
 
 //Waktu dan Tanggal 
