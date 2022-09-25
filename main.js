@@ -32,9 +32,9 @@ const CFonts = require('cfonts');
 const { exec, spawn, execSync } = require("child_process");
 const moment = require('moment-timezone');
 const PhoneNumber = require('awesome-phonenumber');
-const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
-const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/function');
-const { color } = require('./lib/color');
+const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif.js');
+const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetchJson, await, sleep } = require('./lib/function.js');
+const { color } = require('./lib/color.js');
 var low
 try {
   low = require('lowdb')
@@ -46,13 +46,13 @@ const mongoDB = require('./lib/mongoDB')
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 
-const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) }) //require('./lib/store.js') 
+const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
-store.readFromMultiFiles('store')
+store.readFromMultiFiles('store/')
 
 // Saves the state to a file every 10s
 setInterval(() => {
-    store.writeToMultiFiles('store')
+    store.writeToMultiFiles('store/')
 }, 10 * 1000)
 
 //Load Database
