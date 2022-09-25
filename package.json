@@ -1,7 +1,7 @@
 {
   "name": "Kotoriteam-MD",
   "description": "Whatsapp Using Lib Baileys Multi Device",
-  "version": "3.4.6",
+  "version": "3.5.1",
   "main": "main.js",
   "type": "commonjs",
   "scripts": {
