@@ -92,7 +92,6 @@ const _cmd = db.data.others.typecmd = []
 
 //Database
 const balance = JSON.parse(fs.readFileSync('./database/balance.json'));
-const autosticker = JSON.parse(fs.readFileSync('./database/autosticker.json'));
 const _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 const _level = JSON.parse(fs.readFileSync('./database/level.json'))
 const _sewa = require('./lib/sewa.js');
@@ -151,7 +150,6 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
  
 // Other
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
-const isAutoSticker = m.isGroup ? autosticker.includes(from) : false
 const isSewa = _sewa.checkSewaGroup(from, sewa)
 
 // Quoted
@@ -172,11 +170,57 @@ const isQuotedTag = m.mtype === 'extendedTextMessage' && content.includes('menti
 const isQuotedProd = m.mtype === 'extendedTextMessage' && content.includes('productMessage')
 const isQuotedReply = m.mtype === 'extendedTextMessage' && content.includes('Message')
 
+//Database Formatter
+try {
+        let isNumber = x => typeof x === 'number' && !isNaN(x)
+        let user = global.db.data.users[m.sender]
+        if (typeof user !== 'object') global.db.data.users[m.sender] = {}
+        if (user) {
+            if (!isNumber(user.afkTime)) user.afkTime = -1
+            if (!('afkReason' in user)) user.afkReason = ''
+            if (!('account' in user)) user.account = "guest"
+        } else global.db.data.users[m.sender] = {
+           afkTime: -1,
+           afkReason: '',
+           account: "guest"
+        }
+        let chats = global.db.data.chats[m.chat]
+        if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
+        if (chats) {
+           if (!('mute' in chats)) chats.mute = false
+           if (!('autosticker' in chats)) chats.autosticker = false
+           if (!('antilink' in chats)) chats.antilink = false
+           if (!('changelog' in chats)) chats.changelog = true
+        } else global.db.data.chats[m.chat] = {
+          mute: false,
+          antilink: false
+        }
+        let bot = global.db.data.bot
+        if (typeof bot !== 'object') global.db.data.bot = {}
+        if (!isNumber(bot.totalhit)) bot.totalhit = 0
+        if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
+        if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
+
+        let account = isLogin ? global.db.data.account[accountUsers] : false
+        let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
+        if (account  && typeof account === 'object') {
+           if (!('banned' in account)) account.banned = false
+           if (!('neybot' in account)) account.neybot = 0
+           if (!('premium' in account)) account.premium = isCreator ? true : isPremium
+           if (!('limit' in account)) account.limit = limitUser
+           if (!('cloud' in account)) account.cloud = "notcreated"
+           if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
+           if (!('expiredpremium' in account)) account.expiredpremium = "notcreated"
+        }
+} catch (err) {
+   console.error(err)
+}
+
 //Sewa
 _sewa.expiredCheck(client, sewa)
 
 // Auto Group sticker
-if (isAutoSticker) {
+if (global.db.data.chats[m.chat].autosticker) {
     if (/image/.test(mime) && !/webp/.test(mime)) {
         let mediac = await client.downloadMediaMessage(qmsg)
         await client.sendImageAsSticker(from, mediac, m, { packname: global.packname, author: global.author })
@@ -439,51 +483,6 @@ async function hitungmundur(bulan, tanggal) {
      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
      return days + "Hari " + hours + "Jam " + minutes + "Menit " + seconds + "Detik"
-}
-
-//Function Limit, Afk, Dan Lainnya
-try {
-        let isNumber = x => typeof x === 'number' && !isNaN(x)
-        let user = global.db.data.users[m.sender]
-        if (typeof user !== 'object') global.db.data.users[m.sender] = {}
-        if (user) {
-            if (!isNumber(user.afkTime)) user.afkTime = -1
-            if (!('afkReason' in user)) user.afkReason = ''
-            if (!('account' in user)) user.account = "guest"
-        } else global.db.data.users[m.sender] = {
-           afkTime: -1,
-           afkReason: '',
-           account: "guest"
-        }
-        let chats = global.db.data.chats[m.chat]
-        if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
-        if (chats) {
-           if (!('mute' in chats)) chats.mute = false
-           if (!('antilink' in chats)) chats.antilink = false
-           if (!('changelog' in chats)) chats.changelog = true
-        } else global.db.data.chats[m.chat] = {
-          mute: false,
-          antilink: false
-        }
-        let bot = global.db.data.bot
-        if (typeof bot !== 'object') global.db.data.bot = {}
-        if (!isNumber(bot.totalhit)) bot.totalhit = 0
-        if (!('mail' in bot)) bot.mail = "cloudbypsn@gmail.com"
-        if (!('passmail' in bot)) bot.passmail = "sgxqlnnoulgzrphv"
-
-        let account = isLogin ? global.db.data.account[accountUsers] : false
-        let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-        if (account  && typeof account === 'object') {
-           if (!('banned' in account)) account.banned = false
-           if (!('neybot' in account)) account.neybot = 0
-           if (!('premium' in account)) account.premium = isCreator ? true : isPremium
-           if (!('limit' in account)) account.limit = limitUser
-           if (!('cloud' in account)) account.cloud = "notcreated"
-           if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
-           if (!('expiredpremium' in account)) account.expiredpremium = "notcreated"
-        }
-} catch (err) {
-   console.error(err)
 }
 
 //Email sender
