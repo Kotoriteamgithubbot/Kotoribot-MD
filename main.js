@@ -48,11 +48,11 @@ global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.
 
 const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
 
-store.readFromMultiFiles('store/')
+store.readFromMultiFiles('./store/')
 
 // Saves the state to a file every 10s
 setInterval(() => {
-    store.writeToMultiFiles('store/')
+    store.writeToMultiFiles('./store/')
 }, 10 * 1000)
 
 //Load Database
@@ -87,7 +87,7 @@ if (global.db) setInterval(async () => {
 }, 30 * 1000)
 
 async function start() {
-    let { version, isLatest } = await fetchLatestBaileysVersion()
+    const { version, isLatest } = await fetchLatestBaileysVersion()
 
     //Info Version
     console.log(`Using WA v${version.join('.')}, isLatest: ${isLatest}`)
