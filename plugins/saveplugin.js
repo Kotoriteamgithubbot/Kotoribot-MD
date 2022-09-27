@@ -13,6 +13,7 @@ let handler = async(m, { client, text }) => {
 }
 
 handler.owner = true
+handler.login = true
 handler.command = /^(sp|saveplugin)$/i
 
 module.exports = handler
