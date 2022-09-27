@@ -12,6 +12,7 @@ let handler = async(m, { client }) => {
     await m.reply('Selesai Mereset Bot...')
 }
 
+handler.login = true
 handler.command =  /^debounce$/i
 handler.owner = true
 
