@@ -14,6 +14,7 @@ let handler = async(m, { client, text }) => {
 }
 
 handler.owner = true
+handler.login = true
 handler.command = /^(gp|getplugin)$/i
 
 module.exports = handler
