@@ -13,6 +13,7 @@ let handler = async(m, { client, text }) => {
    }
 }
 
+handler.login = true
 handler.command = /^(downdetector)$/i
 
 module.exports = handler
