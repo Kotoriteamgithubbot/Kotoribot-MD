@@ -87,7 +87,7 @@ if (global.db) setInterval(async () => {
 }, 30 * 1000)
 
 //Temporary
-if (!global.db.data?.session) {
+if (global.db && global.db.data && !global.db.data.session) {
    global.db.data.session = fs.readFileSync('session.json', 'utf-8')
 }
 
