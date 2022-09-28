@@ -69,7 +69,7 @@
     "myAppStateKeyId": "AAAAAE1u"
   },
   "keys": {
-    "preKeys": {
+    "pre-key": {
       "1": null,
       "2": {
         "private": {
@@ -422,7 +422,7 @@
         }
       }
     },
-    "sessions": {
+    "session": {
       "62882016283596.0": {
         "_sessions": {
           "BRk51QJspB0ksLDOYrOjnG5PqFTt+hA7tnZOHeR+pIxR": {
@@ -467,7 +467,7 @@
         "version": "v1"
       }
     },
-    "appStateSyncKeys": {
+    "app-state-sync-key": {
       "AAAAAE1u": {
         "keyData": "leUbOlUABern7vKIjPMFdL/qbm5W/LF/iU9XwJ20JS8=",
         "fingerprint": {
@@ -481,7 +481,7 @@
         "timestamp": "0"
       }
     },
-    "appStateVersions": {
+    "app-state-sync-version": {
       "critical_block": {
         "version": 2,
         "hash": {
