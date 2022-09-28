@@ -94,8 +94,6 @@ const _cmd = db.data.others.typecmd = []
 const balance = JSON.parse(fs.readFileSync('./database/balance.json'));
 const _leveling = JSON.parse(fs.readFileSync('./database/leveling.json'))
 const _level = JSON.parse(fs.readFileSync('./database/level.json'))
-const _sewa = require('./lib/sewa.js');
-const sewa = JSON.parse(fs.readFileSync('./database/sewa.json'));
 
 //Waktu dan Tanggal 
 let d = new Date(new Date + 3600000)
@@ -150,7 +148,6 @@ const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
  
 // Other
 const isLeveling = m.isGroup ? _leveling.includes(from) : false
-const isSewa = _sewa.checkSewaGroup(from, sewa)
 
 // Quoted
 const content = JSON.stringify(m.message)
@@ -215,9 +212,6 @@ try {
 } catch (err) {
    console.error(err)
 }
-
-//Sewa
-_sewa.expiredCheck(client, sewa)
 
 // Auto Group sticker
 if (global.db.data.chats[m.chat].autosticker) {
