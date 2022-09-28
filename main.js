@@ -285,7 +285,7 @@ async function start() {
         } //Made by Natia Shalsabilla
     })
 
-    client.ev.on('creds.update', saveState)
+    client.ev.on('creds.update', saveCreds)
 
     // Add Other
 
