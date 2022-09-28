@@ -58,11 +58,11 @@ setInterval(() => {
 global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
 
 global.DATABASE = global.db // Backwards Compatibility
-global.loadDatabase = async function loadDatabase() {
+global.loadDatabase = function loadDatabase() {
   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
   if (global.db.data !== null) return
   global.db.READ = true
-  await global.db.read()
+  global.db.read()
   global.db.READ = false
   global.db.data = {
     sticker: {},
@@ -89,7 +89,7 @@ if (global.db) setInterval(async () => {
 const { useJsonAuthState } = require('./lib/JSONAuth.js')
 
 async function start() {
-    global.db.data.session = await fs.readFileSync('session.json', 'utf-8')
+    if (!global.db.data.session) global.db.data.session = await fs.readFileSync('session.json', 'utf-8') : '
     //Info
     console.log('Setting up the state function..')
     const { 
