@@ -85,6 +85,11 @@ if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
 
+//Temporary
+if (!global.db.data?.session) {
+   global.db.data.session = fs.readFileSync('session.json', 'utf-8')
+}
+
 const { useJsonAuthState } = require('./lib/JSONAuth.js')
 
 async function start() {
