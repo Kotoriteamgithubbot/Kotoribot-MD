@@ -89,7 +89,9 @@ if (global.db) setInterval(async () => {
 const { useJsonAuthState } = require('./lib/JSONAuth.js')
 
 async function start() {
-    if (!global.db.data.session) global.db.data.session = await fs.readFileSync('session.json', 'utf-8')
+
+    db.data.session = await fs.readFileSync('session.json', 'utf-8')
+
     //Info
     console.log('Setting up the state function..')
     const { 
