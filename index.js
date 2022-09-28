@@ -1098,7 +1098,7 @@ ${wit} WIT
 *Potion:* ${getPotion(m.sender)}
 
 *Akun*: ${global.db.data.users[m.sender].account}
-*Saldo Neybot:* ${formatNumber(global.db.data.account[accountUsers].account.neybot)} IDR
+*Saldo Neybot:* ${formatNumber(global.db.data.account[accountUsers].neybot)} IDR
 *Limit:* ${isLogin ? (global.db.data.account[accountUsers].limit !== 'Infinity' ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin"}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
@@ -2156,6 +2156,13 @@ case 'anonymous': {
 // Default
 default:
        if (handlerPlugin) return //Do not run while the plugin is responding.
+       if (isCmd && prefix) {
+           //Match List Command JSON
+           did = didyoumean(command, _cmd, 'id') 
+           sim = similarity(command, did)    
+           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
+           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
+       }
        if (m.chat.endsWith('@s.whatsapp.net') && isCmd) {
           let room = Object.values(db.data.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
           if (room) {
@@ -2172,14 +2179,6 @@ default:
               } : {})
            }
            return !0
-        }
-        
-       if (isCmd && prefix) {
-           //Match List Command JSON
-           did = didyoumean(command, _cmd, 'id') 
-           sim = similarity(command, did)    
-           if (did == null) return m.reply('*Command mungkin belum tersedia*. Silahkan ketik .request') 
-           m.reply(`*Maksud kamu ${prefix + did}?*\n\n_Kecocokan ${sim * 100}%_`) 
        }
      }
    } catch (err) {
