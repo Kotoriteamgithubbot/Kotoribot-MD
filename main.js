@@ -86,15 +86,19 @@ if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
 
-const { useJsonAuthState } = require('./lib/JSONAuth.js')
-
 async function start() {
     //Database Await
     if (!global.db.data?.session) await global.db.read()
+    
+    //Handle Session
+    const { useJsonAuthState } = await require('./lib/JSONAuth.js')
+
     const { 
         state, 
         saveCreds 
     } = await useJsonAuthState();
+
+    const { version, isLatest } = await fetchLatestBaileysVersion();
 
     //Info Version
     console.log(`Using WA v${version.join('.')}, isLatest: ${isLatest}`)
