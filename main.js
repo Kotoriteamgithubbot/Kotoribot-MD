@@ -29,7 +29,6 @@ const FileType = require('file-type');
 const path = require('path');
 const cron = require('node-cron');
 const CFonts = require('cfonts');
-const { version, isLatest } = fetchLatestBaileysVersion();
 const { exec, spawn, execSync } = require("child_process");
 const moment = require('moment-timezone');
 const PhoneNumber = require('awesome-phonenumber');
@@ -90,10 +89,7 @@ if (global.db) setInterval(async () => {
 async function start() {
     //Database Await
     if (!global.db?.data) await global.db.read()
-
-    //Info Version
-    console.log(`Using WA v${version.join('.')}, isLatest: ${isLatest}`)
-    
+ 
     //Create Socket
     const client = makeWASocket({
         logger: pino({ level: 'silent' }),
