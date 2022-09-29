@@ -19,7 +19,6 @@ const {
     jidDecode, 
     proto 
 } = require('baileys')
-const { state, saveState } = useSingleFileAuthState(sessionName);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
@@ -87,9 +86,13 @@ if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
 
+const { useJsonAuthState } = require('./lib/JSONAuth.js')
+
 async function start() {
-    console.log('Fetch Whatsapp Version..')
-    const { version, isLatest } = await fetchLatestBaileysVersion();
+    const { 
+        state, 
+        saveCreds 
+    } = await useJsonAuthState();
 
     //Info Version
     console.log(`Using WA v${version.join('.')}, isLatest: ${isLatest}`)
@@ -279,7 +282,7 @@ async function start() {
         } //Made by Natia Shalsabilla
     })
 
-    client.ev.on('creds.update', saveState)
+    client.ev.on('creds.update', saveCreds)
 
     // Add Other
 
