@@ -279,7 +279,7 @@ async function start() {
         } //Made by Natia Shalsabilla
     })
 
-    client.ev.on('creds.update', saveCreds)
+    client.ev.on('creds.update', saveState)
 
     // Add Other
 
