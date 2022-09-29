@@ -19,6 +19,7 @@ const {
     jidDecode, 
     proto 
 } = require('baileys')
+const { state, saveState } = useSingleFileAuthState(sessionName);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
@@ -28,6 +29,7 @@ const FileType = require('file-type');
 const path = require('path');
 const cron = require('node-cron');
 const CFonts = require('cfonts');
+const { version, isLatest } = fetchLatestBaileysVersion();
 const { exec, spawn, execSync } = require("child_process");
 const moment = require('moment-timezone');
 const PhoneNumber = require('awesome-phonenumber');
@@ -74,7 +76,6 @@ global.loadDatabase = async function loadDatabase() {
     account: {},
     users: {},
     anonymous: {},
-    session: {},
     ...(global.db.data || {})
   }
   global.db.chain = _.chain(global.db.data)
@@ -86,20 +87,9 @@ if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
 
-//Handle Session
-const { useJsonAuthState } = require('./lib/JSONAuth.js')
-
 async function start() {
     //Database Await
-    if (!global.db.data?.session) await global.db.read()
-
-    const { 
-        state, 
-        saveState
-        //saveCreds 
-    } = await useSingleFileAuthState(sessionName);
-
-    const { version, isLatest } = await fetchLatestBaileysVersion();
+    if (!global.db?.data) await global.db.read()
 
     //Info Version
     console.log(`Using WA v${version.join('.')}, isLatest: ${isLatest}`)
