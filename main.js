@@ -89,6 +89,8 @@ if (global.db) setInterval(async () => {
 const { useJsonAuthState } = require('./lib/JSONAuth.js')
 
 async function start() {
+    //Database Await
+    if (!global.db.data?.session) await global.db.read()
     const { 
         state, 
         saveCreds 
