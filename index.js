@@ -1098,7 +1098,7 @@ ${wit} WIT
 *Potion:* ${getPotion(m.sender)}
 
 *Akun*: ${global.db.data.users[m.sender].account}
-*Saldo Neybot:* ${formatNumber(global.db.data.account[accountUsers].neybot)} IDR
+*Saldo Neybot:* ${isLogin ? formatNumber(global.db.data.account[accountUsers].neybot) : "notlogin"} IDR
 *Limit:* ${isLogin ? (global.db.data.account[accountUsers].limit !== 'Infinity' ? formatNumber(global.db.data.account[accountUsers].limit) : global.db.data.account[accountUsers].limit) : "notlogin"}
 *Status:* ${isPremium ? 'Premium' : 'Gratis'}
 
