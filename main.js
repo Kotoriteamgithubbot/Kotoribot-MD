@@ -19,6 +19,7 @@ const {
     jidDecode, 
     proto 
 } = require('baileys')
+const { state, saveState } = useSingleFileAuthState(sessionName);
 const pino = require('pino');
 const { Boom } = require('@hapi/boom');
 const fs = require('fs-extra');
@@ -58,11 +59,11 @@ setInterval(() => {
 global.db = new Low(new mongoDB('mongodb+srv://kotorirpg:kotorirpg@cluster0.iy38c.mongodb.net/?retryWrites=true&w=majority'))
 
 global.DATABASE = global.db // Backwards Compatibility
-global.loadDatabase = function loadDatabase() {
+global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
   if (global.db.data !== null) return
   global.db.READ = true
-  global.db.read()
+  await global.db.read()
   global.db.READ = false
   global.db.data = {
     sticker: {},
@@ -86,15 +87,7 @@ if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
 }, 30 * 1000)
 
-const { useJsonAuthState } = require('./lib/JSONAuth.js')
-
 async function start() {
-    //Info
-    console.log('Setting up the state function..')
-    const { 
-        state, 
-        saveCreds 
-    } = await useJsonAuthState();
     console.log('Fetch Whatsapp Version..')
     const { version, isLatest } = await fetchLatestBaileysVersion();
 
