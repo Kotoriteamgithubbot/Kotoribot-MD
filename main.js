@@ -95,8 +95,9 @@ async function start() {
 
     const { 
         state, 
-        saveCreds 
-    } = await useJsonAuthState();
+        saveState
+        //saveCreds 
+    } = await useSingleFileAuthState(sessionName);
 
     const { version, isLatest } = await fetchLatestBaileysVersion();
 
@@ -288,7 +289,7 @@ async function start() {
         } //Made by Natia Shalsabilla
     })
 
-    client.ev.on('creds.update', saveCreds)
+    client.ev.on('creds.update', saveState)
 
     // Add Other
 
