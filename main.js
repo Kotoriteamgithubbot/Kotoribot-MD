@@ -95,8 +95,7 @@ async function start() {
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
         browser: ['CloudbyPsn', 'Safari', '1.0.0'],
-        auth: state,
-        version
+        auth: state
     })    
     
     store.bind(client.ev)
