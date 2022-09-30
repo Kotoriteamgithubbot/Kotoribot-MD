@@ -8,7 +8,7 @@ global.owner = [{ id: '6283170659182', email: 'natiashalsabilla@gmail.com', web:
 
 global.monospace = '```' //Monospace
 
-global.groupTeam = ['120363042653241388@g.us'] //Add your team group id
+global.groupTeam = [] //Add your team group id
 
 global.packname = "Sticker" //Packname Sticker
 
