@@ -88,7 +88,7 @@ if (global.db) setInterval(async () => {
 
 async function start() {
     //Database Await
-    if (!global.db?.data) await global.db.read()
+    if (!global.db.data) await global.db.read()
  
     //Create Socket
     const client = makeWASocket({
@@ -126,6 +126,7 @@ async function start() {
     
     //Grup Update
     client.ev.on('groups.update', async (anu) => {
+        console.log(anu)
         //Get Profile Picture Group
         try {
            ppgroup = await client.profilePictureUrl(anu[0].id, 'image')
