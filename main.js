@@ -145,7 +145,7 @@ async function start() {
         } else if (anu[0].subject) {
            client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nGroup Subject telah diganti menjadi *${anu[0].subject}*`, `Group Settings Change Message`, picture, [])
         } else {
-           client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nGroup Description telah diganti menjadi *${anu[0].desc}*`, `Group Settings Change Message`, picture, [])
+           client.send5ButImg(anu[0].id, `「 Group Settings Change 」\n\nGroup Description telah diganti menjadi:\n\n${anu[0].desc}`, `Group Settings Change Message`, picture, [])
         }
     })
     
