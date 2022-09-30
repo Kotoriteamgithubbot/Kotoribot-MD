@@ -1137,6 +1137,7 @@ ${wit} WIT
 ▢ ${prefix}ebinary
 ▢ ${prefix}dbinary
 ▢ ${prefix}translate
+▢ ${prefix}autosticker
 
 *Main*
 ▢ ${prefix}afk
@@ -1364,6 +1365,20 @@ if (!isLogin) return m.reply(mess.logout)
 global.db.data.users[m.sender].confirmPasswordReset = makeOtp(6)
 await sendMail(global.db.data.account[accountUsers].email, 'Konfirmasi Reset Password', 'resetPasswordTemplate', `http://wa.me/${client.decodeJid(client.user.id)}?text=${global.db.data.users[m.sender].confirmPasswordReset}`)
 m.reply('Silahkan ketik kode konfirmasi yang dikirim diemail untuk mengubah password.\n\nJika belum terkirim tunggu 1-5 menit!')
+addTypeCmd(command, 1)
+break
+case 'autosticker': case 'autostiker': 
+if (!isLogin) return m.reply(mess.logout)
+if (!text) return m.reply(`Example: ${prefix + command} on/off`)
+if (args[0] == 'on') {
+  db.data.chats[m.chat].autosticker = true
+  m.reply('Done!')
+} else if (args[0] == 'off') {
+  db.data.chats[m.chat].autosticker = false
+  m.reply('Done!')
+} else { 
+   m.reply(`Example: ${prefix + command} on/off`)
+}
 addTypeCmd(command, 1)
 break
 case 'mute': 
