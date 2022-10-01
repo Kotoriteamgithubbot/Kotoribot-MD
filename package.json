@@ -78,7 +78,7 @@
     "path": "^0.12.7",
     "perf_hooks": "0.0.1",
     "performance-now": "^2.1.0",
-    "pino": "^7.11.0",
+    "pino": "^8.6.1",
     "pino-pretty": "^9.0.0",
     "pdfkit": "^0.13.0",
     "qrcode": "^1.5.0",
