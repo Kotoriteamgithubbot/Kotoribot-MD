@@ -15,7 +15,7 @@
     "@develoka/angka-terbilang-js": "^1.4.2",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "async": "^3.2.3",
-    "awesome-phonenumber": "^2.73.0",
+    "awesome-phonenumber": "^3.4.0",
     "axios": "^0.27.2",
     "baileys": "github:stafbotz/baileys",
     "base64-to-image": "^1.0.2",
