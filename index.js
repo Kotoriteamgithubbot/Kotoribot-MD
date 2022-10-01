@@ -88,7 +88,6 @@ const tebakkalimat = db.data.game.kalimat = []
 const tebaklirik = db.data.game.lirik = []
 const tebaktebakan = db.data.game.tebakan = []
 const vote = db.data.others.vote = []
-const _cmd = db.data.others.typecmd = []
 
 //Database
 const balance = JSON.parse(fs.readFileSync('./database/balance.json'));
@@ -200,7 +199,7 @@ try {
 
         let account = isLogin ? global.db.data.account[accountUsers] : false
         let limitUser = isPremium ? global.limitawal.premium : global.limitawal.free
-        if (account  && typeof account === 'object') {
+        if (account && typeof account === 'object') {
            if (!('banned' in account)) account.banned = false
            if (!('neybot' in account)) account.neybot = 0
            if (!('premium' in account)) account.premium = isCreator ? true : isPremium
@@ -209,6 +208,9 @@ try {
            if (!('expiredbanned' in account)) account.expiredbanned = "notcreated"
            if (!('expiredpremium' in account)) account.expiredpremium = "notcreated"
         }
+        let others = global.db.data.others
+        if (typeof others !== 'object') global.db.data.others = {}
+        if (!('typecmd' in others) others.typecmd = []
 } catch (err) {
    console.error(err)
 }
@@ -530,6 +532,7 @@ const reduceLimit = (sender, amount) => {
 } 
 
 //Add List Command To JSON
+const _cmd = global.db.data.others.typecmd
 const addTypeCmd = (command, counter) => {
     let location = false
     Object.keys(_cmd).forEach((i) => {
