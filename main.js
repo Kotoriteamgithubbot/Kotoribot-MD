@@ -803,24 +803,38 @@ async function start() {
         }
 
     }
-    client.sendFile = async(jid, PATH, fileName, quoted = {}, options = {}) => {
-        let types = await client.getFile(PATH, true)
-        let { filename, size, ext, mime, data } = types
+    /**
+     * 
+     * @param {*} jid 
+     * @param {*} path 
+     * @param {*} filename
+     * @param {*} caption
+     * @param {*} quoted 
+     * @param {*} options 
+     * @returns 
+     */
+    client.sendMedia = async (jid, path, fileName = '', caption = '', quoted = '', options = {}) => {
+        let types = await client.getFile(path, true)
+        let { mime, ext, res, data, filename } = types
+        if (res && res.status !== 200 || file.length <= 65536) {
+          try { throw { json: JSON.parse(file.toString()) } }
+          catch (e) { if (e.json) throw e.json }
+        }
         let type = '', mimetype = mime, pathFile = filename
         if (options.asDocument) type = 'document'
         if (options.asSticker || /webp/.test(mime)) {
-            let { writeExif } = require('./lib/sticker.js')
-            let media = { mimetype: mime, data }
-            pathFile = await writeExif(media, { packname: global.packname, author: global.author, categories: options.categories ? options.categories : [] })
-            await fs.promises.unlink(filename)
-            type = 'sticker'
-            mimetype = 'image/webp'
+          let { writeExif } = require('./lib/exif')
+          let media = { mimetype: mime, data }
+          pathFile = await writeExif(media, { packname: options.packname ? options.packname : global.packname, author: options.author ? options.author : global.author, categories: options.categories ? options.categories : [] })
+          await fs.promises.unlink(filename)
+          type = 'sticker'
+          mimetype = 'image/webp'
         }
         else if (/image/.test(mime)) type = 'image'
         else if (/video/.test(mime)) type = 'video'
         else if (/audio/.test(mime)) type = 'audio'
         else type = 'document'
-        await client.sendMessage(jid, { [type]: { url: pathFile }, mimetype, fileName, ...options }, { quoted, ...options })
+        await client.sendMessage(jid, { [type]: { url: pathFile }, caption, mimetype, fileName, ...options }, { quoted, ...options })
         return fs.promises.unlink(pathFile)
     }
     client.parseMention = async(text) => {
