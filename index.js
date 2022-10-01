@@ -210,7 +210,7 @@ try {
         }
         let others = global.db.data.others
         if (typeof others !== 'object') global.db.data.others = {}
-        if (!('typecmd' in others) others.typecmd = []
+        if (!('typecmd' in others)) others.typecmd = []
 } catch (err) {
    console.error(err)
 }
