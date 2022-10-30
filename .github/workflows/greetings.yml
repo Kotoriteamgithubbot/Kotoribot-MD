@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Terimakasih telah memberitahu isu yang terjadi. Untuk pengaduan laporkan ke admin Nadia di Whatsapp: wa.me/0882016042489"
+        pr-message: "Terimakasih telah berkontribusi. Pull request anda akan ditinjau oleh bot otomatis kami"
